@@ -179,7 +179,7 @@ r = "../"
 chatons_opts = "".join(f'<option>{e(BY[f]["titre"])}</option>' for f in CFG["chatons_disponibles"] if "réserv" not in (BY[f]["statut"] or ""))
 corps = f"""<section><div class="wrap contact">
 <div class="text"><p class="label">Contact</p><h1>Parlons de votre futur Birman</h1>
-<p>Magali vous répond personnellement, le soir et le week-end.</p>
+<p>Magali vous répond personnellement, le soir et le week-end, et Tristan la seconde pour vous répondre aussi en journée.</p>
 <p>Chatterie des Innamorati<br>Bordeaux, Gironde</p>
 <p>E-mail : <a class="mel" href="#" data-u="innamoraticats" data-d="tristanperrier.fr">innamoraticats [at] tristanperrier.fr</a><br>
 Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger : <a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a></p>
@@ -214,7 +214,7 @@ Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel=
 page("contact", "Contact · Chatterie des Innamorati, Sacrés de Birmanie à Bordeaux", corps, prio=0.6,
      desc="Contacter la Chatterie des Innamorati, élevage de Sacrés de Birmanie à Bordeaux : formulaire, e-mail, Facebook et Messenger.")
 
-corps = f"""<section><div class="wrap narrow center">{tete("Message envoyé", "Merci, votre message est bien parti", "Magali vous répond personnellement, en général le soir ou le week-end. Pensez à vérifier vos courriers indésirables.")}
+corps = f"""<section><div class="wrap narrow center">{tete("Message envoyé", "Merci, votre message est bien parti", "Magali vous répond personnellement le soir et le week-end, et Tristan en journée. Pensez à vérifier vos courriers indésirables.")}
 <p><a class="btn" href="../../chatons/">Voir nos chatons</a> <a class="btn" href="../../">Retour à l'accueil</a></p></div></section>"""
 page("contact/merci", "Message envoyé · Chatterie des Innamorati", corps, prio=0.1)
 
