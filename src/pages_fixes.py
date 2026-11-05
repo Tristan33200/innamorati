@@ -35,9 +35,8 @@ corps = f"""
     <a class="door" href="couleurs/">{grand(r, P["regard"], "Birman aux yeux bleus")}<h3>Les couleurs</h3><span class="label">Toutes les robes du Birman</span></a>
   </div>
 </div></section>
-<div class="ribbon" aria-hidden="true"><div class="track"><span>Le regard saphir</span><i>✦</i><span>Les gants blancs</span><i>✦</i><span>La légende de Lao-Tsun</span><i>✦</i><span>des Innamorati</span><i>✦</i><span>Le regard saphir</span></div></div>
 <div class="band">{grand(r, P["oedipe"], "Œdipe des Innamorati et ses trophées")}
-  <blockquote><p>« Nous ne cherchons pas à gagner de l'argent. Nous voulons donner une belle vie à nos chats. »</p><cite>Magali &amp; Tristan</cite></blockquote></div>
+  <blockquote><p>« Ce n'est pas un commerce, c'est une passion. Et nos chats en sont le cœur. »</p><cite>Magali &amp; Tristan</cite></blockquote></div>
 <section><div class="wrap">
   <div class="head"><p class="label">Nos chatons</p><h2>Les portées de 2026</h2><p>Chaque chaton a son album, enrichi au fil de sa vie par nos photos puis par celles de ses adoptants.</p></div>
   <div class="grid g4">{kits}</div>
