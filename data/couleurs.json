@@ -1,0 +1,35 @@
+{
+  "intro": "Le Sacré de Birmanie est un chat « colourpoint » : le corps reste clair, la couleur se concentre sur le masque, les oreilles, les pattes et la queue. Chaque robe ci-dessous est illustrée par l’un de nos chats.",
+  "note": "Les couleurs sans photo n’ont pas encore existé chez nous. Pour les montrer, nous ajouterons la photo d’un confrère, avec son accord. Pour remplacer la photo d’exemple d’une couleur, indiquez dans data/couleurs.json le champ « photo » (numéro de la photo) et « chat ».",
+  "familles": [
+    {"nom": "Les couleurs unies", "texte": "Les extrémités sont d’une seule couleur, sans rayures.", "couleurs": [
+      {"robe": "Seal point", "texte": "Extrémités brun très foncé sur corps crème doré. La couleur historique du Birman."},
+      {"robe": "Blue point", "texte": "Extrémités gris-bleu sur corps blanc bleuté, d’une grande douceur."},
+      {"robe": "Chocolat point", "texte": "Extrémités chocolat au lait sur corps ivoire."},
+      {"robe": "Lilac point", "texte": "Extrémités gris rosé sur corps presque blanc. La plus pâle des couleurs."},
+      {"robe": "Red point", "texte": "Extrémités roux orangé sur corps blanc chaud."},
+      {"robe": "Cream point", "texte": "Extrémités crème abricot, très lumineuses."}
+    ]},
+    {"nom": "Les tabby", "texte": "Les extrémités sont rayées, avec le « M » caractéristique sur le front.", "couleurs": [
+      {"robe": "Seal tabby point", "texte": "Rayures brun foncé, masque très dessiné."},
+      {"robe": "Blue tabby point", "texte": "Rayures gris-bleu sur fond clair."},
+      {"robe": "Chocolat tabby point", "texte": "Rayures chocolat, robe lumineuse."},
+      {"robe": "Lilac tabby point", "texte": "Rayures gris rosé, tout en nuances."},
+      {"robe": "Red tabby point", "texte": "Rayures rousses sur fond blanc chaud."},
+      {"robe": "Cream tabby point", "texte": "Rayures crème, très douces."}
+    ]},
+    {"nom": "Les tortie", "texte": "Les extrémités mêlent deux couleurs, comme une écaille. Uniquement chez les femelles.", "couleurs": [
+      {"robe": "Seal tortie point", "texte": "Seal marbré de roux."},
+      {"robe": "Chocolat tortie point", "texte": "Chocolat marbré de roux clair."},
+      {"robe": "Seal tortie tabby point", "texte": "Tabby et tortie à la fois, sur base seal."},
+      {"robe": "Chocolat tortie tabby point", "texte": "Tabby et tortie à la fois, sur base chocolat."}
+    ]},
+    {"nom": "Les silver et smoke", "texte": "Le sous-poil est blanc argenté, ce qui donne un reflet lumineux aux extrémités.", "couleurs": [
+      {"robe": "Blue silver tabby point", "texte": "Rayures gris-bleu sur fond argent."},
+      {"robe": "Chocolat silver tabby point", "texte": "Rayures chocolat sur fond argent."},
+      {"robe": "Lilac silver tabby point", "texte": "Rayures gris rosé sur fond argent."},
+      {"robe": "Seal smoke tortie point", "texte": "Seal tortie au sous-poil argenté."},
+      {"robe": "Blue smoke tortie point", "texte": "Bleu et crème au sous-poil argenté."}
+    ]}
+  ]
+}
