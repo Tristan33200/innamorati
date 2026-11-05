@@ -14,6 +14,7 @@ CAT = json.load(open(os.path.join(ROOT, "data/catalogue.json"), encoding="utf-8"
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
 COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
+EMAIL = "innamoraticats@tristanperrier.fr"
 # Adresse publique du site : le domaine du fichier CNAME s'il existe, sinon GitHub Pages
 _cname = os.path.join(ROOT, "docs", "CNAME")
 SITE = ("https://" + open(_cname).read().strip() + "/") if os.path.exists(_cname) else "https://tristan33200.github.io/innamorati/"
@@ -269,6 +270,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     corps = f"""<section class="album-page"><div class="wrap">
 <p class="crumb"><a href="{r}{rubrique[1]}">{rubrique[0]}</a></p>
 <div class="head"><h1>{e(a["titre"])}</h1><div class="facts">{fhtml}</div></div>
+{f'<p class="center" style="margin:-24px 0 56px"><a class="btn" href="{r}contact/?chaton={a["titre"].replace(" ", "+")}#formulaire">Ce chaton m\'intéresse</a></p>' if a["type"] == "chaton" and "réserv" not in (a["statut"] or "") else ""}
 {galerie(r, a)}
 <p class="prot">Photos réduites et marquées. Elles appartiennent à la Chatterie des Innamorati et ne peuvent pas être reprises dans une annonce.</p>
 </div></section>"""

@@ -87,7 +87,7 @@ page("", "Sacré de Birmanie à Bordeaux · Chatterie des Innamorati, éleveur L
           "url": SITE, "image": SITE + "photos/" + P["hero"] + ".jpg", "priceRange": "1800 €", "founder": "Magali Perrier",
           "address": {"@type": "PostalAddress", "addressLocality": "Bordeaux", "addressRegion": "Gironde", "addressCountry": "FR"},
           "areaServed": ["Bordeaux", "Gironde", "Nouvelle-Aquitaine", "France"],
-          "sameAs": ["https://www.facebook.com/desinnamorati"], "identifier": "SIRET " + SIRET},
+          "email": EMAIL, "sameAs": ["https://www.facebook.com/desinnamorati"], "identifier": "SIRET " + SIRET},
          {"@context": "https://schema.org", "@type": "WebSite", "name": "Chatterie des Innamorati", "url": SITE, "inLanguage": "fr"},
          faq_ld])
 
@@ -175,17 +175,48 @@ corps = f"""<section><div class="wrap">
 page("adopter", "Adopter un chaton Sacré de Birmanie à Bordeaux · des Innamorati", corps, desc="Adopter un chaton Sacré de Birmanie LOOF près de Bordeaux : 1 800 €, stérilisé, pucé, vacciné, départ entre 15 semaines et 4 mois et demi. Déroulement et vérification des annonces.", ld=[ariane(("Accueil", ""), ("Adopter", "adopter/"))], prio=0.8)
 
 # ---------- Contact ----------
+r = "../"
+chatons_opts = "".join(f'<option>{e(BY[f]["titre"])}</option>' for f in CFG["chatons_disponibles"] if "réserv" not in (BY[f]["statut"] or ""))
 corps = f"""<section><div class="wrap contact">
 <div class="text"><p class="label">Contact</p><h1>Parlons de votre futur Birman</h1>
 <p>Magali vous répond personnellement, le soir et le week-end.</p>
 <p>Chatterie des Innamorati<br>Bordeaux, Gironde</p>
-<p>Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger : <a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a></p>
+<p>E-mail : <a class="mel" href="#" data-u="innamoraticats" data-d="tristanperrier.fr">innamoraticats [at] tristanperrier.fr</a><br>
+Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger : <a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a></p>
 </div>
-<div class="text"><p class="label">Le plus simple</p>
-<p>Écrivez-nous sur Messenger en précisant votre projet : le chaton qui vous intéresse, votre région et la composition de votre foyer.</p>
-<p><a class="btn" href="https://m.me/desinnamorati" target="_blank" rel="noopener">Écrire sur Messenger</a></p>
-</div></div></section>"""
-page("contact", "Contact · Chatterie des Innamorati", corps)
+<form class="form" id="formulaire" action="https://formsubmit.co/{EMAIL}" method="POST">
+<p class="label">Nous écrire</p>
+<input type="hidden" name="_subject" value="Nouveau message depuis le site des Innamorati">
+<input type="hidden" name="_next" value="{SITE}contact/merci/">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="text" name="_honey" class="pot" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="f2"><label>Prénom et nom<input name="Nom" required autocomplete="name"></label>
+<label>E-mail<input type="email" name="email" required autocomplete="email"></label></div>
+<div class="f2"><label><span>Téléphone <small>· facultatif</small></span><input type="tel" name="Téléphone" autocomplete="tel"></label>
+<label>Ville<input name="Ville" required autocomplete="address-level2"></label></div>
+<label>Votre projet<select name="Projet" required>
+<option value="">Choisir</option><option>Adopter un chaton disponible</option><option>Réserver sur une prochaine portée</option><option>Vérifier une annonce</option><option>Autre question</option></select></label>
+<label><span>Chaton qui vous intéresse <small>· facultatif</small></span><select name="Chaton" id="f-chaton"><option value="">Aucun en particulier</option>{chatons_opts}</select></label>
+<label>Votre message<textarea name="Message" rows="6" required placeholder="Votre foyer, vos autres animaux, vos questions…"></textarea></label>
+<button class="btn" type="submit">Envoyer</button>
+<p class="fine-form">Vos coordonnées servent uniquement à vous répondre.</p>
+</form></div></section>
+<script>
+(function () {{
+  var m = document.querySelector(".mel"); if (m) {{ var a = m.dataset.u + "@" + m.dataset.d; m.href = "mailto:" + a; m.textContent = a; }}
+  var c = new URLSearchParams(location.search).get("chaton"), s = document.getElementById("f-chaton");
+  if (c && s) {{ var o = Array.prototype.find.call(s.options, function (x) {{ return x.text === c; }});
+    if (!o) {{ o = new Option(c, c); s.add(o); }} s.value = o.value;
+    var p = document.querySelector('select[name="Projet"]'); if (p) p.selectedIndex = 1; }}
+}})();
+</script>"""
+page("contact", "Contact · Chatterie des Innamorati, Sacrés de Birmanie à Bordeaux", corps, prio=0.6,
+     desc="Contacter la Chatterie des Innamorati, élevage de Sacrés de Birmanie à Bordeaux : formulaire, e-mail, Facebook et Messenger.")
+
+corps = f"""<section><div class="wrap narrow center">{tete("Message envoyé", "Merci, votre message est bien parti", "Magali vous répond personnellement, en général le soir ou le week-end. Pensez à vérifier vos courriers indésirables.")}
+<p><a class="btn" href="../../chatons/">Voir nos chatons</a> <a class="btn" href="../../">Retour à l'accueil</a></p></div></section>"""
+page("contact/merci", "Message envoyé · Chatterie des Innamorati", corps, prio=0.1)
 
 # ---------- Mentions légales ----------
 corps = f"""<section><div class="wrap narrow">{tete("Mentions légales", "Mentions légales")}
@@ -193,6 +224,6 @@ corps = f"""<section><div class="wrap narrow">{tete("Mentions légales", "Mentio
 <p><b>Éditeur</b><br>Magali Perrier, entreprise individuelle, élevage de Sacrés de Birmanie sous l'affixe LOOF « des Innamorati ».<br>SIRET {SIRET} · Bordeaux (33).</p>
 <p><b>Photographies</b><br>Toutes les photographies sont la propriété de Tristan Perrier et de la Chatterie des Innamorati. Toute reproduction, en particulier dans des annonces de vente, est interdite et fera l'objet d'un signalement.</p>
 <p><b>Hébergement</b><br>GitHub Pages, GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
-<p><b>Données personnelles</b><br>Ce site ne dépose aucun cookie et ne collecte aucune donnée.</p>
+<p><b>Données personnelles</b><br>Ce site ne dépose aucun cookie de suivi. Les messages envoyés par le formulaire de contact transitent par le service FormSubmit jusqu'à notre boîte e-mail. Ils servent uniquement à vous répondre et ne sont jamais transmis à des tiers.</p>
 </div></div></section>"""
 page("mentions-legales", "Mentions légales · Chatterie des Innamorati", corps)

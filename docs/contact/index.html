@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Contact · Chatterie des Innamorati</title>
-<meta name="description" content="Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux.">
+<title>Contact · Chatterie des Innamorati, Sacrés de Birmanie à Bordeaux</title>
+<meta name="description" content="Contacter la Chatterie des Innamorati, élevage de Sacrés de Birmanie à Bordeaux : formulaire, e-mail, Facebook et Messenger.">
 <link rel="canonical" href="https://tristan33200.github.io/innamorati/contact/">
 <meta property="og:type" content="website"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Chatterie des Innamorati">
-<meta property="og:title" content="Contact · Chatterie des Innamorati"><meta property="og:description" content="Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux."><meta property="og:url" content="https://tristan33200.github.io/innamorati/contact/">
+<meta property="og:title" content="Contact · Chatterie des Innamorati, Sacrés de Birmanie à Bordeaux"><meta property="og:description" content="Contacter la Chatterie des Innamorati, élevage de Sacrés de Birmanie à Bordeaux : formulaire, e-mail, Facebook et Messenger."><meta property="og:url" content="https://tristan33200.github.io/innamorati/contact/">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,12 +30,36 @@
 <div class="text"><p class="label">Contact</p><h1>Parlons de votre futur Birman</h1>
 <p>Magali vous répond personnellement, le soir et le week-end.</p>
 <p>Chatterie des Innamorati<br>Bordeaux, Gironde</p>
-<p>Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger : <a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a></p>
+<p>E-mail : <a class="mel" href="#" data-u="innamoraticats" data-d="tristanperrier.fr">innamoraticats [at] tristanperrier.fr</a><br>
+Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger : <a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a></p>
 </div>
-<div class="text"><p class="label">Le plus simple</p>
-<p>Écrivez-nous sur Messenger en précisant votre projet : le chaton qui vous intéresse, votre région et la composition de votre foyer.</p>
-<p><a class="btn" href="https://m.me/desinnamorati" target="_blank" rel="noopener">Écrire sur Messenger</a></p>
-</div></div></section>
+<form class="form" id="formulaire" action="https://formsubmit.co/innamoraticats@tristanperrier.fr" method="POST">
+<p class="label">Nous écrire</p>
+<input type="hidden" name="_subject" value="Nouveau message depuis le site des Innamorati">
+<input type="hidden" name="_next" value="https://tristan33200.github.io/innamorati/contact/merci/">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="text" name="_honey" class="pot" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="f2"><label>Prénom et nom<input name="Nom" required autocomplete="name"></label>
+<label>E-mail<input type="email" name="email" required autocomplete="email"></label></div>
+<div class="f2"><label><span>Téléphone <small>· facultatif</small></span><input type="tel" name="Téléphone" autocomplete="tel"></label>
+<label>Ville<input name="Ville" required autocomplete="address-level2"></label></div>
+<label>Votre projet<select name="Projet" required>
+<option value="">Choisir</option><option>Adopter un chaton disponible</option><option>Réserver sur une prochaine portée</option><option>Vérifier une annonce</option><option>Autre question</option></select></label>
+<label><span>Chaton qui vous intéresse <small>· facultatif</small></span><select name="Chaton" id="f-chaton"><option value="">Aucun en particulier</option><option>Bambina Mia des Innamorati</option><option>Bella Raggaza des Innamorati</option></select></label>
+<label>Votre message<textarea name="Message" rows="6" required placeholder="Votre foyer, vos autres animaux, vos questions…"></textarea></label>
+<button class="btn" type="submit">Envoyer</button>
+<p class="fine-form">Vos coordonnées servent uniquement à vous répondre.</p>
+</form></div></section>
+<script>
+(function () {
+  var m = document.querySelector(".mel"); if (m) { var a = m.dataset.u + "@" + m.dataset.d; m.href = "mailto:" + a; m.textContent = a; }
+  var c = new URLSearchParams(location.search).get("chaton"), s = document.getElementById("f-chaton");
+  if (c && s) { var o = Array.prototype.find.call(s.options, function (x) { return x.text === c; });
+    if (!o) { o = new Option(c, c); s.add(o); } s.value = o.value;
+    var p = document.querySelector('select[name="Projet"]'); if (p) p.selectedIndex = 1; }
+})();
+</script>
 </main>
 <footer><div class="wrap">
   <a class="logo" href="../"><b>des Innamorati</b><small>Sacrés de Birmanie · Bordeaux</small></a>
