@@ -110,8 +110,8 @@ a.card:hover .ph img { transform: scale(1.04) }
 .head + .litter, .years + .litter { margin-top: 0 }
 .litter h2 { font-size: clamp(1.5rem, 2.6vw, 2rem) }
 .litter h2 a { text-decoration: none }
-.litter span { font-size: .9rem; color: var(--muted) }
-.litter span a { color: var(--ink) }
+.litter > span { font-size: .9rem; color: var(--muted) }
+.litter > span a { color: var(--ink) }
 .years { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin-bottom: 56px; font-size: .78rem; letter-spacing: .2em }
 .years a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 3px }
 
@@ -215,3 +215,25 @@ footer .logo { color: #f1ede6 }
 footer .foot { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase }
 footer .foot a { text-decoration: none; color: #d8d2c7 }
 footer .fine { font-size: .74rem; letter-spacing: .06em; line-height: 1.8 }
+
+/* ---------- Référencement : titres, sommaire, articles, questions ---------- */
+.hero .big { font-family: var(--display); font-weight: 300; font-style: italic; line-height: 1.05; font-size: clamp(2.6rem, 6.4vw, 5.6rem); margin: 0; letter-spacing: 0; text-transform: none }
+.hero h1.kicker { margin-top: 14px; font-family: var(--sans); font-style: normal; font-weight: 400; font-size: .78rem; line-height: 1.6; letter-spacing: .32em; text-transform: uppercase }
+.h-art { font-size: clamp(1.8rem, 3vw, 2.4rem) }
+.sommaire { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin: 96px auto 0; padding: 22px 0; border-block: 1px solid var(--line); font-size: .74rem; letter-spacing: .22em; text-transform: uppercase }
+.sommaire a { color: var(--muted); text-decoration: none } .sommaire a:hover { color: var(--ink) }
+.articles { display: grid; grid-template-columns: 1fr 1fr; gap: 72px 88px; margin-top: 40px }
+.art { scroll-margin-top: 100px } .art h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 18px }
+.art p { color: var(--soft); margin-top: 14px }
+@media (max-width: 900px) { .articles { grid-template-columns: 1fr; gap: 56px } }
+.std4 { grid-template-columns: repeat(4, 1fr); margin: 0 0 8px }
+@media (max-width: 900px) { .std4 { grid-template-columns: 1fr 1fr } } @media (max-width: 560px) { .std4 { grid-template-columns: 1fr } }
+.sommaire + .litter, .litter[id] { scroll-margin-top: 100px }
+.coul { scroll-margin-top: 100px }
+.faq { border-top: 1px solid var(--line) }
+.faq details { border-bottom: 1px solid var(--line); padding: 22px 0 }
+.faq summary { cursor: pointer; list-style: none; font-family: var(--display); font-size: clamp(1.25rem, 2.2vw, 1.55rem); display: flex; justify-content: space-between; gap: 24px }
+.faq summary::-webkit-details-marker { display: none }
+.faq summary::after { content: "+"; color: var(--sapphire); font-family: var(--sans); font-weight: 300; transition: rotate .4s ease }
+.faq details[open] summary::after { rotate: 45deg }
+.faq details p { margin-top: 12px; color: var(--soft); max-width: 68ch }

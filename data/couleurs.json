@@ -1,35 +1,154 @@
 {
-  "intro": "Le Sacré de Birmanie est un chat « colourpoint » : le corps reste clair, la couleur se concentre sur le masque, les oreilles, les pattes et la queue. Chaque robe ci-dessous est illustrée par l’un de nos chats.",
-  "note": "Les couleurs sans photo n’ont pas encore existé chez nous. Pour les montrer, nous ajouterons la photo d’un confrère, avec son accord. Pour remplacer la photo d’exemple d’une couleur, indiquez dans data/couleurs.json le champ « photo » (numéro de la photo) et « chat ».",
+  "intro": "Le Sacré de Birmanie est un chat « colourpoint » : son corps reste clair et la couleur se concentre sur le masque, les oreilles, les pattes et la queue. Quelle que soit sa robe, il garde ses deux signatures : les yeux bleu saphir et les quatre pattes gantées de blanc. Voici toutes ses couleurs, illustrées par nos chats.",
+  "note": "Les couleurs sans photo ne sont pas encore nées chez nous. Nous les illustrerons bientôt avec la photo d’un confrère, avec son accord.",
   "familles": [
-    {"nom": "Les couleurs unies", "texte": "Les extrémités sont d’une seule couleur, sans rayures.", "couleurs": [
-      {"robe": "Seal point", "texte": "Extrémités brun très foncé sur corps crème doré. La couleur historique du Birman."},
-      {"robe": "Blue point", "texte": "Extrémités gris-bleu sur corps blanc bleuté, d’une grande douceur."},
-      {"robe": "Chocolat point", "texte": "Extrémités chocolat au lait sur corps ivoire."},
-      {"robe": "Lilac point", "texte": "Extrémités gris rosé sur corps presque blanc. La plus pâle des couleurs."},
-      {"robe": "Red point", "texte": "Extrémités roux orangé sur corps blanc chaud."},
-      {"robe": "Cream point", "texte": "Extrémités crème abricot, très lumineuses."}
-    ]},
-    {"nom": "Les tabby", "texte": "Les extrémités sont rayées, avec le « M » caractéristique sur le front.", "couleurs": [
-      {"robe": "Seal tabby point", "texte": "Rayures brun foncé, masque très dessiné."},
-      {"robe": "Blue tabby point", "texte": "Rayures gris-bleu sur fond clair."},
-      {"robe": "Chocolat tabby point", "texte": "Rayures chocolat, robe lumineuse."},
-      {"robe": "Lilac tabby point", "texte": "Rayures gris rosé, tout en nuances."},
-      {"robe": "Red tabby point", "texte": "Rayures rousses sur fond blanc chaud."},
-      {"robe": "Cream tabby point", "texte": "Rayures crème, très douces."}
-    ]},
-    {"nom": "Les tortie", "texte": "Les extrémités mêlent deux couleurs, comme une écaille. Uniquement chez les femelles.", "couleurs": [
-      {"robe": "Seal tortie point", "texte": "Seal marbré de roux."},
-      {"robe": "Chocolat tortie point", "texte": "Chocolat marbré de roux clair."},
-      {"robe": "Seal tortie tabby point", "texte": "Tabby et tortie à la fois, sur base seal."},
-      {"robe": "Chocolat tortie tabby point", "texte": "Tabby et tortie à la fois, sur base chocolat."}
-    ]},
-    {"nom": "Les silver et smoke", "texte": "Le sous-poil est blanc argenté, ce qui donne un reflet lumineux aux extrémités.", "couleurs": [
-      {"robe": "Blue silver tabby point", "texte": "Rayures gris-bleu sur fond argent."},
-      {"robe": "Chocolat silver tabby point", "texte": "Rayures chocolat sur fond argent."},
-      {"robe": "Lilac silver tabby point", "texte": "Rayures gris rosé sur fond argent."},
-      {"robe": "Seal smoke tortie point", "texte": "Seal tortie au sous-poil argenté."},
-      {"robe": "Blue smoke tortie point", "texte": "Bleu et crème au sous-poil argenté."}
-    ]}
+    {
+      "nom": "Les couleurs unies",
+      "texte": "Les extrémités sont d’une seule couleur, sans rayures.",
+      "couleurs": [
+        {
+          "robe": "Seal point",
+          "texte": "Extrémités brun très foncé sur corps crème doré. La couleur historique du Birman."
+        },
+        {
+          "robe": "Blue point",
+          "texte": "Extrémités gris-bleu sur corps blanc bleuté, d’une grande douceur."
+        },
+        {
+          "robe": "Chocolat point",
+          "texte": "Extrémités chocolat au lait sur corps ivoire."
+        },
+        {
+          "robe": "Lilac point",
+          "texte": "Extrémités gris rosé sur corps presque blanc. La plus pâle des couleurs."
+        },
+        {
+          "robe": "Red point",
+          "texte": "Extrémités roux orangé sur corps blanc chaud."
+        },
+        {
+          "robe": "Cream point",
+          "texte": "Extrémités crème abricot, très lumineuses."
+        }
+      ]
+    },
+    {
+      "nom": "Les tabby",
+      "texte": "Les extrémités sont rayées, avec le « M » caractéristique sur le front.",
+      "couleurs": [
+        {
+          "robe": "Seal tabby point",
+          "texte": "Rayures brun foncé, masque très dessiné."
+        },
+        {
+          "robe": "Blue tabby point",
+          "texte": "Rayures gris-bleu sur fond clair."
+        },
+        {
+          "robe": "Chocolat tabby point",
+          "texte": "Rayures chocolat, robe lumineuse."
+        },
+        {
+          "robe": "Lilac tabby point",
+          "texte": "Rayures gris rosé, tout en nuances."
+        },
+        {
+          "robe": "Red tabby point",
+          "texte": "Rayures rousses sur fond blanc chaud."
+        },
+        {
+          "robe": "Cream tabby point",
+          "texte": "Rayures crème, très douces."
+        }
+      ]
+    },
+    {
+      "nom": "Les tortie",
+      "texte": "Les extrémités mêlent deux couleurs, comme une écaille. Uniquement chez les femelles.",
+      "couleurs": [
+        {
+          "robe": "Seal tortie point",
+          "texte": "Seal marbré de roux."
+        },
+        {
+          "robe": "Chocolat tortie point",
+          "texte": "Chocolat marbré de roux clair."
+        },
+        {
+          "robe": "Seal tortie tabby point",
+          "texte": "Tabby et tortie à la fois, sur base seal."
+        },
+        {
+          "robe": "Chocolat tortie tabby point",
+          "texte": "Tabby et tortie à la fois, sur base chocolat."
+        }
+      ]
+    },
+    {
+      "nom": "Les silver et smoke",
+      "texte": "Le sous-poil est blanc argenté, ce qui donne un reflet lumineux aux extrémités.",
+      "couleurs": [
+        {
+          "robe": "Blue silver tabby point",
+          "texte": "Rayures gris-bleu sur fond argent."
+        },
+        {
+          "robe": "Chocolat silver tabby point",
+          "texte": "Rayures chocolat sur fond argent."
+        },
+        {
+          "robe": "Lilac silver tabby point",
+          "texte": "Rayures gris rosé sur fond argent."
+        },
+        {
+          "robe": "Seal smoke tortie point",
+          "texte": "Seal tortie au sous-poil argenté."
+        },
+        {
+          "robe": "Blue smoke tortie point",
+          "texte": "Bleu et crème au sous-poil argenté."
+        }
+      ]
+    }
+  ],
+  "comprendre": [
+    [
+      "Une couleur qui dépend de la chaleur",
+      "Le gène colourpoint ne colore que les zones les plus froides du corps. C’est pourquoi les chatons naissent presque blancs et que leurs extrémités foncent au fil des semaines."
+    ],
+    [
+      "Quatre couleurs de base",
+      "Le seal (brun noir) et le chocolat ont chacun leur version diluée : le blue pour le seal, le lilac pour le chocolat. Le red a lui aussi la sienne, le cream."
+    ],
+    [
+      "Tabby et tortie",
+      "Le tabby ajoute des rayures et un « M » sur le front. Le tortie mêle le roux à une autre couleur. Comme il est porté par le chromosome X, il concerne presque uniquement les femelles."
+    ],
+    [
+      "Silver et smoke",
+      "Un gène inhibiteur blanchit la base du poil. Les extrémités prennent alors un reflet argenté, très lumineux sur les tabby."
+    ]
+  ],
+  "faq": [
+    [
+      "Combien de couleurs existe-t-il chez le Sacré de Birmanie ?",
+      "Le Birman existe dans plus d’une vingtaine de couleurs, toujours en colourpoint : quatre familles (unies, tabby, tortie, silver et smoke) déclinées sur les bases seal, blue, chocolat, lilac, red et cream. Toutes gardent les yeux bleus et les gants blancs."
+    ],
+    [
+      "Quelle est la couleur la plus courante ?",
+      "Le seal point, extrémités brun foncé sur corps crème doré, est la couleur historique et la plus répandue. Viennent ensuite le blue point et les tabby."
+    ],
+    [
+      "Comment connaître la couleur d’un chaton Birman ?",
+      "Les chatons naissent presque blancs. Les extrémités se colorent en quelques jours puis s’affirment pendant les premières semaines. L’éleveur détermine la couleur grâce à celle des parents, puis l’inscrit au pedigree LOOF. La robe d’un Birman n’est définitive qu’à l’âge adulte, vers deux ans."
+    ],
+    [
+      "Un Birman mâle peut-il être tortie ?",
+      "C’est très rare. La couleur tortie demande deux chromosomes X, que seules les femelles possèdent. Un mâle tortie porte une anomalie génétique et il est presque toujours stérile."
+    ],
+    [
+      "La couleur change-t-elle avec l’âge ?",
+      "Oui, le corps d’un Birman fonce légèrement en vieillissant et ses extrémités gagnent en intensité. Les zones plus froides foncent aussi davantage en hiver."
+    ]
   ]
 }

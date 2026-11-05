@@ -16,18 +16,18 @@
     var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
     // Titres : mot par mot
-    $$(".head h1, .head h2, .intro h2, .family h2, .contact h1, .band blockquote p, .hero h1, .litter h2").forEach(function (h) {
+    $$(".head h1, .head h2, .intro h2, .family h2, .contact h1, .band blockquote p, .hero .big, .litter h2, .art h2").forEach(function (h) {
       if (h.querySelector("a")) return;
       var mots = h.textContent.trim().split(/\s+/);
       h.innerHTML = mots.map(function (m, i) { return '<span class="w"><span style="--i:' + i + '">' + m + "</span></span>"; }).join(" ");
       h.classList.add("split");
     });
     // Blocs qui apparaissent en glissant
-    $$(".head p, .head .label, .intro p, .intro .label, .litter span, .card .t, .door h3, .door .label, .family .text p, .birman-grid .text > p, .std > div, .steps li, .incl li, .verify-grid > div, .titles-list li, .facts > div, .note, .years, .price, .band cite, .results").forEach(function (el) { el.classList.add("rv"); });
+    $$(".head p, .head .label, .intro p, .intro .label, .litter span, .card .t, .door h3, .door .label, .family .text p, .birman-grid .text > p, .std > div, .steps li, .incl li, .verify-grid > div, .titles-list li, .facts > div, .note, .years, .price, .band cite, .results, .art p, .faq details, .sommaire").forEach(function (el) { el.classList.add("rv"); });
     // Photos qui se dévoilent comme un rideau
     $$(".card .ph, .door .ph, .g-item .ph, .mosaic .ph, .family .ph, .birman-grid > .ph, .palm-grid > .ph").forEach(function (el) { el.classList.add("rv", "ph-rv"); });
     // Décalage en cascade dans les grilles
-    $$(".grid, .gallery, .doors, .steps, .incl, .verify-grid, .std, .titles-list, .facts, .mosaic").forEach(function (g) {
+    $$(".grid, .gallery, .doors, .steps, .incl, .verify-grid, .std, .titles-list, .facts, .mosaic, .articles").forEach(function (g) {
       Array.prototype.forEach.call(g.children, function (c, i) {
         var d = (i % 8) * 90 + "ms";
         c.style.setProperty("--d", d);

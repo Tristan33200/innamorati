@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tristan33200.github.io/innamorati/sitemap.xml

@@ -14,6 +14,10 @@ CAT = json.load(open(os.path.join(ROOT, "data/catalogue.json"), encoding="utf-8"
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
 COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
+# Adresse publique du site : le domaine du fichier CNAME s'il existe, sinon GitHub Pages
+_cname = os.path.join(ROOT, "docs", "CNAME")
+SITE = ("https://" + open(_cname).read().strip() + "/") if os.path.exists(_cname) else "https://tristan33200.github.io/innamorati/"
+PLAN = []  # pages pour sitemap.xml : (chemin, priorité)
 e = html.escape
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 
@@ -131,20 +135,28 @@ NAV_G = [("chatons/", "Chatons"), ("nos-chats/", "Nos chats"), ("portees/", "Por
 NAV_D = [("expositions/", "Expositions"), ("le-birman/", "Le Birman"), ("couleurs/", "Couleurs"), ("adopter/", "Adopter")]
 
 
-def page(chemin, titre, corps, desc="", sombre_entete=False, image=None):
+def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None, prio=None):
     profondeur = len([x for x in chemin.split("/") if x])
     r = "../" * profondeur
+    url = SITE + (chemin.strip("/") + "/" if chemin else "")
+    desc = desc or "Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux."
+    PLAN.append((url, prio if prio is not None else (0.5 if profondeur > 1 else 0.7)))
+    blocs_ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>\n' for x in (ld or []))
     nav = lambda items: "".join(f'<a href="{r}{u}">{t}</a>' for u, t in items)
     entete = "top over" if sombre_entete else "top"
-    meta_img = f'<meta property="og:image" content="{r}photos/{image}.jpg">' if image else ""
+    meta_img = f'<meta property="og:image" content="{SITE}photos/{image}.jpg">' if image else ""
     doc = f"""<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(titre)}</title>
-<meta name="description" content="{e(desc or 'Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux.')}">
-{meta_img}
+<meta name="description" content="{e(desc)}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Chatterie des Innamorati">
+<meta property="og:title" content="{e(titre)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
+{meta_img}<meta name="twitter:card" content="summary_large_image">
+{blocs_ld}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="{r}assets/style.css">
@@ -180,6 +192,23 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None):
     dest = os.path.join(OUT, chemin, "index.html") if chemin else os.path.join(OUT, "index.html")
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     open(dest, "w", encoding="utf-8").write(doc)
+
+
+def faq(titre, items, label="Questions fréquentes"):
+    """Bloc de questions dépliables + données structurées FAQPage pour Google."""
+    q = "".join(f"<details><summary>{e(a)}</summary><p>{b}</p></details>" for a, b in items)
+    ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": a, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", b)}} for a, b in items]}
+    return f'<section class="faq"><div class="wrap narrow"><div class="head"><p class="label">{label}</p><h2>{titre}</h2></div>{q}</div></section>', ld
+
+
+def ariane(*etapes):
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u} for i, (n, u) in enumerate(etapes)]}
+
+
+def slug_robe(t):
+    return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
 
 
 def img(r, pid, alt, cls="", grand=False, attrs=""):
@@ -345,24 +374,39 @@ def exemple_couleur(c):
     ordre = {"repro": 0, "retraite": 1, "ancienne": 2, "male": 3, "chaton": 4, "grandi": 5}
     cands = sorted([a for a in chats if a["robe"] == c["robe"]], key=lambda a: a["debut"], reverse=True)
     return (cands[0]["cover"], cands[0]) if cands else (None, None)
-blocs = []
+blocs, nb_robes = [], 0
 for fam in COULEURS["familles"]:
     cartes = []
     for c in fam["couleurs"]:
+        nb_robes += 1
         pid, chat = exemple_couleur(c)
         if pid:
-            leg = f'<a href="../{chat["url"]}">{e(chat["titre"])}</a>' if isinstance(chat, dict) else e(chat)
-            visuel = img("../", pid, f'{c["robe"]} : {chat["titre"] if isinstance(chat, dict) else chat}')
+            leg = f'Photo : <a href="../{chat["url"]}">{e(chat["titre"])}</a>' if isinstance(chat, dict) else e(chat)
+            visuel = img("../", pid, f'Sacré de Birmanie {c["robe"].lower()} : {chat["titre"] if isinstance(chat, dict) else chat}')
         else:
             leg = "Photo à venir"
             visuel = '<div class="ph vide"><span>Photo à venir</span></div>'
-        cartes.append(f'<div class="card coul">{visuel}<div class="t"><h3>{e(c["robe"])}</h3><span class="robe">{e(c["texte"])}</span><span class="ex">{leg}</span></div></div>')
+        cartes.append(f'<div class="card coul" id="{slug_robe(c["robe"])}">{visuel}<div class="t"><h3>{e(c["robe"])}</h3><span class="robe">{e(c["texte"])}</span><span class="ex">{leg}</span></div></div>')
     blocs.append(f'<div class="litter"><h2>{e(fam["nom"])}</h2><span>{e(fam["texte"])}</span></div><div class="grid g4">{"".join(cartes)}</div>')
-page("couleurs", "Les couleurs du Sacré de Birmanie · Chatterie des Innamorati",
-     f'<section><div class="wrap">{tete("Les couleurs", "Toutes les robes du Sacré de Birmanie", COULEURS["intro"])}{"".join(blocs)}<p class="note">{COULEURS["note"]}</p></div></section>',
-     desc="Toutes les couleurs du Sacré de Birmanie, illustrées par les chats de la Chatterie des Innamorati.")
+comprendre = "".join(f"<div><b>{a}</b><span>{b}</span></div>" for a, b in COULEURS["comprendre"])
+faq_html, faq_ld = faq("Les couleurs du Birman en questions", COULEURS["faq"])
+page("couleurs", "Couleurs du Sacré de Birmanie : toutes les robes en photos · des Innamorati",
+     f'''<section><div class="wrap">{tete("Les couleurs", "Toutes les couleurs du Sacré de Birmanie", COULEURS["intro"])}
+<div class="std std4">{comprendre}</div>
+<nav class="sommaire" aria-label="Familles de couleurs">{"".join(f'<a href="#{slug_robe(f["nom"])}">{e(f["nom"])}</a>' for f in COULEURS["familles"])}</nav>
+{"".join(b.replace('<div class="litter">', f'<div class="litter" id="{slug_robe(f["nom"])}">', 1) for b, f in zip(blocs, COULEURS["familles"]))}
+<p class="note">{COULEURS["note"]}</p></div></section>{faq_html}''',
+     desc=f"Les {nb_robes} couleurs du Sacré de Birmanie en photos : seal, blue, chocolat, lilac, red, cream point, tabby, tortie, silver et smoke. Génétique et reconnaissance de la couleur d'un chaton.",
+     ld=[faq_ld, ariane(("Accueil", ""), ("Couleurs", "couleurs/"))], prio=0.9)
 
 json.dump({"albums": len(albums), "chats": len(chats), "grandis": len(grandis), "portees": len(litters), "expos": len(expos)},
           open(os.path.join(ROOT, "data/stats.json"), "w"))
 exec(open(os.path.join(ROOT, "src/pages_fixes.py"), encoding="utf-8").read())
+# Plan du site pour Google
+aujourdhui = datetime.date.today().isoformat()
+open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + "".join(f"<url><loc>{u}</loc><lastmod>{aujourdhui}</lastmod><priority>{p}</priority></url>\n" for u, p in PLAN)
+    + "</urlset>\n")
+open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
 print(f"OK : {len(chats)} chats, {len(grandis)} anciens chatons, {len(litters)} portées, {len(expos)} expositions")

@@ -19,14 +19,14 @@ kits = "".join(carte(r, BY[f], f'<span class="status{" libre" if "réserver" in 
 corps = f"""
 <div class="hero">
   {grand(r, P["hero"], "Les yeux saphir de Sanae des Innamorati")}
-  <div class="wrap"><h1>Le regard saphir</h1><p>Chatterie des Innamorati · Sacrés de Birmanie</p><a class="btn light" href="chatons/">Nos chatons</a></div>
+  <div class="wrap"><p class="big">Le regard saphir</p><h1 class="kicker">Élevage de Sacrés de Birmanie à Bordeaux</h1><a class="btn light" href="chatons/">Nos chatons</a></div>
 </div>
 <section class="center"><div class="wrap">
   <div class="narrow intro">
     <p class="label">Élevage familial depuis 2016</p>
-    <h2>Des Birmans de champions, élevés au cœur d'une famille</h2>
+    <h2>Des Birmans de champions, élevés en famille à Bordeaux</h2>
     <div class="rule"></div>
-    <p>Chez nous, les chats ne vivent pas en chatterie. Ils partagent la maison, les canapés et les jeux de nos enfants. Les chatons naissent et grandissent au milieu de la vie de famille, ce qui en fait des compagnons confiants et doux.</p>
+    <p>La Chatterie des Innamorati est un élevage familial de Sacrés de Birmanie installé à Bordeaux, en Gironde, et déclaré au LOOF sous l'affixe « des Innamorati ». Chez nous, les chats ne vivent pas en chatterie. Ils partagent la maison, les canapés et les jeux de nos enfants. Les chatons naissent et grandissent au milieu de la vie de famille, ce qui en fait des compagnons confiants et doux.</p>
     <p>Depuis 2016, {st["grandis"]} chatons des Innamorati ont rejoint leur famille, et nos chats ont été titrés de Paris à Milan.</p>
   </div>
   <div class="doors">
@@ -72,40 +72,93 @@ corps = f"""
   </div>
 </div></section>
 """
-page("", "Chatterie des Innamorati · Sacrés de Birmanie à Bordeaux", corps, sombre_entete=True, image=P["hero"],
-     desc="Chatterie des Innamorati : élevage familial de Sacrés de Birmanie à Bordeaux depuis 2016. Chatons, reproducteurs champions, portées et expositions.")
+faq_html, faq_ld = faq("Adopter un Sacré de Birmanie à Bordeaux", [
+    ("Où trouver un chaton Sacré de Birmanie à Bordeaux ?", 'Notre élevage familial se trouve à Bordeaux, en Gironde. Nos chatons disponibles sont présentés sur la page <a href="chatons/">Nos chatons</a>, avec leurs parents et leur album photo. Nous recevons les familles à la maison pour rencontrer les chats.'),
+    ("Quel est le prix d'un chaton Sacré de Birmanie ?", "Nos chatons sont proposés à 1 800 €. Ce prix comprend le pedigree LOOF, la puce électronique, les vaccins, les vermifuges, le certificat vétérinaire et la stérilisation."),
+    ("À quel âge partent les chatons ?", "Nos chatons rejoignent leur famille entre 15 semaines et 4 mois et demi. Ils partent déjà stérilisés, sociabilisés et habitués à la vie de famille."),
+    ("Vos chatons sont-ils inscrits au LOOF ?", "Oui. Tous nos chatons sont inscrits au LOOF, le livre officiel des origines félines, sous l'affixe « des Innamorati ». En France, seul un chat inscrit au LOOF peut être vendu comme Sacré de Birmanie."),
+    ("Comment éviter les fausses annonces ?", 'Nos photos sont parfois volées pour de fausses annonces. Vérifiez toujours le SIRET de l\'éleveur et la présence du chaton sur son site. Notre page <a href="adopter/#verifier">Vérifier une annonce</a> explique comment faire.'),
+])
+corps += faq_html
+page("", "Sacré de Birmanie à Bordeaux · Chatterie des Innamorati, éleveur LOOF", corps, sombre_entete=True, image=P["hero"], prio=1.0,
+     desc="Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux (Gironde) depuis 2016. Chatons LOOF stérilisés, parents champions, portées et expositions.",
+     ld=[{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": SITE + "#elevage", "name": "Chatterie des Innamorati",
+          "alternateName": "des Innamorati", "description": "Élevage familial de Sacrés de Birmanie (chats Birman) inscrit au LOOF.",
+          "url": SITE, "image": SITE + "photos/" + P["hero"] + ".jpg", "priceRange": "1800 €", "founder": "Magali Perrier",
+          "address": {"@type": "PostalAddress", "addressLocality": "Bordeaux", "addressRegion": "Gironde", "addressCountry": "FR"},
+          "areaServed": ["Bordeaux", "Gironde", "Nouvelle-Aquitaine", "France"],
+          "sameAs": ["https://www.facebook.com/desinnamorati"], "identifier": "SIRET " + SIRET},
+         {"@context": "https://schema.org", "@type": "WebSite", "name": "Chatterie des Innamorati", "url": SITE, "inLanguage": "fr"},
+         faq_ld])
 
 # ---------- Le Birman ----------
 r = "../"
+SECTIONS = [
+ ("histoire", "Une histoire française", [
+  "Le Sacré de Birmanie est une race née en France. Selon le récit le plus souvent repris, un couple de chats sacrés aurait été envoyé de Birmanie vers la France à la fin des années 1910. Le mâle n'aurait pas survécu au voyage, mais la femelle, Sita, aurait donné naissance à une chatte, Poupée de Madalpour, souvent présentée comme l'ancêtre de la race.",
+  "Les premiers Birmans sont présentés en exposition dans les années 1920 et la race est reconnue en France en 1925. La Seconde Guerre mondiale la mène au bord de l'extinction : on raconte qu'il ne restait qu'un seul couple. Des éleveurs français la reconstruisent patiemment après la guerre. Le Birman est ensuite reconnu en Grande-Bretagne en 1966, puis aux États-Unis en 1967, avant de conquérir le monde entier."]),
+ ("physique", "Le physique du Birman", [
+  "Le Birman est un chat de taille moyenne à grande, solide et bien charpenté. Une femelle pèse en général de 3 à 5 kg, un mâle de 5 à 7 kg. Sa tête est large et arrondie, son nez légèrement busqué, ses oreilles moyennes.",
+  "Son poil mi-long est soyeux et forme une collerette autour du cou. Sa queue est en panache. Comme tous les colourpoint, il a le corps clair et les extrémités colorées : masque, oreilles, pattes et queue. Il lui faut deux à trois ans pour atteindre sa pleine maturité."]),
+ ("caractere", "Son caractère", [
+  "Le Birman est doux, calme et très sociable. Il suit ses humains de pièce en pièce, aime les câlins sans être envahissant, et parle d'une voix discrète. Il s'entend bien avec les enfants et cohabite volontiers avec d'autres chats ou un chien bien élevé.",
+  "C'est un chat d'intérieur idéal, qui se plaît très bien en appartement. Il supporte mal la solitude prolongée : si la maison est vide toute la journée, deux chats sont souvent plus heureux qu'un seul."]),
+ ("entretien", "Entretien et santé", [
+  "Son poil n'a pas de sous-poil laineux et s'emmêle peu. Un brossage par semaine suffit, un peu plus pendant la mue du printemps.",
+  "Le Birman est une race robuste, qui vit en moyenne de 12 à 16 ans. Un éleveur sérieux suit la santé de ses reproducteurs avec son vétérinaire et connaît leur groupe sanguin, car le groupe B est plus fréquent chez le Birman que chez la plupart des autres races."]),
+ ("differences", "Birman, Ragdoll ou Siamois ?", [
+  "On confond souvent ces trois races aux yeux bleus. Le Siamois a le poil court et un corps fin et élancé. Le Ragdoll est plus grand et plus lourd, et ses pattes ne sont pas toujours blanches.",
+  "Le Birman se reconnaît à coup sûr à ses quatre gants blancs, nets et symétriques, et à ses éperons blancs qui remontent à l'arrière des pattes postérieures."]),
+ ("eleveur", "Bien choisir son éleveur", [
+  "En France, un chat ne peut être vendu comme Sacré de Birmanie que s'il est inscrit au LOOF, le livre officiel des origines félines. L'éleveur doit afficher son numéro SIRET dans toutes ses annonces, et le chaton doit être identifié par puce, vacciné, et accompagné d'un certificat vétérinaire.",
+  'Méfiez-vous des prix trop bas et des vendeurs qui refusent une visite : de nombreuses fausses annonces utilisent des photos volées, y compris les nôtres. Nos conseils sont sur la page <a href="../adopter/#verifier">Vérifier une annonce</a>.']),
+]
+sommaire = "".join(f'<a href="#{i}">{t}</a>' for i, t, _ in SECTIONS)
+articles = "".join(f'<section class="art" id="{i}"><h2>{t}</h2>' + "".join(f"<p>{x}</p>" for x in ps) + "</section>" for i, t, ps in SECTIONS)
+faq_html, faq_ld = faq("Le Sacré de Birmanie en questions", [
+    ("Quelle est la différence entre Sacré de Birmanie et Birman ?", "Aucune : c'est la même race. Sacré de Birmanie est son nom français, Birman son nom international. On dit aussi simplement « Birman » en France."),
+    ("Combien de temps vit un Sacré de Birmanie ?", "Un Birman vit en moyenne de 12 à 16 ans, parfois davantage, s'il est bien suivi par son vétérinaire et vit à l'intérieur."),
+    ("Le Sacré de Birmanie perd-il beaucoup ses poils ?", "Moins que son poil mi-long le laisse penser. Sans sous-poil laineux, il s'emmêle peu et un brossage hebdomadaire suffit. La mue est plus marquée au printemps."),
+    ("Un Birman peut-il vivre en appartement ?", "Oui, très bien. Calme et attaché à sa famille, il n'a pas besoin d'extérieur. Il faut surtout lui offrir de la compagnie, des jeux et un arbre à chat."),
+    ("Mâle ou femelle : lequel choisir ?", "Une fois stérilisés, les deux font d'excellents compagnons. Le mâle est souvent plus grand et très câlin, la femelle un peu plus indépendante. Le caractère individuel compte davantage que le sexe."),
+    ("Combien coûte un chaton Sacré de Birmanie ?", 'Chez nous, un chaton coûte 1 800 €, stérilisé, pucé, vacciné et inscrit au LOOF. Le détail est sur la page <a href="../adopter/">Adopter</a>.'),
+])
 corps = f"""<section><div class="wrap">
-{tete("Le Sacré de Birmanie", "La légende du temple de Lao-Tsun")}
-<div class="birman-grid">{grand(r, P["oedipe9"], "Œdipe des Innamorati, seal point aux yeux saphir")}
+{tete("Le Sacré de Birmanie", "Le Sacré de Birmanie, le chat aux gants blancs", "Histoire, légende, standard, caractère et entretien : tout savoir sur le Birman, par une famille d'éleveurs qui vit avec lui depuis 2016.")}
+<div class="birman-grid">{grand(r, P["oedipe9"], "Œdipe des Innamorati, Sacré de Birmanie seal point aux yeux saphir")}
 <div class="text">
-<p>On raconte qu'au temple de Lao-Tsun vivait le prêtre Mun-Ha et son chat Sinh. Lorsque le prêtre mourut devant la déesse aux yeux de saphir, Sinh posa ses pattes sur son maître. Sa robe prit les reflets dorés de la déesse, ses yeux devinrent bleus, et ses pattes restèrent d'un blanc pur.</p>
-<p>L'histoire réelle s'écrit en France dans les années 1920, où les premiers Birmans sont présentés et enregistrés. La race frôle l'extinction pendant la Seconde Guerre mondiale, puis est reconstruite par des éleveurs français avant d'être reconnue dans le monde entier.</p>
-<p>Le Birman est un chat de taille moyenne à grande, au poil mi-long soyeux, sans sous-poil laineux, donc facile à entretenir. Son caractère est doux, sociable et très attaché à sa famille, à l'aise avec les enfants.</p>
+<p class="label">La légende</p>
+<h2 class="h-art">Le temple de Lao-Tsun</h2>
+<p>On raconte qu'au temple de Lao-Tsun, en Birmanie, vivait le vieux prêtre Mun-Ha et son chat Sinh. Une nuit, des pillards attaquèrent le temple et Mun-Ha mourut devant la statue de Tsun-Kyan-Kse, la déesse aux yeux de saphir.</p>
+<p>Sinh posa alors ses pattes sur son maître. Sa robe prit les reflets dorés de la déesse, ses yeux devinrent bleus comme les siens, et ses pattes, posées sur le prêtre, restèrent d'un blanc pur. Les gants du Birman seraient le souvenir de ce geste.</p>
 <div class="std">
 <div><b>Les gants</b><span>Blancs, nets et symétriques aux pattes avant, arrêtés à l'articulation.</span></div>
-<div><b>Les éperons</b><span>Aux pattes arrière, le blanc remonte en pointe sous le talon.</span></div>
+<div><b>Les éperons</b><span>Aux pattes arrière, le blanc remonte en pointe vers le jarret.</span></div>
 <div><b>Les yeux</b><span>Ronds, d'un bleu saphir le plus profond possible.</span></div>
-<div><b>Les couleurs</b><span>Seal, blue, chocolat, lilac, red, cream, en tabby, tortie, silver ou smoke. <a href="../couleurs/">Voir toutes les couleurs</a>.</span></div>
+<div><b>Les couleurs</b><span>Plus d'une vingtaine, toujours en colourpoint. <a href="../couleurs/">Voir toutes les couleurs</a>.</span></div>
 </div></div></div>
-<p class="note">Ce texte est un point de départ : Magali l'enrichira de ses sources et de son expérience d'éleveuse.</p>
-</div></section>"""
-page("le-birman", "Le Sacré de Birmanie · Chatterie des Innamorati", corps, desc="Histoire, légende et standard du Sacré de Birmanie.")
+<nav class="sommaire" aria-label="Sommaire">{sommaire}</nav>
+<div class="articles">{articles}</div>
+</div></section>{faq_html}"""
+page("le-birman", "Sacré de Birmanie : histoire, caractère, standard et entretien du Birman", corps, image=P["oedipe9"], prio=0.9,
+     desc="Tout savoir sur le Sacré de Birmanie (Birman) : légende de Lao-Tsun, histoire de la race, standard, gants blancs, caractère, entretien, santé et différences avec le Ragdoll.",
+     ld=[{"@context": "https://schema.org", "@type": "Article", "headline": "Le Sacré de Birmanie, le chat aux gants blancs",
+          "image": SITE + "photos/" + P["oedipe9"] + ".jpg", "inLanguage": "fr", "author": {"@type": "Person", "name": "Magali Perrier"},
+          "publisher": {"@id": SITE + "#elevage"}, "mainEntityOfPage": SITE + "le-birman/"},
+         ariane(("Accueil", ""), ("Le Sacré de Birmanie", "le-birman/")), faq_ld])
 
 # ---------- Adopter ----------
 corps = f"""<section><div class="wrap">
-{tete("Adopter un chaton", "Ce que vous adoptez vraiment", "Nos chatons partent à 13 semaines minimum, après des mois de soins, de socialisation et de suivi vétérinaire.")}
+{tete("Adopter un chaton", "Ce que vous adoptez vraiment", "Nos chatons partent entre 15 semaines et 4 mois et demi, stérilisés, après des mois de soins, de socialisation et de suivi vétérinaire.")}
 <div class="adopt"><div>
 <p class="price">1 800 €</p><p class="price-note">Chaton de compagnie, tout compris</p>
-<ul class="incl"><li>Pedigree LOOF</li><li>Identification par puce électronique</li><li>Vaccins, vermifuges et certificat vétérinaire</li><li>Parents testés et suivis</li><li>Contrat de cession et document d'information</li><li>Album photo et suivi pour toute sa vie</li></ul>
+<ul class="incl"><li>Pedigree LOOF</li><li>Stérilisation déjà faite</li><li>Identification par puce électronique</li><li>Vaccins, vermifuges et certificat vétérinaire</li><li>Parents testés et suivis</li><li>Contrat de cession et document d'information</li><li>Album photo et suivi pour toute sa vie</li></ul>
 </div>
 <ol class="steps">
 <li><span class="n">i.</span><div><b>Nous faire connaissance</b><p>Vous nous écrivez. Nous parlons de votre foyer, de votre rythme et du chaton qui vous ressemble.</p></div></li>
 <li><span class="n">ii.</span><div><b>Rencontrer nos chats</b><p>Vous venez à la maison découvrir les parents et la vie de nos chats en famille.</p></div></li>
 <li><span class="n">iii.</span><div><b>Réserver</b><p>Un acompte réserve votre chaton. Vous recevez ses photos semaine après semaine.</p></div></li>
-<li><span class="n">iv.</span><div><b>L'accueillir</b><p>À 13 semaines, il rejoint votre foyer. Nous restons là pour vous, et ses photos continuent d'enrichir son album.</p></div></li>
+<li><span class="n">iv.</span><div><b>L'accueillir</b><p>Entre 15 semaines et 4 mois et demi, stérilisé, il rejoint votre foyer. Nous restons là pour vous, et ses photos continuent d'enrichir son album.</p></div></li>
 </ol></div>
 </div></section>
 <section class="verify" id="verifier"><div class="wrap">
@@ -116,7 +169,7 @@ corps = f"""<section><div class="wrap">
 <div><b>Un doute ? Écrivez-nous</b><p>Envoyez-nous le lien de l'annonce. Nous vous répondons et la signalons.</p></div>
 </div></div></section>
 <section class="center"><div class="wrap"><a class="btn" href="../contact/">Nous écrire</a></div></section>"""
-page("adopter", "Adopter un chaton · Chatterie des Innamorati", corps, desc="Adopter un chaton Sacré de Birmanie : prix, ce qui est inclus, déroulement.")
+page("adopter", "Adopter un chaton Sacré de Birmanie à Bordeaux · des Innamorati", corps, desc="Adopter un chaton Sacré de Birmanie LOOF près de Bordeaux : 1 800 €, stérilisé, pucé, vacciné, départ entre 15 semaines et 4 mois et demi. Déroulement et vérification des annonces.", ld=[ariane(("Accueil", ""), ("Adopter", "adopter/"))], prio=0.8)
 
 # ---------- Contact ----------
 corps = f"""<section><div class="wrap contact">
