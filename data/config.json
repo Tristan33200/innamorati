@@ -1,13 +1,71 @@
 {
   "_aide": "Classement des albums Facebook. Les numéros sont ceux des albums de l'export (champ fb du catalogue). Un album absent de ces listes est classé automatiquement : portée, exposition, ou chaton né chez nous.",
-  "reproductrices": ["148", "189", "143"],
-  "retraites_maison": ["204", "98", "2", "73"],
-  "anciennes_reproductrices": ["19", "86", "156", "0", "1", "4", "8", "13", "80", "82", "123", "130", "10"],
-  "anciens_males": ["74", "139", "78", "140", "72", "93"],
-  "males_sans_album": ["Crush Boom Bang"],
-  "males_amie": {"nom": "Cathy Viltange", "chats": ["Origan de Shweli-Sittang", "Bacckara's Bellamy", "Umami du Sanctuaire Divin", "Taran du Bas de Lock"]},
-  "chatons_disponibles": ["71", "67", "69", "70", "66", "64", "68"],
-  "masques": ["76", "77", "90", "94", "95", "96", "151", "183"],
+  "reproductrices": [
+    "148",
+    "189",
+    "143"
+  ],
+  "retraites_maison": [
+    "204",
+    "98",
+    "2",
+    "73"
+  ],
+  "anciennes_reproductrices": [
+    "19",
+    "86",
+    "156",
+    "0",
+    "1",
+    "4",
+    "8",
+    "13",
+    "80",
+    "82",
+    "123",
+    "130",
+    "10"
+  ],
+  "anciens_males": [
+    "74",
+    "139",
+    "78",
+    "140",
+    "72",
+    "93"
+  ],
+  "males_sans_album": [
+    "Crush Boom Bang",
+    "Eros"
+  ],
+  "males_amie": {
+    "nom": "Cathy Viltange",
+    "chats": [
+      "Origan de Shweli-Sittang",
+      "Bacckara's Bellamy",
+      "Umami du Sanctuaire Divin",
+      "Taran du Bas de Lock"
+    ]
+  },
+  "chatons_disponibles": [
+    "71",
+    "67",
+    "69",
+    "70",
+    "66",
+    "64",
+    "68"
+  ],
+  "masques": [
+    "76",
+    "77",
+    "90",
+    "94",
+    "95",
+    "96",
+    "151",
+    "183"
+  ],
   "notes": {
     "204": "Retraité, stérilisé, vit à la maison",
     "98": "Retraitée, stérilisée, vit à la maison",

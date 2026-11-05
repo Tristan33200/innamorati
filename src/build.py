@@ -293,7 +293,7 @@ page("chatons", "Nos chatons · Chatterie des Innamorati",
 def bloc(titre, texte, liste):
     return f'<div class="litter"><h2>{titre}</h2><span>{texte}</span></div><div class="grid g3">{"".join(carte("../", a) for a in liste)}</div>'
 cathy = CFG["males_amie"]
-males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}. Crush Boom Bang a aussi été l’un de nos reproducteurs.</p>'
+males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}. Crush Boom Bang et Eros ont aussi été nos reproducteurs.</p>'
 corps = (f'<section><div class="wrap">{tete("Nos chats", "Ceux qui font la maison", "Nos reproductrices actuelles, nos retraités qui vivent toujours avec nous, et tous ceux qui ont construit l’élevage.")}'
          + bloc("Nos reproductrices", "Elles vivent avec nous et donnent naissance à nos chatons", [BY[f] for f in CFG["reproductrices"]])
          + bloc("Nos retraités", "Stérilisés, ils profitent de la maison", [BY[f] for f in CFG["retraites_maison"]])
