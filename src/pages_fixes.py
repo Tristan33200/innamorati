@@ -65,7 +65,7 @@ corps = f"""
     <p class="label">Notre famille</p>
     <h2>Magali, Tristan, nos enfants et nos chats</h2>
     <p>Magali est l'éleveuse de la chatterie. Infirmière diplômée et directrice de crèche, elle consacre ses soirées et ses week-ends aux chats, avec un œil exercé sur leur santé.</p>
-    <p>Tristan, photographe, est présent à la maison en journée. Il veille sur les chats au quotidien, les accompagne en exposition et signe les photos de ce site.</p>
+    <p>Tristan, <a href="https://tristanperrier.fr" target="_blank" rel="noopener">photographe</a>, est présent à la maison en journée. Il veille sur les chats au quotidien, les accompagne en exposition et signe la plupart des photos de ce site. Les autres nous sont envoyées par les familles de nos chatons.</p>
     <p>Malgré le prix de nos chatons, l'élevage reste déficitaire. C'est un choix : santé, tests, expositions et temps passé avec chaque chaton passent avant tout.</p>
     <p class="sign">Magali &amp; Tristan</p>
   </div>
@@ -221,7 +221,7 @@ page("contact/merci", "Message envoyé · Chatterie des Innamorati", corps, prio
 corps = f"""<section><div class="wrap narrow">{tete("Mentions légales", "Mentions légales")}
 <div class="text legal">
 <p><b>Éditeur</b><br>Magali Perrier, entreprise individuelle, élevage de Sacrés de Birmanie sous l'affixe LOOF « des Innamorati ».<br>SIRET {SIRET} · Bordeaux (33).</p>
-<p><b>Photographies</b><br>Toutes les photographies sont la propriété de Tristan Perrier et de la Chatterie des Innamorati. Toute reproduction, en particulier dans des annonces de vente, est interdite et fera l'objet d'un signalement.</p>
+<p><b>Photographies</b><br>La plupart des photographies sont l'œuvre de <a href="https://tristanperrier.fr" target="_blank" rel="noopener">Tristan Perrier, photographe</a>. Les autres ont été prises par les adoptants de nos chatons, qui nous les ont confiées. Toutes sont publiées par la Chatterie des Innamorati. Toute reproduction, en particulier dans des annonces de vente, est interdite et fera l'objet d'un signalement.</p>
 <p><b>Hébergement</b><br>GitHub Pages, GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
 <p><b>Données personnelles</b><br>Ce site ne dépose aucun cookie de suivi. Les messages envoyés par le formulaire de contact transitent par le service FormSubmit jusqu'à notre boîte e-mail. Ils servent uniquement à vous répondre et ne sont jamais transmis à des tiers.</p>
 </div></div></section>"""

@@ -179,7 +179,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 <footer><div class="wrap">
   <a class="logo" href="{r}"><b>des Innamorati</b><small>Sacrés de Birmanie · Bordeaux</small></a>
   <nav class="foot">{nav(NAV_G + NAV_D + [("contact/", "Contact"), ("adopter/#verifier", "Vérifier une annonce"), ("mentions-legales/", "Mentions légales")])}</nav>
-  <p class="fine">Affixe LOOF « des Innamorati » · Magali Perrier, SIRET {SIRET}<br>Photographies © Tristan Perrier. Toute reproduction est interdite.</p>
+  <p class="fine">Affixe LOOF « des Innamorati » · Magali Perrier, SIRET {SIRET}<br>Photographies © <a href="https://tristanperrier.fr" target="_blank" rel="noopener">Tristan Perrier, photographe</a> et nos adoptants. Toute reproduction est interdite.</p>
 </div></footer>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo agrandie">
   <button type="button" class="lb-x" aria-label="Fermer">Fermer</button>
