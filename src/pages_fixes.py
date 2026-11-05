@@ -95,17 +95,18 @@ page("", "Sacré de Birmanie à Bordeaux · Chatterie des Innamorati, éleveur L
 r = "../"
 SECTIONS = [
  ("histoire", "Une histoire française", [
-  "Le Sacré de Birmanie est une race née en France. Selon le récit le plus souvent repris, un couple de chats sacrés aurait été envoyé de Birmanie vers la France à la fin des années 1910. Le mâle n'aurait pas survécu au voyage, mais la femelle, Sita, aurait donné naissance à une chatte, Poupée de Madalpour, souvent présentée comme l'ancêtre de la race.",
-  "Les premiers Birmans sont présentés en exposition dans les années 1920 et la race est reconnue en France en 1925. La Seconde Guerre mondiale la mène au bord de l'extinction : on raconte qu'il ne restait qu'un seul couple. Des éleveurs français la reconstruisent patiemment après la guerre. Le Birman est ensuite reconnu en Grande-Bretagne en 1966, puis aux États-Unis en 1967, avant de conquérir le monde entier."]),
+  "Les origines du Sacré de Birmanie restent assez obscures. Selon le récit transmis par la Fédération Féline Française, un couple de chats dérobé au temple de Lao-Tsun aurait gagné la France en 1920, à bord du yacht d'un millionnaire américain. Le mâle mourut pendant la traversée, mais la femelle, Sita, était déjà pleine.",
+  "En 1926, une femelle seal point, Poupée de Maldapour, est présentée à l'exposition de Paris organisée par le Cat Club de France et de Belgique. Elle est la première Birmane inscrite. D'autres hypothèses existent : l'éleveuse Simone Poirier, de la chatterie de Crespières, pensait que la race était née du croisement d'un Siamois ganté de blanc et d'un chat à poil long.",
+  "Après la Seconde Guerre mondiale, il ne restait qu'un seul couple, Orloff et Xéna de Kaaba. D'après les livres d'origines, tous les Birmans d'aujourd'hui descendent d'eux. Depuis plus de soixante-dix ans, la race a gardé les mêmes traits distinctifs."]),
  ("physique", "Le physique du Birman", [
-  "Le Birman est un chat de taille moyenne à grande, solide et bien charpenté. Une femelle pèse en général de 3 à 5 kg, un mâle de 5 à 7 kg. Sa tête est large et arrondie, son nez légèrement busqué, ses oreilles moyennes.",
-  "Son poil mi-long est soyeux et forme une collerette autour du cou. Sa queue est en panache. Comme tous les colourpoint, il a le corps clair et les extrémités colorées : masque, oreilles, pattes et queue. Il lui faut deux à trois ans pour atteindre sa pleine maturité."]),
+  "Le Birman est un chat massif, au corps allongé, porté par des pattes courtes et fortes. Sa tête est puissante, avec des joues pleines et rondes et un front légèrement bombé. Son nez court a un léger profil romain : ni droit comme celui du Siamois, ni « stoppé » comme celui du Persan. Ses grands yeux ronds ou légèrement ovales sont du bleu le plus intense possible.",
+  "Sa robe soyeuse est très longue sur le dos et les flancs. Courte sur la face, elle s'allonge sur les joues en une collerette abondante. Le corps est très clair, couleur coquille d'œuf, le dos beige doré, le ventre blanc cassé, et les extrémités sont plus foncées. Sa queue, en panache, est souvent portée haute."]),
  ("caractere", "Son caractère", [
-  "Le Birman est doux, calme et très sociable. Il suit ses humains de pièce en pièce, aime les câlins sans être envahissant, et parle d'une voix discrète. Il s'entend bien avec les enfants et cohabite volontiers avec d'autres chats ou un chien bien élevé.",
-  "C'est un chat d'intérieur idéal, qui se plaît très bien en appartement. Il supporte mal la solitude prolongée : si la maison est vide toute la journée, deux chats sont souvent plus heureux qu'un seul."]),
+  "Calme et posé sans être inactif, le Birman est très joueur : il n'est pas rare qu'il apporte sa plume pour réclamer une partie. C'est un vrai « chat-chien », qui suit ses humains partout et n'aime pas les portes fermées. Il parle peu, d'une voix douce, et il est sensible à l'humeur de sa famille.",
+  "Il adore les enfants, s'entend bien avec les chiens et voyage facilement tant qu'il est avec les siens. Il vit très bien en appartement, et profite volontiers d'un jardin pour chasser ou se dorer au soleil."]),
  ("entretien", "Entretien et santé", [
-  "Son poil n'a pas de sous-poil laineux et s'emmêle peu. Un brossage par semaine suffit, un peu plus pendant la mue du printemps.",
-  "Le Birman est une race robuste, qui vit en moyenne de 12 à 16 ans. Un éleveur sérieux suit la santé de ses reproducteurs avec son vétérinaire et connaît leur groupe sanguin, car le groupe B est plus fréquent chez le Birman que chez la plupart des autres races."]),
+  "Sa fourrure soyeuse s'emmêle peu. Un brossage par semaine suffit à retirer les poils morts, et c'est aussi un joli moment de complicité.",
+  "Le Birman est une race robuste. Chez un éleveur sérieux, les reproducteurs sont suivis avec le vétérinaire, et la sélection veille à préserver la santé autant que la beauté."]),
  ("differences", "Birman, Ragdoll ou Siamois ?", [
   "On confond souvent ces trois races aux yeux bleus. Le Siamois a le poil court et un corps fin et élancé. Le Ragdoll est plus grand et plus lourd, et ses pattes ne sont pas toujours blanches.",
   "Le Birman se reconnaît à coup sûr à ses quatre gants blancs, nets et symétriques, et à ses éperons blancs qui remontent à l'arrière des pattes postérieures."]),
@@ -117,9 +118,10 @@ sommaire = "".join(f'<a href="#{i}">{t}</a>' for i, t, _ in SECTIONS)
 articles = "".join(f'<section class="art" id="{i}"><h2>{t}</h2>' + "".join(f"<p>{x}</p>" for x in ps) + "</section>" for i, t, ps in SECTIONS)
 faq_html, faq_ld = faq("Le Sacré de Birmanie en questions", [
     ("Quelle est la différence entre Sacré de Birmanie et Birman ?", "Aucune : c'est la même race. Sacré de Birmanie est son nom français, Birman son nom international. On dit aussi simplement « Birman » en France."),
-    ("Combien de temps vit un Sacré de Birmanie ?", "Un Birman vit en moyenne de 12 à 16 ans, parfois davantage, s'il est bien suivi par son vétérinaire et vit à l'intérieur."),
-    ("Le Sacré de Birmanie perd-il beaucoup ses poils ?", "Moins que son poil mi-long le laisse penser. Sans sous-poil laineux, il s'emmêle peu et un brossage hebdomadaire suffit. La mue est plus marquée au printemps."),
-    ("Un Birman peut-il vivre en appartement ?", "Oui, très bien. Calme et attaché à sa famille, il n'a pas besoin d'extérieur. Il faut surtout lui offrir de la compagnie, des jeux et un arbre à chat."),
+    ("D'où vient le Sacré de Birmanie ?", "Malgré son nom et sa légende birmane, c'est une race française. Les premiers Birmans sont présentés à Paris dans les années 1920, et tous les Birmans actuels descendent d'Orloff et Xéna de Kaaba, le seul couple qui restait après la Seconde Guerre mondiale."),
+    ("Combien de temps vit un Sacré de Birmanie ?", "Le Birman est une race robuste. Bien suivi par son vétérinaire et vivant à l'intérieur, il partage souvent la vie de sa famille pendant de longues années, couramment plus de quinze ans."),
+    ("Le Sacré de Birmanie perd-il beaucoup ses poils ?", "Moins que son poil mi-long le laisse penser. Sa fourrure soyeuse s'emmêle peu et un brossage par semaine suffit à retirer les poils morts."),
+    ("Un Birman peut-il vivre en appartement ?", "Oui, il s'adapte très bien à la vie en appartement. Très attaché à sa famille et joueur, il a surtout besoin de compagnie et de jeux. S'il a un jardin, il en profite pour chasser et se dorer au soleil."),
     ("Mâle ou femelle : lequel choisir ?", "Une fois stérilisés, les deux font d'excellents compagnons. Le mâle est souvent plus grand et très câlin, la femelle un peu plus indépendante. Le caractère individuel compte davantage que le sexe."),
     ("Combien coûte un chaton Sacré de Birmanie ?", 'Chez nous, un chaton coûte 1 800 €, stérilisé, pucé, vacciné et inscrit au LOOF. Le détail est sur la page <a href="../adopter/">Adopter</a>.'),
 ])
@@ -129,16 +131,17 @@ corps = f"""<section><div class="wrap">
 <div class="text">
 <p class="label">La légende</p>
 <h2 class="h-art">Le temple de Lao-Tsun</h2>
-<p>On raconte qu'au temple de Lao-Tsun, en Birmanie, vivait le vieux prêtre Mun-Ha et son chat Sinh. Une nuit, des pillards attaquèrent le temple et Mun-Ha mourut devant la statue de Tsun-Kyan-Kse, la déesse aux yeux de saphir.</p>
+<p>On raconte que le temple de Lao-Tsun, « le temple des temples », se dressait dans les hautes montagnes. Le vieux prêtre Mun-Ha y vivait avec Sinh, un chat blanc. Une nuit, des pillards attaquèrent le temple et Mun-Ha mourut devant la statue de Tsun-Kyan-Kse, la déesse aux yeux de saphir.</p>
 <p>Sinh posa alors ses pattes sur son maître. Sa robe prit les reflets dorés de la déesse, ses yeux devinrent bleus comme les siens, et ses pattes, posées sur le prêtre, restèrent d'un blanc pur. Les gants du Birman seraient le souvenir de ce geste.</p>
 <div class="std">
-<div><b>Les gants</b><span>Blancs, nets et symétriques aux pattes avant, arrêtés à l'articulation.</span></div>
-<div><b>Les éperons</b><span>Aux pattes arrière, le blanc remonte en pointe vers le jarret.</span></div>
-<div><b>Les yeux</b><span>Ronds, d'un bleu saphir le plus profond possible.</span></div>
-<div><b>Les couleurs</b><span>Plus d'une vingtaine, toujours en colourpoint. <a href="../couleurs/">Voir toutes les couleurs</a>.</span></div>
+<div><b>Les gants</b><span>D'un blanc absolument pur. Ils s'arrêtent entre la base des doigts et l'articulation, sans jamais la dépasser.</span></div>
+<div><b>Les éperons</b><span>Aux pattes arrière, le blanc forme une pointe sous le pied. Leur absence est éliminatoire en exposition.</span></div>
+<div><b>Les yeux</b><span>Grands, ronds ou légèrement ovales, du bleu le plus intense possible.</span></div>
+<div><b>Les couleurs</b><span>Quarante couleurs reconnues, toujours en colourpoint. <a href="../couleurs/">Voir toutes les couleurs</a>.</span></div>
 </div></div></div>
 <nav class="sommaire" aria-label="Sommaire">{sommaire}</nav>
 <div class="articles">{articles}</div>
+<p class="note">Sources : <a href="https://www.fff-asso.fr/race/sacre-de-birmanie/" rel="noopener" target="_blank">Fédération Féline Française</a> et <a href="https://cfsbi.fr/portfolio-item/d-une-legende-a-la-realite/" rel="noopener" target="_blank">Club Français du Sacré de Birmanie (CFSBI)</a>.</p>
 </div></section>{faq_html}"""
 page("le-birman", "Sacré de Birmanie : histoire, caractère, standard et entretien du Birman", corps, image=P["oedipe9"], prio=0.9,
      desc="Tout savoir sur le Sacré de Birmanie (Birman) : légende de Lao-Tsun, histoire de la race, standard, gants blancs, caractère, entretien, santé et différences avec le Ragdoll.",

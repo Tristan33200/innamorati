@@ -396,7 +396,7 @@ page("couleurs", "Couleurs du Sacré de Birmanie : toutes les robes en photos ·
 <nav class="sommaire" aria-label="Familles de couleurs">{"".join(f'<a href="#{slug_robe(f["nom"])}">{e(f["nom"])}</a>' for f in COULEURS["familles"])}</nav>
 {"".join(b.replace('<div class="litter">', f'<div class="litter" id="{slug_robe(f["nom"])}">', 1) for b, f in zip(blocs, COULEURS["familles"]))}
 <p class="note">{COULEURS["note"]}</p></div></section>{faq_html}''',
-     desc=f"Les {nb_robes} couleurs du Sacré de Birmanie en photos : seal, blue, chocolat, lilac, red, cream point, tabby, tortie, silver et smoke. Génétique et reconnaissance de la couleur d'un chaton.",
+     desc=f"Les couleurs du Sacré de Birmanie en photos (40 reconnues) : seal, blue, chocolat, lilac, red, cream point, tabby, tortie, silver et smoke. Génétique et reconnaissance de la couleur d'un chaton.",
      ld=[faq_ld, ariane(("Accueil", ""), ("Couleurs", "couleurs/"))], prio=0.9)
 
 json.dump({"albums": len(albums), "chats": len(chats), "grandis": len(grandis), "portees": len(litters), "expos": len(expos)},

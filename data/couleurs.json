@@ -1,6 +1,6 @@
 {
-  "intro": "Le Sacré de Birmanie est un chat « colourpoint » : son corps reste clair et la couleur se concentre sur le masque, les oreilles, les pattes et la queue. Quelle que soit sa robe, il garde ses deux signatures : les yeux bleu saphir et les quatre pattes gantées de blanc. Voici toutes ses couleurs, illustrées par nos chats.",
-  "note": "Les couleurs sans photo ne sont pas encore nées chez nous. Nous les illustrerons bientôt avec la photo d’un confrère, avec son accord.",
+  "intro": "Le Sacré de Birmanie est un chat « colourpoint » : son corps reste clair et la couleur se concentre sur le masque, les oreilles, les pattes et la queue. Quelle que soit sa robe, il garde ses deux signatures : les yeux bleu saphir et les quatre pattes gantées de blanc. Le Birman compte 40 couleurs reconnues. Voici les principales, illustrées par nos chats.",
+  "note": "Les couleurs sans photo ne sont pas encore nées chez nous. Nous les illustrerons bientôt avec la photo d’un confrère, avec son accord. Sources : Fédération Féline Française et Club Français du Sacré de Birmanie (CFSBI).",
   "familles": [
     {
       "nom": "Les couleurs unies",
@@ -86,7 +86,7 @@
     },
     {
       "nom": "Les silver et smoke",
-      "texte": "Le sous-poil est blanc argenté, ce qui donne un reflet lumineux aux extrémités.",
+      "texte": "Reconnues par la FIFé en 2016, après le LOOF et la TICA. Notre amie Cathy Viltange fait partie des éleveuses qui ont introduit l’argent chez le Birman.",
       "couleurs": [
         {
           "robe": "Blue silver tabby point",
@@ -114,11 +114,11 @@
   "comprendre": [
     [
       "Une couleur qui dépend de la chaleur",
-      "Le gène colourpoint ne colore que les zones les plus froides du corps. C’est pourquoi les chatons naissent presque blancs et que leurs extrémités foncent au fil des semaines."
+      "Le gène colourpoint ne colore que les zones les plus froides du corps : masque, oreilles, pattes et queue. Le corps reste couleur coquille d’œuf, le dos beige doré. Les chatons naissent presque blancs et leurs extrémités foncent au fil des semaines."
     ],
     [
-      "Quatre couleurs de base",
-      "Le seal (brun noir) et le chocolat ont chacun leur version diluée : le blue pour le seal, le lilac pour le chocolat. Le red a lui aussi la sienne, le cream."
+      "Le seal, la couleur d’origine",
+      "Le seal est la couleur originelle du Birman, d’un contraste saisissant. Il se dilue en blue, le chocolat en lilac, le red en cream. La robe fonce avec les années."
     ],
     [
       "Tabby et tortie",
@@ -126,21 +126,21 @@
     ],
     [
       "Silver et smoke",
-      "Un gène inhibiteur blanchit la base du poil. Les extrémités prennent alors un reflet argenté, très lumineux sur les tabby."
+      "L’argent est une couleur dominante : il faut qu’au moins un parent soit argenté. Le smoke se reconnaît au blanc à la base des poils colorés et aux touffes blanches dans les oreilles."
     ]
   ],
   "faq": [
     [
       "Combien de couleurs existe-t-il chez le Sacré de Birmanie ?",
-      "Le Birman existe dans plus d’une vingtaine de couleurs, toujours en colourpoint : quatre familles (unies, tabby, tortie, silver et smoke) déclinées sur les bases seal, blue, chocolat, lilac, red et cream. Toutes gardent les yeux bleus et les gants blancs."
+      "Depuis la reconnaissance des silver tabby et des smoke par la FIFé, le 27 mai 2016, le Birman compte 40 couleurs. Toutes sont en colourpoint : unies, tabby, tortie, silver et smoke, sur les bases seal, blue, chocolat, lilac, red et cream. Toutes gardent les yeux bleus et les gants blancs."
     ],
     [
       "Quelle est la couleur la plus courante ?",
-      "Le seal point, extrémités brun foncé sur corps crème doré, est la couleur historique et la plus répandue. Viennent ensuite le blue point et les tabby."
+      "Le seal point, extrémités brun très foncé sur corps clair, est la couleur d’origine du Birman et la plus connue. Le blue point et les tabby sont aussi très répandus."
     ],
     [
       "Comment connaître la couleur d’un chaton Birman ?",
-      "Les chatons naissent presque blancs. Les extrémités se colorent en quelques jours puis s’affirment pendant les premières semaines. L’éleveur détermine la couleur grâce à celle des parents, puis l’inscrit au pedigree LOOF. La robe d’un Birman n’est définitive qu’à l’âge adulte, vers deux ans."
+      "Les chatons naissent presque blancs. Les extrémités se colorent en quelques jours puis s’affirment pendant les premières semaines. L’éleveur détermine la couleur grâce à celle des parents, puis l’inscrit au pedigree LOOF. Chez les smoke, la couleur peut prêter à confusion au début et ne devient nette que vers 4 à 6 mois."
     ],
     [
       "Un Birman mâle peut-il être tortie ?",
@@ -148,7 +148,11 @@
     ],
     [
       "La couleur change-t-elle avec l’âge ?",
-      "Oui, le corps d’un Birman fonce légèrement en vieillissant et ses extrémités gagnent en intensité. Les zones plus froides foncent aussi davantage en hiver."
+      "Oui, la robe d’un Birman fonce avec les années, surtout chez les seal, et ses extrémités gagnent en intensité. Les zones les plus froides du corps peuvent aussi foncer davantage en hiver."
+    ],
+    [
+      "Qu’est-ce qu’un Birman silver ou smoke ?",
+      "C’est un Birman porteur du gène argent, dominant. Le silver tabby a des rayures sur fond argenté. Le smoke a la base des poils colorés blanche, beaucoup de poils blancs dans les oreilles et parfois de légères marques tabby sur le masque. Ces couleurs sont issues de chats Persans chinchilla, puis sélectionnées pendant une dizaine de générations."
     ]
   ]
 }
