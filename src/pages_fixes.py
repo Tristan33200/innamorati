@@ -35,6 +35,7 @@ corps = f"""
     <a class="door" href="couleurs/">{grand(r, P["regard"], "Birman aux yeux bleus")}<h3>Les couleurs</h3><span class="label">Toutes les robes du Birman</span></a>
   </div>
 </div></section>
+<div class="ribbon" aria-hidden="true"><div class="track"><span>Le regard saphir</span><i>✦</i><span>Les gants blancs</span><i>✦</i><span>La légende de Lao-Tsun</span><i>✦</i><span>des Innamorati</span><i>✦</i><span>Le regard saphir</span></div></div>
 <div class="band">{grand(r, P["oedipe"], "Œdipe des Innamorati et ses trophées")}
   <blockquote><p>« Nous ne cherchons pas à gagner de l'argent. Nous voulons donner une belle vie à nos chats. »</p><cite>Magali &amp; Tristan</cite></blockquote></div>
 <section><div class="wrap">

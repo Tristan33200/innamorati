@@ -148,6 +148,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="{r}assets/style.css">
+<link rel="stylesheet" href="{r}assets/motion.css">
 <link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
