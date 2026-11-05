@@ -196,7 +196,7 @@ Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel=
 <div class="f2"><label><span>Téléphone <small>· facultatif</small></span><input type="tel" name="Téléphone" autocomplete="tel"></label>
 <label>Ville<input name="Ville" required autocomplete="address-level2"></label></div>
 <label>Votre projet<select name="Projet" required>
-<option value="">Choisir</option><option>Adopter un chaton disponible</option><option>Réserver sur une prochaine portée</option><option>Vérifier une annonce</option><option>Autre question</option></select></label>
+<option value="">Choisir</option><option>Entrer dans notre liste de pré-réservation</option><option>Adopter un chaton</option><option>Adopter un retraité</option><option>Autre question</option></select></label>
 <label><span>Chaton qui vous intéresse <small>· facultatif</small></span><select name="Chaton" id="f-chaton"><option value="">Aucun en particulier</option>{chatons_opts}</select></label>
 <label>Votre message<textarea name="Message" rows="6" required placeholder="Votre foyer, vos autres animaux, vos questions…"></textarea></label>
 <button class="btn" type="submit">Envoyer</button>
@@ -208,7 +208,7 @@ Facebook : <a href="https://www.facebook.com/desinnamorati" target="_blank" rel=
   var c = new URLSearchParams(location.search).get("chaton"), s = document.getElementById("f-chaton");
   if (c && s) {{ var o = Array.prototype.find.call(s.options, function (x) {{ return x.text === c; }});
     if (!o) {{ o = new Option(c, c); s.add(o); }} s.value = o.value;
-    var p = document.querySelector('select[name="Projet"]'); if (p) p.selectedIndex = 1; }}
+    var p = document.querySelector('select[name="Projet"]'); if (p) p.value = "Adopter un chaton"; }}
 }})();
 </script>"""
 page("contact", "Contact · Chatterie des Innamorati, Sacrés de Birmanie à Bordeaux", corps, prio=0.6,
