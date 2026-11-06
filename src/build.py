@@ -5,7 +5,7 @@ Sources : data/catalogue.json (export Facebook), data/config.json (classement),
 photos/ (versions web filigranées) et src/assets/.
 Usage : python3 src/build.py
 """
-import html, json, os, re, shutil, datetime
+import html, json, os, re, shutil, datetime, posixpath
 from collections import defaultdict, OrderedDict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,7 +16,8 @@ _AJ = json.load(open(os.path.join(ROOT, "data/photos_ajoutees.json"), encoding="
 for _a in CAT:
     _a["photos"] = _a["photos"] + _AJ.get(_a["fb"], [])
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
-COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
+COULEURS_FR = COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
+COULEURS_EN = json.load(open(os.path.join(ROOT, "data/couleurs_en.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
 EMAIL = "innamoraticats@tristanperrier.fr"
 # Adresse publique du site : le domaine du fichier CNAME s'il existe, sinon GitHub Pages
@@ -24,12 +25,93 @@ _cname = os.path.join(ROOT, "docs", "CNAME")
 SITE = ("https://" + open(_cname).read().strip() + "/") if os.path.exists(_cname) else "https://tristan33200.github.io/innamorati/"
 PLAN = []  # pages pour sitemap.xml : (chemin, priorité)
 e = html.escape
-MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+MOIS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+MOIS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+MOIS = MOIS_FR
+
+# ---------- Langues ----------
+# Le site est généré deux fois : en français à la racine, en anglais sous /en/ avec des adresses en anglais.
+L = "fr"
+
+
+def T(fr, en):
+    """Texte dans la langue de la page en cours."""
+    return en if L == "en" else fr
+
+
+CHEMINS_EN = {"chatons": "kittens", "nos-chats": "our-cats", "portees": "litters", "ils-ont-grandi": "grown-up",
+              "expositions": "cat-shows", "le-birman": "birman-cat", "couleurs": "birman-cat-colors", "adopter": "adopt",
+              "contact": "contact", "mentions-legales": "legal-notice", "chat": "cat", "merci": "thank-you"}
+
+
+def chemin_en(c):
+    """Adresse anglaise d'une page : "chat/x/" devient "en/cat/x/"."""
+    parts = [x for x in c.split("/") if x]
+    parts = [CHEMINS_EN.get(p, p) if i == 0 or parts[0] == "contact" else p for i, p in enumerate(parts)]
+    return "en/" + "".join(p + "/" for p in parts)
+
+
+def chemin_l(c):
+    """Chemin d'une page (donné en français) dans la langue en cours, avec / final."""
+    c = c.strip("/") + "/" if c.strip("/") else ""
+    return chemin_en(c) if L == "en" else c
+
+
+def lien(c):
+    """Adresse complète d'une page (chemin français) dans la langue en cours."""
+    return SITE + chemin_l(c)
 
 
 def date_fr(iso, jour=True):
     d = datetime.date.fromisoformat(iso)
+    if L == "en":
+        return f"{MOIS_EN[d.month-1]} {d.day}, {d.year}" if jour else f"{MOIS_EN[d.month-1]} {d.year}"
     return f"{d.day} {MOIS[d.month-1]} {d.year}" if jour else f"{MOIS[d.month-1]} {d.year}"
+
+
+def rb(robe):
+    """Nom de la robe affiché : « Chocolat » devient « Chocolate » en anglais."""
+    return re.sub(r"\b([Cc])hocolat\b", r"\1hocolate", robe) if L == "en" else robe
+
+
+STATUTS_EN = {"adopté": "adopted", "adoptée": "adopted", "reste à la maison": "stays with us", "reste à la mais": "stays with us",
+              "réservé": "reserved", "réservée": "reserved", "option de l'élevage": "breeder's option", "option": "breeder's option",
+              "adoptée retraitée": "retired and adopted", "retraitée à 2 ans et 3 mois": "retired at 2 years and 3 months",
+              "pré-réservée": "pre-reserved", "pré-réservé": "pre-reserved", "à adopter": "available", "à réserver": "available",
+              "Championne Internationale FIFe": "FIFe International Champion"}
+NOTES_EN = {"Retraitée en famille": "Retired to a loving family", "Retraitée, stérilisée, vit à la maison": "Retired, spayed, lives with us",
+            "Retraité, stérilisé, vit à la maison": "Retired, neutered, lives with us",
+            "Retraitée, stérilisée, rejoint bientôt sa famille adoptive": "Retired, spayed, soon joining her adoptive family"}
+
+
+def titre_en(t):
+    m = re.match(r"^Portées? (.+?) (\d{4})$", t)
+    if m: return f'{m.group(1).replace(" et ", " and ")} litter{"s" if t.startswith("Portées") else ""}, {m.group(2)}'
+    t = re.sub(r"^(\d{4}-\d\d-\d\d) à (\d+)", r"\1 & \2", t)
+    for fr, en in (("Exposition de beauté du chat", "Cat show"), ("Exposition de beauté chats", "Cat show"), ("Exposition de beauté féline", "Cat show"),
+                   ("Exposition International à", "International cat show in"), ("Exposition Paris Animal Show", "Paris Animal Show"),
+                   ("Exposition à ", "Cat show in "), ("exposition Rome", "Cat show, Rome"), ("Salon du chat", "Cat show"),
+                   ("(jour ", "(day "), ("Italie", "Italy"), ("Espagne", "Spain")):
+        t = t.replace(fr, en)
+    return t
+
+
+def langue(l):
+    """Bascule les textes des albums (sexe, statut, notes, titres de portée) dans la langue l."""
+    global L, MOIS, COULEURS
+    L = l
+    MOIS = MOIS_EN if l == "en" else MOIS_FR
+    COULEURS = COULEURS_EN if l == "en" else COULEURS_FR
+    for a in albums:
+        f = a.setdefault("fr", {k: a[k] for k in ("sexe", "statut", "note", "titre")})
+        a["statut_fr"] = f["statut"]
+        if l == "fr":
+            a.update(f)
+        else:
+            a["sexe"] = {"Mâle": "Male", "Femelle": "Female"}.get(f["sexe"], f["sexe"])
+            a["statut"] = STATUTS_EN.get(f["statut"], f["statut"])
+            a["note"] = NOTES_EN.get(f["note"], f["note"])
+            a["titre"] = titre_en(f["titre"]) if a["type"] in ("portee", "expo") else f["titre"]
 
 
 # ---------- Lecture des albums ----------
@@ -128,6 +210,7 @@ PALM = {}
 for _r in json.load(open(os.path.join(ROOT, "data/palmares.json"), encoding="utf-8")):
     if _r["fb"]: PALM.setdefault(_r["fb"], []).append(_r)
 MOIS_C = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
+MOIS_C_EN = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
 
 
 def palmares(fb):
@@ -136,7 +219,8 @@ def palmares(fb):
     wk = {(x["lieu"], x["date"][:7]) for x in lst}
     nbis = sum(1 for x in lst if "BIS" in x["res"] or "BEST" in x["res"])
     nbob = sum(1 for x in lst if "BOB" in x["res"])
-    resume = f'{len(wk)} exposition{"s" if len(wk) > 1 else ""} · {len(lst)} jugement{"s" if len(lst) > 1 else ""}'
+    resume = T(f'{len(wk)} exposition{"s" if len(wk) > 1 else ""} · {len(lst)} jugement{"s" if len(lst) > 1 else ""}',
+               f'{len(wk)} show{"s" if len(wk) > 1 else ""} · {len(lst)} judging{"s" if len(lst) > 1 else ""}')
     if nbis: resume += f' · {nbis} Best in Show'
     if nbob: resume += f' · {nbob} Best of Best'
     ans = OrderedDict()
@@ -145,11 +229,13 @@ def palmares(fb):
         t = e(t).replace(" + ", " · ")
         return re.sub(r"\b(BIS|BEST(?: x?\d)?|BOB(?: [0-9]\S*)?)", r"<b>\1</b>", t)
     blocs = "".join(f'<div class="pl-an"><h3>{an}</h3><ul>' + "".join(
-        f'<li><time datetime="{x["date"]}">{int(x["date"][8:])} {MOIS_C[int(x["date"][5:7]) - 1]}</time><span>{e(x["lieu"])}</span><em>{res(x["res"])}</em></li>' for x in l)
+        f'<li><time datetime="{x["date"]}">{T(str(int(x["date"][8:])) + " " + MOIS_C[int(x["date"][5:7]) - 1], MOIS_C_EN[int(x["date"][5:7]) - 1] + " " + str(int(x["date"][8:])))}</time><span>{e(x["lieu"])}</span><em>{res(x["res"])}</em></li>' for x in l)
         + '</ul></div>' for an, l in ans.items())
-    return (f'<div class="pl"><div class="litter"><h2>Palmarès</h2><span>{resume}</span></div><div class="pl-ans">{blocs}</div>'
-            '<p class="abbr pl-abbr">EXC Excellent (classement) · CAC, CACIB, CAGCIB, CACS certificats de champion, champion international, grand champion international et suprême · CAP, CAPIB, CAGPIB, CAPS équivalents pour les chats stérilisés · '
-            'BIV meilleur de la variété · NOM nommé pour le Best in Show · BIS Best in Show · BOB Best of Best, le meilleur de toute l’exposition</p></div>')
+    return (f'<div class="pl"><div class="litter"><h2>{T("Palmarès", "Show results")}</h2><span>{resume}</span></div><div class="pl-ans">{blocs}</div>'
+            + T('<p class="abbr pl-abbr">EXC Excellent (classement) · CAC, CACIB, CAGCIB, CACS certificats de champion, champion international, grand champion international et suprême · CAP, CAPIB, CAGPIB, CAPS équivalents pour les chats stérilisés · '
+            'BIV meilleur de la variété · NOM nommé pour le Best in Show · BIS Best in Show · BOB Best of Best, le meilleur de toute l’exposition</p></div>',
+            '<p class="abbr pl-abbr">EXC Excellent (placing) · CAC, CACIB, CAGCIB, CACS certificates for Champion, International Champion, Grand International Champion and Supreme Champion · CAP, CAPIB, CAGPIB, CAPS the same for neutered cats · '
+            'BIV Best in Variety · NOM nominated for Best in Show · BIS Best in Show · BOB Best of Best, the best cat of the whole show</p></div>'))
 NOMS = {}
 for a in chats:
     NOMS[a["titre"].lower()] = a
@@ -167,8 +253,28 @@ def lien_chat(nom, r):
 
 
 # ---------- Gabarit ----------
-NAV_G = [("chatons/", "Chatons"), ("nos-chats/", "Nos chats"), ("portees/", "Portées"), ("ils-ont-grandi/", "Ils ont grandi")]
-NAV_D = [("expositions/", "Expositions"), ("le-birman/", "Le Birman"), ("couleurs/", "Couleurs"), ("adopter/", "Adopter")]
+NAV_G = [("chatons/", "Chatons", "Kittens"), ("nos-chats/", "Nos chats", "Our cats"), ("portees/", "Portées", "Litters"), ("ils-ont-grandi/", "Ils ont grandi", "All grown up")]
+NAV_D = [("expositions/", "Expositions", "Cat shows"), ("le-birman/", "Le Birman", "The Birman"), ("couleurs/", "Couleurs", "Colors"), ("adopter/", "Adopter", "Adopt")]
+NAV_PLUS = [("contact/", "Contact", "Contact")]
+NAV_PIED = [("adopter/#verifier", "Vérifier une annonce", "Check an ad"), ("mentions-legales/", "Mentions légales", "Legal notice")]
+
+
+def vers_en(doc, chemin):
+    """Réécrit les liens relatifs d'une page française pour sa version anglaise (adresses absolues sous /en/)."""
+    base = "/" + (chemin.strip("/") + "/" if chemin.strip("/") else "")
+
+    def un(u):
+        if re.match(r"^(https?:|mailto:|tel:|data:|#|//|/)", u): return u
+        m = re.match(r"^([^?#]*)(.*)$", u)
+        p, reste = m.groups()
+        cible = posixpath.normpath(posixpath.join(base, p)) if p else base.rstrip("/") or "/"
+        if cible.startswith(("/photos/", "/assets/")) or re.search(r"\.(jpg|png|svg|css|js|txt|xml|pdf)$", cible):
+            return cible + reste
+        return "/" + chemin_en(cible.strip("/")) + reste
+
+    doc = re.sub(r'(href|src)="([^"]*)"', lambda m: f'{m.group(1)}="{un(m.group(2))}"', doc)
+    return re.sub(r'srcset="([^"]*)"', lambda m: 'srcset="' + ", ".join(
+        " ".join([un(x.strip().split(" ")[0])] + x.strip().split(" ")[1:]) for x in m.group(1).split(",")) + '"', doc)
 
 
 def taille_jpeg(chemin):
@@ -191,11 +297,21 @@ def taille_jpeg(chemin):
 def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None, prio=None, og_type="website", image_alt="", indexer=True):
     profondeur = len([x for x in chemin.split("/") if x])
     r = "../" * profondeur
-    url = SITE + (chemin.strip("/") + "/" if chemin else "")
-    desc = desc or "Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux."
-    if indexer: PLAN.append((url, prio if prio is not None else (0.5 if profondeur > 1 else 0.7)))
+    url_fr = SITE + (chemin.strip("/") + "/" if chemin else "")
+    url_en = SITE + chemin_en(chemin)
+    url = url_en if L == "en" else url_fr
+    desc = desc or T("Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux.", "Chatterie des Innamorati, a family-run Birman cat cattery in Bordeaux, France.")
+    if indexer: PLAN.append((url, prio if prio is not None else (0.5 if profondeur > 1 else 0.7), url_fr, url_en))
     blocs_ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>\n' for x in (ld or []))
-    nav = lambda items: "".join(f'<a href="{r}{u}">{t}</a>' for u, t in items)
+    nav = lambda items: "".join(f'<a href="{r}{u}">{T(f, en)}</a>' for u, f, en in items)
+    autre = ("/" + chemin.strip("/") + "/" if chemin.strip("/") else "/") if L == "en" else "/" + chemin_en(chemin)
+    bascule = T(f'<a class="lang" href="{autre}" hreflang="en" lang="en" title="English version">EN</a>',
+                f'<a class="lang" href="{autre}" hreflang="fr" lang="fr" title="Version française">FR</a>')
+    locale = T('<meta property="og:locale" content="fr_FR"><meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="en_GB">',
+               '<meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="en_GB"><meta property="og:locale:alternate" content="fr_FR">')
+    alternates = (f'<link rel="alternate" hreflang="fr" href="{url_fr}"><link rel="alternate" hreflang="en" href="{url_en}">'
+                  f'<link rel="alternate" hreflang="x-default" href="{url_fr}">') if indexer else ""
+    tagline = T("Sacrés de Birmanie · Bordeaux", "Birman cats · Bordeaux, France")
     entete = "top over" if sombre_entete else "top"
     meta_img = ""
     image = image or "2084329241748221"  # par défaut : le regard saphir de l'accueil
@@ -207,16 +323,16 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
                     + f'<meta property="og:image:alt" content="{alt}"><meta name="twitter:image" content="{SITE}photos/{image}.jpg"><meta name="twitter:image:alt" content="{alt}">\n')
     robots = "index, follow, max-image-preview:large, max-snippet:-1" if indexer else "noindex, follow"
     doc = f"""<!doctype html>
-<html lang="fr">
+<html lang="{L}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(titre)}</title>
 <meta name="description" content="{e(desc)}">
 <meta name="robots" content="{robots}">
-<link rel="canonical" href="{url}">
+<link rel="canonical" href="{url}">{alternates}
 <meta name="author" content="Chatterie des Innamorati"><meta name="theme-color" content="#161514">
-<meta property="og:type" content="{og_type}"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Chatterie des Innamorati">
+<meta property="og:type" content="{og_type}">{locale}<meta property="og:site_name" content="Chatterie des Innamorati">
 <meta property="og:title" content="{e(titre)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
 {meta_img}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(titre)}"><meta name="twitter:description" content="{e(desc)}">
 {blocs_ld}
@@ -228,37 +344,42 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 </head>
 <body>
 <header class="{entete}"><div class="wrap">
-  <nav class="g" aria-label="Rubriques">{nav(NAV_G)}</nav>
-  <a class="logo" href="{r}"><b>des Innamorati</b><small>Sacrés de Birmanie · Bordeaux</small></a>
-  <nav class="d" aria-label="Rubriques">{nav(NAV_D)}</nav>
+  <nav class="g" aria-label="{T("Rubriques", "Sections")}">{nav(NAV_G)}</nav>
+  <a class="logo" href="{r}"><b>des Innamorati</b><small>{tagline}</small></a>
+  <nav class="d" aria-label="{T("Rubriques", "Sections")}">{nav(NAV_D)}</nav>
   <button class="burger" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+  {bascule}
 </div>
-<nav class="menu" id="menu" hidden aria-label="Menu">{nav(NAV_G + NAV_D + [("contact/", "Contact")])}</nav>
+<nav class="menu" id="menu" hidden aria-label="Menu">{nav(NAV_G + NAV_D + NAV_PLUS)}{bascule.replace('class="lang"', 'class="lang-m"').replace(">EN<", ">English<").replace(">FR<", ">Français<")}</nav>
 </header>
 <main>
 {corps}
 </main>
 <footer><div class="wrap">
-  <a class="logo" href="{r}"><b>des Innamorati</b><small>Sacrés de Birmanie · Bordeaux</small></a>
-  <nav class="foot">{nav(NAV_G + NAV_D + [("contact/", "Contact"), ("adopter/#verifier", "Vérifier une annonce"), ("mentions-legales/", "Mentions légales")])}</nav>
-  <p class="fine">Affixe LOOF « des Innamorati » · Magali Perrier, SIRET {SIRET}<br>Photographies © <a href="https://tristanperrier.fr" target="_blank" rel="noopener">Tristan Perrier</a>. Toute reproduction est interdite.</p>
+  <a class="logo" href="{r}"><b>des Innamorati</b><small>{tagline}</small></a>
+  <nav class="foot">{nav(NAV_G + NAV_D + NAV_PLUS + NAV_PIED)}{bascule.replace('class="lang"', '').replace(">EN<", ">English<").replace(">FR<", ">Français<")}</nav>
+  <p class="fine">{T("Affixe LOOF « des Innamorati »", "LOOF-registered cattery name « des Innamorati »")} · Magali Perrier, SIRET {SIRET}<br>{T("Photographies", "Photographs")} © <a href="https://tristanperrier.fr" target="_blank" rel="noopener">Tristan Perrier</a>. {T("Toute reproduction est interdite.", "All rights reserved, no reproduction.")}</p>
 </div></footer>
-<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo agrandie">
-  <button type="button" class="lb-x" aria-label="Fermer">Fermer</button>
-  <button type="button" class="lb-p" aria-label="Photo précédente">‹</button>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="{T("Photo agrandie", "Enlarged photo")}">
+  <button type="button" class="lb-x" aria-label="{T("Fermer", "Close")}">{T("Fermer", "Close")}</button>
+  <button type="button" class="lb-p" aria-label="{T("Photo précédente", "Previous photo")}">‹</button>
   <figure><div class="lb-img"><img alt=""></div><figcaption></figcaption></figure>
-  <button type="button" class="lb-n" aria-label="Photo suivante">›</button>
+  <button type="button" class="lb-n" aria-label="{T("Photo suivante", "Next photo")}">›</button>
 </div>
 <script src="{r}assets/site.js"></script>
 </body>
 </html>"""
+    if L == "en":
+        doc = vers_en(doc, chemin)
+        chemin = chemin_en(chemin).rstrip("/")
     dest = os.path.join(OUT, chemin, "index.html") if chemin else os.path.join(OUT, "index.html")
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     open(dest, "w", encoding="utf-8").write(doc)
 
 
-def faq(titre, items, label="Questions fréquentes"):
+def faq(titre, items, label=None):
     """Bloc de questions dépliables + données structurées FAQPage pour Google."""
+    label = label or T("Questions fréquentes", "Frequently asked questions")
     q = "".join(f"<details><summary>{e(a)}</summary><p>{b}</p></details>" for a, b in items)
     ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": a, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", b)}} for a, b in items]}
@@ -267,7 +388,7 @@ def faq(titre, items, label="Questions fréquentes"):
 
 def ariane(*etapes):
     return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u} for i, (n, u) in enumerate(etapes)]}
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": lien(u)} for i, (n, u) in enumerate(etapes)]}
 
 
 def slug_robe(t):
@@ -289,7 +410,7 @@ def carte(r, a, extra=""):
     lignes = []
     if a["titres"]: lignes.append(f'<span class="titles">{e(a["titres"])}</span>')
     lignes.append(f'<h3>{e(a["titre"])}</h3>')
-    infos = " · ".join(x for x in [a["sexe"], a["robe"].lower() if a["robe"] else ""] if x)
+    infos = " · ".join(x for x in [a["sexe"], rb(a["robe"]).lower() if a["robe"] else ""] if x)
     if infos: lignes.append(f'<span class="robe">{e(infos[0].upper() + infos[1:])}</span>')
     if a["note"]: lignes.append(f'<span class="robe">{e(a["note"])}</span>')
     lignes.append(extra)
@@ -301,6 +422,7 @@ def tete(label, titre, texte=""):
 
 
 def legende(a, p):
+    if L == "en": return date_fr(p["date"])  # légendes Facebook en français : seule la date en anglais
     leg = clean(p["legende"])
     if a["titre"].lower()[:12] in leg.lower() or leg == clean(a["description"]): leg = ""
     return date_fr(p["date"]) + (" · " + leg[:300].replace("\n", " ") if leg else "")
@@ -343,258 +465,17 @@ os.makedirs(OUT, exist_ok=True)
 shutil.copytree(os.path.join(ROOT, "src/assets"), os.path.join(OUT, "assets"))
 open(os.path.join(OUT, ".nojekyll"), "w").close()
 
-# ---------- Pages chat (une par album) ----------
-for a in chats + [x for x in albums if x["type"] == "portee"]:
-    r = "../../"
-    faits = []
-    if a["sexe"] or a["robe"]: faits.append(("Robe", " · ".join(x for x in [a["sexe"], a["robe"]] if x)))
-    if a["ne"]: faits.append(("Naissance", date_fr(a["ne"])))
-    if a["mere"]: faits.append(("Parents", f'{lien_chat(a["mere"], r)} × {lien_chat(a["pere"], r)}'))
-    if a["titres"]: faits.append(("Titres", e(a["titres"])))
-    statut = a["note"] or (a["statut"][:1].upper() + a["statut"][1:] if a["statut"] else "")
-    if statut: faits.append(("Statut", e(statut)))
-    faits.append(("Album", f'{len(a["photos"])} photos, de {date_fr(a["debut"], False)} à {date_fr(a["fin"], False)}'))
-    fhtml = "".join(f'<div><span class="label">{k}</span><span>{v}</span></div>' for k, v in faits)
-    rubrique = {"repro": ("Nos reproductrices", "nos-chats/"), "retraite": ("Nos retraités", "nos-chats/"), "ancienne": ("Nos anciennes reproductrices", "nos-chats/"),
-                "male": ("Nos anciens reproducteurs", "nos-chats/"), "chaton": ("Nos chatons", "chatons/"), "portee": ("Nos portées", "portees/"),
-                "grandi": ("Ils ont grandi", "ils-ont-grandi/")}[a["type"]]
-    sous = " · ".join(x for x in [a["sexe"], a["robe"]] if x) or f'{len(a["photos"])} photos'
-    corps = f"""{entete_album(r, a, a["titre"], f'<a href="{r}{rubrique[1]}">{rubrique[0]}</a>', e(sous))}
-<section class="album-page"><div class="wrap">
-<div class="head"><div class="facts">{fhtml}</div></div>
-{f'<p class="center" style="margin:-24px 0 56px"><a class="btn" href="{r}contact/?chaton={a["titre"].replace(" ", "+")}#formulaire">Ce chaton m\'intéresse</a></p>' if a["type"] == "chaton" and "à réserver" in (a["statut"] or "") else ""}
-</div>{film(r, a)}<div class="wrap">
-{galerie(r, a)}
-{palmares(a["fb"])}
-<p class="prot">Photos réduites et marquées. Elles appartiennent à la Chatterie des Innamorati et ne peuvent pas être reprises dans une annonce.</p>
-</div></section>"""
-    page(a["url"].rstrip("/"), f'{a["titre"]} · Chatterie des Innamorati', corps, sombre_entete=True,
-         desc=f'{a["titre"]}, Sacré de Birmanie de la Chatterie des Innamorati. {a["robe"]}.', image=a["cover"])
-
-# ---------- Portées (regroupement des chatons par parents et par année) ----------
-litters = OrderedDict()
-for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["mere"] and x["fb"] not in S("anciens_males"))], key=lambda x: x["debut"]):
-    if not a["mere"] and a["type"] not in ("grandi", "chaton"): continue
-    an = a["debut"][:4]
-    cle = (cle_nom(a["mere"]), cle_nom(a["pere"]), an) if a["mere"] else ("", "", an)
-    litters.setdefault(cle, []).append(a)
-portee_albums = [x for x in albums if x["type"] == "portee"]
-
-
-def album_portee(mere, an):
-    m = mere.split()[0].lower() if mere else ""
-    for p in portee_albums:
-        t = p["titre"].lower()
-        if an in t and m and m[:4] in t.replace("é", "e").replace("odysée", "odyssee"):
-            return p
-    return None
-
-
-litter_html = []
-for (mere, pere, an), kits in sorted(litters.items(), key=lambda kv: kv[1][0]["debut"], reverse=True):
-    k0 = kits[0]
-    titre = f'{lien_chat(k0["mere"], "../")} × {lien_chat(k0["pere"], "../")}' if k0["mere"] else f"Autres chatons de {an}"
-    pa = album_portee(k0["mere"], an[:4])
-    lien = f' · <a href="../{pa["url"]}">album de la portée</a>' if pa else ""
-    cartes = "".join(carte("../", k) for k in kits)
-    litter_html.append(f'<div class="litter"><h2>{titre}</h2><span>{(("Nés le " + date_fr(k0["ne"])) if k0["ne"] else date_fr(k0["debut"], False).capitalize())} · {len(kits)} chaton{"s" if len(kits) > 1 else ""}{lien}</span></div><div class="grid g4">{cartes}</div>')
-page("portees", "Nos portées · Chatterie des Innamorati",
-     f'<section><div class="wrap">{tete("Nos portées", "Toutes nos portées depuis 2016", "Chaque portée avec ses parents et ses chatons. Touchez un chaton pour ouvrir son album, du premier jour à l’âge adulte.")}{"".join(litter_html)}</div></section>',
-     desc="Toutes les portées de Sacrés de Birmanie nées à la Chatterie des Innamorati depuis 2016.")
-
-# ---------- Chatons disponibles ----------
-dispo = [BY[f] for f in CFG["chatons_disponibles"]]
-groupes = OrderedDict()
-for k in dispo: groupes.setdefault((cle_nom(k["mere"]), cle_nom(k["pere"])), []).append(k)
-blocs = []
-for _, kits in sorted(groupes.items(), key=lambda kv: age(kv[1][0]), reverse=True):
-    m, p = kits[0]["mere"], kits[0]["pere"]
-    cartes = "".join(carte("../", k, f'<span class="status{" libre" if "réserver" in k["statut"] else ""}">{e(k["statut"].capitalize())}</span>') for k in kits)
-    blocs.append(f'<div class="litter"><h2>{lien_chat(m, "../")} × {lien_chat(p, "../")}</h2><span>{("Nés le " + date_fr(kits[0]["ne"])) if kits[0]["ne"] else "Nés en " + date_fr(kits[0]["debut"], False)}</span></div><div class="grid g4">{cartes}</div>')
-page("chatons", "Nos chatons · Chatterie des Innamorati",
-     f'<section><div class="wrap">{tete("Nos chatons", "Les chatons de 2026", "Chaque chaton a son album, mis à jour chaque semaine jusqu’à son départ, puis enrichi par les photos de sa famille. Pour réserver, écrivez-nous.")}{"".join(blocs)}<p class="center" style="margin-top:64px"><a class="btn" href="../adopter/">Adopter un chaton</a></p></div></section>',
-     desc="Chatons Sacrés de Birmanie disponibles à la Chatterie des Innamorati, Bordeaux.")
-
-# ---------- Nos chats ----------
-def bloc(titre, texte, liste):
-    liste = sorted(liste, key=age, reverse=True)  # du plus jeune au plus ancien
-    return f'<div class="litter"><h2>{titre}</h2><span>{texte}</span></div><div class="grid g3">{"".join(carte("../", a) for a in liste)}</div>'
-cathy = CFG["males_amie"]
-males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}.</p>'
-eros_txt = '<div class="litter"><h2>Eros, notre premier Birman</h2><span>Celui par qui tout a commencé</span></div><p class="note" style="margin-top:0">Eros n’était pas au standard de la race et n’a jamais reproduit. Il a été notre adoré chat de compagnie, et c’est grâce à lui que nous sommes tombés amoureux du Sacré de Birmanie.</p>'
-corps = (f'<section><div class="wrap">{tete("Nos chats", "Ceux qui font la maison", "Nos reproductrices actuelles, nos retraités qui vivent toujours avec nous, et tous ceux qui ont construit l’élevage.")}'
-         + bloc("Nos reproductrices", "Elles vivent avec nous et donnent naissance à nos chatons", [BY[f] for f in CFG["reproductrices"]])
-         + bloc("Nos retraités", "Stérilisés, ils profitent de la maison", [BY[f] for f in CFG["retraites_maison"]])
-         + bloc("Nos anciennes reproductrices", "Retraitées dans des familles aimantes", [BY[f] for f in CFG["anciennes_reproductrices"]])
-         + bloc("Nos anciens reproducteurs", "Les mâles qui ont vécu chez nous", [BY[f] for f in CFG["anciens_males"]])
-         + males_txt + eros_txt + "</div></section>")
-page("nos-chats", "Nos chats · Chatterie des Innamorati", corps, desc="Les reproducteurs et retraités de la Chatterie des Innamorati.")
-
-# ---------- Ils ont grandi ----------
-grandis = sorted([a for a in chats if a["type"] == "grandi"], key=lambda a: a["debut"], reverse=True)
-par_an = OrderedDict()
-for a in grandis: par_an.setdefault(a["debut"][:4], []).append(a)
-nav_an = "".join(f'<a href="#a{an}">{an}</a>' for an in par_an)
-blocs = "".join(f'<div class="litter" id="a{an}"><h2>{an}</h2><span>{len(l)} chatons</span></div><div class="grid g4">{"".join(carte("../", a) for a in l)}</div>' for an, l in par_an.items())
-page("ils-ont-grandi", "Ils ont grandi · Chatterie des Innamorati",
-     f'<section><div class="wrap">{tete("Ils ont grandi", f"{len(grandis)} chatons nés chez nous", "Nos anciens chatons, du premier jour à l’âge adulte. Les albums continuent de s’enrichir grâce aux photos de leurs familles.")}<nav class="years">{nav_an}</nav>{blocs}</div></section>',
-     desc="Les anciens chatons de la Chatterie des Innamorati, de chatons à adultes.")
-
-# ---------- Expositions ----------
-expos = sorted([a for a in albums if a["type"] == "expo"], key=lambda a: a["nom"], reverse=True)
-for a in expos:
-    r = "../../"
-    resultats = e(a["description"]).replace("\n", "<br>")
-    lieu = re.sub(r"^[0-9-]+( à [0-9]+| & [0-9]+)? ", "", a["titre"])
-    corps = f"""{entete_album(r, a, lieu, f'<a href="{r}expositions/">Expositions</a>', f'{date_fr(a["nom"][:10])} · {len(a["photos"])} photos')}
-<section class="album-page"><div class="wrap">
-{f'<div class="results">{resultats}</div>' if resultats else ''}
-</div>{film(r, a)}<div class="wrap">
-{galerie(r, a)}
-</div></section>"""
-    page(a["url"].rstrip("/"), f'{a["titre"]} · Expositions', corps, image=a["cover"], sombre_entete=True)
-saisons = OrderedDict()
-for a in expos:
-    d = datetime.date.fromisoformat(a["nom"][:10])
-    s = f"{d.year}–{d.year+1}" if d.month >= 9 else f"{d.year-1}–{d.year}"
-    saisons.setdefault(s, []).append(a)
-# Expositions relevées dans les dossiers de l'élevage, y compris celles sans album photo
-def saison_de(iso):
-    d = datetime.date.fromisoformat(iso)
-    return f"{d.year}–{d.year+1}" if d.month >= 9 else f"{d.year-1}–{d.year}"
-shows = []
-for x in sorted(json.load(open(os.path.join(ROOT, "data/palmares.json"), encoding="utf-8")), key=lambda x: x["date"]):
-    d = datetime.date.fromisoformat(x["date"])
-    sh = next((s for s in shows if s["lieu"] == x["lieu"] and (d - s["fin"]).days <= 3), None)
-    if not sh:
-        sh = {"lieu": x["lieu"], "debut": d, "fin": d, "chats": OrderedDict()}; shows.append(sh)
-    sh["fin"] = max(sh["fin"], d)
-    sh["chats"].setdefault((x["nom"], x["fb"]), []).append(x["res"])
-dates_albums = [datetime.date.fromisoformat(a["nom"][:10]) for a in expos]
-sans_album = OrderedDict()
-for sh in sorted(shows, key=lambda s: s["debut"], reverse=True):
-    if any(-3 <= (da - sh["debut"]).days <= 4 for da in dates_albums): continue
-    sans_album.setdefault(saison_de(sh["debut"].isoformat()), []).append(sh)
-    saisons.setdefault(saison_de(sh["debut"].isoformat()), [])
-saisons = OrderedDict(sorted(saisons.items(), reverse=True))
-
-
-def ligne_show(sh):
-    j = f'{sh["debut"].day}' + (f'–{sh["fin"].day}' if sh["fin"] != sh["debut"] else "")
-    quand = f'{j} {MOIS[sh["fin"].month - 1]} {sh["fin"].year}'
-    chats_h = "".join(f'<span>{lien_chat(BY[fb]["titre"], "../") if fb in BY else e(nom)} : '
-                      + re.sub(r"\b(BIS|BEST|BOB(?: [0-9]\S*)?)", r"<b>\1</b>", e(" / ".join(dict.fromkeys(r.replace(" + ", " · ") for r in res))))
-                      + '</span>' for (nom, fb), res in sh["chats"].items())
-    return f'<li><time>{quand}</time><div><b class="ex-lieu">{e(sh["lieu"])}</b>{chats_h}</div></li>'
-
-
-blocs = []
-for s, l in saisons.items():
-    autres = sans_album.get(s, [])
-    sans = f'<ul class="ex-sans">{"".join(ligne_show(sh) for sh in autres)}</ul>' if autres else ""
-    n = len(l) + len(autres)
-    items = "".join(f'<a class="card" href="../{a["url"]}">{img("../", a["cover"], a["titre"])}<div class="t"><span class="titles">{date_fr(a["nom"][:10])}</span><h3>{e(re.sub(r"^[0-9-]+( à [0-9]+| & [0-9]+)? ", "", a["titre"]))}</h3><span class="robe">{len(a["photos"])} photos</span></div></a>' for a in l)
-    grille = f'<div class="grid g3">{items}</div>' if items else ""
-    blocs.append(f'<div class="litter"><h2>Saison {s}</h2><span>{n} exposition{"s" if n > 1 else ""}{f" · {len(l)} en photos" if l and autres else ""}</span></div>{grille}{sans}')
-page("expositions", "Expositions · Chatterie des Innamorati",
-     f'<section><div class="wrap">{tete("Expositions", "Douze saisons d’expositions", "Chaque hiver et chaque printemps, nous présentons nos chats en exposition FIFe et LOOF. Les résultats et les photos de chaque week-end.")}{"".join(blocs)}</div></section>',
-     desc="Résultats et photos des expositions félines de la Chatterie des Innamorati.")
-
-# ---------- Couleurs ----------
-def exemple_couleur(c):
-    if c.get("photo"): return c["photo"], c.get("chat", "")
-    ordre = {"repro": 0, "retraite": 1, "ancienne": 2, "male": 3, "chaton": 4, "grandi": 5}
-    cands = sorted([a for a in chats if a["robe"] == c["robe"]], key=lambda a: a["debut"], reverse=True)
-    return (cands[0]["cover"], cands[0]) if cands else (None, None)
-blocs, nb_robes = [], 0
-for fam in COULEURS["familles"]:
-    cartes = []
-    for c in fam["couleurs"]:
-        nb_robes += 1
-        pid, chat = exemple_couleur(c)
-        if pid:
-            leg = f'Photo : <a href="../{chat["url"]}">{e(chat["titre"])}</a>' if isinstance(chat, dict) else e(chat)
-            visuel = img("../", pid, f'Sacré de Birmanie {c["robe"].lower()} : {chat["titre"] if isinstance(chat, dict) else chat}')
-        else:
-            leg = "Photo à venir"
-            visuel = '<div class="ph vide"><span>Photo à venir</span></div>'
-        cartes.append(f'<div class="card coul" id="{slug_robe(c["robe"])}">{visuel}<div class="t"><h3>{e(c["robe"])}</h3><span class="robe">{e(c["texte"])}</span><span class="ex">{leg}</span></div></div>')
-    blocs.append(f'<div class="litter"><h2>{e(fam["nom"])}</h2><span>{e(fam["texte"])}</span></div><div class="grid g4">{"".join(cartes)}</div>')
-comprendre = "".join(f"<div><b>{a}</b><span>{b}</span></div>" for a, b in COULEURS["comprendre"])
-# Tableau récapitulatif des 40 couleurs reconnues : 6 bases x 8 motifs (tortie impossible sur red et cream)
-BASES = [("Seal", "#3b2a22", "#c9733a"), ("Blue", "#6f7b8c", "#e3c39b"), ("Chocolat", "#7a5236", "#d48a4e"),
-         ("Lilac", "#b3a6a8", "#ecd2b4"), ("Red", "#d48a4e", None), ("Cream", "#e8c9a0", None)]
-MOTIFS = [("Point", "point", ""), ("Tabby point", "tabby point", "tabby"), ("Tortie point", "tortie point", "tortie"),
-          ("Tortie tabby point", "tortie tabby point", "tortie tabby"), ("Silver tabby point", "silver tabby point", "silver tabby"),
-          ("Silver tortie tabby point", "silver tortie tabby point", "silver tortie tabby"), ("Smoke point", "smoke point", "smoke"),
-          ("Smoke tortie point", "smoke tortie point", "smoke tortie")]
-# Têtes de chats adultes recadrées (data/tetes.json, images dans docs/photos/rc/)
-TETES = json.load(open(os.path.join(ROOT, "data/tetes.json"), encoding="utf-8"))
-PHOTO_CHAT = {p["id"]: a for a in chats for p in a["photos"]}
-ROBES_CHATS = {}
-for _a in sorted(chats, key=lambda x: x["debut"], reverse=True):
-    if _a["robe"]: ROBES_CHATS.setdefault(_a["robe"].lower(), _a)
-ANCRES = {c["robe"].lower(): slug_robe(c["robe"]) for f in COULEURS["familles"] for c in f["couleurs"]}
-
-
-def pastille(fonce, roux, motif):
-    """Petit disque qui évoque la couleur : corps clair, extrémité colorée, rayures, écaille, argent."""
-    couches = []
-    if "tabby" in motif: couches.append(f"repeating-linear-gradient(115deg, {fonce} 0 5px, transparent 5px 10px)")
-    if "tortie" in motif and roux: couches.append(f"conic-gradient(from 30deg, {roux} 0 22%, transparent 22% 48%, {roux} 48% 66%, transparent 66%)")
-    fond = "#e9ecef" if ("silver" in motif or "smoke" in motif) else "#f4ede2"
-    centre = f"radial-gradient(circle at 50% 70%, {fonce} 0 38%, {fond} 39%)"
-    if "smoke" in motif: centre = f"radial-gradient(circle at 50% 70%, #f6f6f6 0 14%, {fonce} 15% 38%, {fond} 39%)"
-    return ", ".join(couches + [centre])
-
-
-lignes = []
-for lib, suff, motif in MOTIFS:
-    cellules = []
-    for base, fonce, roux in BASES:
-        if "tortie" in motif and not roux:
-            cellules.append('<td class="na" title="N’existe pas : le red et le cream sont déjà des couleurs rousses">–</td>')
-            continue
-        robe = f"{base} {suff}"
-        t = TETES.get(robe.lower())
-        chat = t and PHOTO_CHAT.get(t["photo"])
-        if chat:
-            cible = f'#{ANCRES[robe.lower()]}' if robe.lower() in ANCRES else f'../{chat["url"]}'
-            vis = f'<a class="rc-ph" href="{cible}" title="{e(robe)} : {e(chat["titre"])}"><img src="../photos/{t["fichier"]}" alt="{e(robe)}" loading="lazy"></a>'
-        else:
-            vis = f'<span class="rc-dot" style="background:{pastille(fonce, roux, motif)}" title="{e(robe)}"></span>'
-        cellules.append(f'<td>{vis}</td>')
-    lignes.append(f'<tr><th scope="row">{lib}</th>{"".join(cellules)}</tr>')
-recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un coup d’œil</h2><span>En photo : nos chats, adultes de préférence. En pastille : les couleurs qui ne sont pas encore nées chez nous.</span></div>
-<div class="recap-scroll"><table class="recap-t"><thead><tr><th></th>{"".join(f'<th scope="col">{b}</th>' for b, _, _ in BASES)}</tr></thead><tbody>{"".join(lignes)}</tbody></table></div>
-<div class="recap-regles"><div><b>Ce qui ne change jamais</b><span>Des yeux bleus, toujours. Quatre gants blancs. Un corps clair aux extrémités colorées.</span></div>
-<div><b>Ce qui n’existe pas chez le Birman</b><span>Les yeux verts ou dorés, les robes bicolores ou à masque blanc, les robes unies sans « point ». Un chat ainsi n’est pas un Sacré de Birmanie.</span></div>
-<div><b>Le tortie</b><span>Il mêle une couleur et du roux. Il n’existe donc pas en red ni en cream, et concerne presque uniquement les femelles.</span></div></div></div>''')
-faq_html, faq_ld = faq("Les couleurs du Birman en questions", COULEURS["faq"])
-page("couleurs", "Couleurs du Sacré de Birmanie : les 40 robes en photos · des Innamorati",
-     f'''<section><div class="wrap">{tete("Les couleurs", "Toutes les couleurs du Sacré de Birmanie", COULEURS["intro"])}
-{recap}
-<div class="std std4">{comprendre}</div>
-<nav class="sommaire" aria-label="Familles de couleurs">{"".join(f'<a href="#{slug_robe(f["nom"])}">{e(f["nom"])}</a>' for f in COULEURS["familles"])}</nav>
-{"".join(b.replace('<div class="litter">', f'<div class="litter" id="{slug_robe(f["nom"])}">', 1) for b, f in zip(blocs, COULEURS["familles"]))}
-<p class="note">{COULEURS["note"]}</p></div></section>{faq_html}''',
-     desc="Les 40 couleurs du Sacré de Birmanie en photos : seal, blue, chocolat, lilac, red et cream, point, tabby, tortie, silver et smoke. Reconnaître la couleur d'un chaton.",
-     image="partage-couleurs", image_alt="Les couleurs du Sacré de Birmanie : têtes de Birmans seal, blue, chocolat, lilac, red, tabby, tortie et silver", og_type="article",
-     ld=[{"@context": "https://schema.org", "@type": "Article", "headline": "Toutes les couleurs du Sacré de Birmanie", "inLanguage": "fr",
-          "description": "Les 40 couleurs reconnues du Sacré de Birmanie, en photos de chats de la Chatterie des Innamorati.",
-          "image": [SITE + "photos/partage-couleurs.jpg"] + [SITE + "photos/" + t["fichier"] for t in TETES.values()],
-          "author": {"@type": "Person", "name": "Magali Perrier"}, "publisher": {"@id": SITE + "#elevage"},
-          "mainEntityOfPage": SITE + "couleurs/", "about": {"@type": "Thing", "name": "Sacré de Birmanie", "sameAs": "https://fr.wikipedia.org/wiki/Sacr%C3%A9_de_Birmanie"}},
-         faq_ld, ariane(("Accueil", ""), ("Couleurs", "couleurs/"))], prio=0.9)
-
-json.dump({"albums": len(albums), "chats": len(chats), "grandis": len(grandis), "portees": len(litters), "expos": len(expos)},
-          open(os.path.join(ROOT, "data/stats.json"), "w"))
-exec(open(os.path.join(ROOT, "src/pages_fixes.py"), encoding="utf-8").read())
+# ---------- Pages, en français puis en anglais ----------
+for L in ("fr", "en"):
+    langue(L)
+    exec(open(os.path.join(ROOT, "src/pages.py"), encoding="utf-8").read())
+    exec(open(os.path.join(ROOT, "src/pages_fixes.py"), encoding="utf-8").read())
 # Plan du site pour Google
 aujourdhui = datetime.date.today().isoformat()
 open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write(
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + "".join(f"<url><loc>{u}</loc><lastmod>{aujourdhui}</lastmod><priority>{p}</priority></url>\n" for u, p in PLAN)
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+    + "".join(f'<url><loc>{u}</loc><xhtml:link rel="alternate" hreflang="fr" href="{fr}"/><xhtml:link rel="alternate" hreflang="en" href="{en}"/>'
+              f'<xhtml:link rel="alternate" hreflang="x-default" href="{fr}"/><lastmod>{aujourdhui}</lastmod><priority>{p}</priority></url>\n' for u, p, fr, en in PLAN)
     + "</urlset>\n")
 open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
 print(f"OK : {len(chats)} chats, {len(grandis)} anciens chatons, {len(litters)} portées, {len(expos)} expositions")

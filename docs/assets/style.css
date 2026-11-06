@@ -298,3 +298,10 @@ footer .fine a { color: #d8d2c7 }
 .art-fig { margin: 28px 0 8px }
 .art-fig .ph { aspect-ratio: 3 / 2 }
 .art-fig figcaption { font-size: .8rem; color: var(--muted); margin-top: 10px; font-style: italic }
+
+/* Sélecteur de langue */
+header .wrap { position: relative }
+header .lang { position: absolute; top: 6px; right: 0; font-size: .6rem; letter-spacing: .24em; text-decoration: none; opacity: .75 }
+header .lang:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px }
+.menu .lang-m { opacity: .7 }
+@media (max-width: 1080px) { header .lang { display: none } }

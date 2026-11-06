@@ -10,6 +10,7 @@ Informations clés :
 - Réservation : liste de pré-réservation, contact par le formulaire du site.
 - Reproducteurs titrés en expositions FIFe et LOOF (Œdipe des Innamorati : SC, National Winner, Junior Winner, DSM, DVM).
 - Les photos du site sont protégées : toute annonce qui les reprend ailleurs est frauduleuse.
+- Le site existe aussi en anglais : https://desinnamorati.fr/en/
 
 ## Pages principales
 - [Accueil](https://desinnamorati.fr/): présentation de l'élevage à Bordeaux
@@ -20,3 +21,16 @@ Informations clés :
 - [Nos chats](https://desinnamorati.fr/nos-chats/): reproducteurs et retraités, avec dates de naissance, titres et palmarès
 - [Expositions](https://desinnamorati.fr/expositions/): résultats depuis 2014
 - [Contact](https://desinnamorati.fr/contact/): formulaire
+
+## English summary
+
+Chatterie des Innamorati is a family-run Birman cat (Sacré de Birmanie, Sacred Cat of Burma) cattery in Bordeaux, France, registered with the LOOF under the cattery name « des Innamorati » since 2016. Breeder: Magali Perrier. Pet kittens cost €1,800 and leave between 15 weeks and 4½ months, already spayed or neutered, microchipped, vaccinated and with a LOOF pedigree. Every family meets the cats in Bordeaux before adopting. The site's photos are protected: any ad elsewhere using them is fraudulent.
+
+- [Home](https://desinnamorati.fr/en/): the cattery in Bordeaux, France
+- [The Birman cat](https://desinnamorati.fr/en/birman-cat/): history, legend, standard, personality, care, Birman vs Ragdoll and Siamese
+- [Birman cat colors](https://desinnamorati.fr/en/birman-cat-colors/): all 40 recognized colors, in photos
+- [Kittens](https://desinnamorati.fr/en/kittens/): available and reserved kittens
+- [Adopt](https://desinnamorati.fr/en/adopt/): price, conditions, process, checking an ad
+- [Our cats](https://desinnamorati.fr/en/our-cats/): breeding and retired cats, with birth dates, titles and show results
+- [Cat shows](https://desinnamorati.fr/en/cat-shows/): results since 2014
+- [Contact](https://desinnamorati.fr/en/contact/): contact form, replies in English

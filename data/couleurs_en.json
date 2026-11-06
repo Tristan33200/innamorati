@@ -1,0 +1,158 @@
+{
+  "intro": "The Birman is a “colorpoint” cat: the body stays pale and the color is concentrated on the mask, ears, legs and tail. Whatever its coat, it always keeps its two signatures: sapphire-blue eyes and four white-gloved paws. The Birman comes in 40 recognized colors. Here are the main ones, illustrated by our own cats.",
+  "note": "Colors without a photo have not yet been born in our cattery. We will soon illustrate them with a photo from a fellow breeder, with their permission. Sources: Fédération Féline Française and Club Français du Sacré de Birmanie (CFSBI).",
+  "familles": [
+    {
+      "nom": "Solid colors",
+      "texte": "The points are a single color, with no stripes.",
+      "couleurs": [
+        {
+          "robe": "Seal point",
+          "texte": "Very dark brown points on a golden cream body. The Birman’s historic color."
+        },
+        {
+          "robe": "Blue point",
+          "texte": "Blue-gray points on a bluish white body, wonderfully soft."
+        },
+        {
+          "robe": "Chocolat point",
+          "texte": "Milk chocolate points on an ivory body."
+        },
+        {
+          "robe": "Lilac point",
+          "texte": "Pinkish gray points on an almost white body. The palest of all colors."
+        },
+        {
+          "robe": "Red point",
+          "texte": "Orange-red points on a warm white body."
+        },
+        {
+          "robe": "Cream point",
+          "texte": "Apricot cream points, very luminous."
+        }
+      ]
+    },
+    {
+      "nom": "Tabby",
+      "texte": "The points are striped, with the characteristic “M” on the forehead.",
+      "couleurs": [
+        {
+          "robe": "Seal tabby point",
+          "texte": "Dark brown stripes and a strongly marked mask."
+        },
+        {
+          "robe": "Blue tabby point",
+          "texte": "Blue-gray stripes on a pale background."
+        },
+        {
+          "robe": "Chocolat tabby point",
+          "texte": "Chocolate stripes and a bright coat."
+        },
+        {
+          "robe": "Lilac tabby point",
+          "texte": "Pinkish gray stripes, all in subtle shades."
+        },
+        {
+          "robe": "Red tabby point",
+          "texte": "Red stripes on a warm white background."
+        },
+        {
+          "robe": "Cream tabby point",
+          "texte": "Cream stripes, very soft."
+        }
+      ]
+    },
+    {
+      "nom": "Tortie",
+      "texte": "The points mix two colors, like tortoiseshell. Females only.",
+      "couleurs": [
+        {
+          "robe": "Seal tortie point",
+          "texte": "Seal mottled with red."
+        },
+        {
+          "robe": "Chocolat tortie point",
+          "texte": "Chocolate mottled with light red."
+        },
+        {
+          "robe": "Seal tortie tabby point",
+          "texte": "Tabby and tortie at once, on a seal base."
+        },
+        {
+          "robe": "Chocolat tortie tabby point",
+          "texte": "Tabby and tortie at once, on a chocolate base."
+        }
+      ]
+    },
+    {
+      "nom": "Silver and smoke",
+      "texte": "Recognized by FIFe in 2016, after LOOF and TICA. Our friend Cathy Viltange is one of the breeders who brought silver to the Birman.",
+      "couleurs": [
+        {
+          "robe": "Blue silver tabby point",
+          "texte": "Blue-gray stripes on a silver background."
+        },
+        {
+          "robe": "Chocolat silver tabby point",
+          "texte": "Chocolate stripes on a silver background."
+        },
+        {
+          "robe": "Lilac silver tabby point",
+          "texte": "Pinkish gray stripes on a silver background."
+        },
+        {
+          "robe": "Seal smoke tortie point",
+          "texte": "Seal tortie with a silver undercoat."
+        },
+        {
+          "robe": "Blue smoke tortie point",
+          "texte": "Blue and cream with a silver undercoat."
+        }
+      ]
+    }
+  ],
+  "comprendre": [
+    [
+      "A color that depends on temperature",
+      "The colorpoint gene only colors the coolest parts of the body: mask, ears, legs and tail. The body stays eggshell, the back golden beige. Kittens are born almost white, and their points darken over the weeks."
+    ],
+    [
+      "Seal, the original color",
+      "Seal is the Birman’s original color, with a striking contrast. It dilutes to blue, chocolate dilutes to lilac and red to cream. The coat darkens over the years."
+    ],
+    [
+      "Tabby and tortie",
+      "Tabby adds stripes and an “M” on the forehead. Tortie mixes red with another color. Because it is carried by the X chromosome, it occurs almost only in females."
+    ],
+    [
+      "Silver and smoke",
+      "Silver is a dominant color: at least one parent must be silver. A smoke is recognized by the white at the base of its colored hairs and the white tufts in its ears."
+    ]
+  ],
+  "faq": [
+    [
+      "How many colors does the Birman cat come in?",
+      "Since FIFe recognized silver tabby and smoke on May 27, 2016, the Birman has 40 colors. All are colorpoint: solid, tabby, tortie, silver and smoke, on seal, blue, chocolate, lilac, red and cream bases. All keep the blue eyes and white gloves."
+    ],
+    [
+      "What is the most common Birman color?",
+      "Seal point, very dark brown points on a pale body, is the Birman’s original and best-known color. Blue point and the tabbies are also very common."
+    ],
+    [
+      "How can you tell a Birman kitten’s color?",
+      "Kittens are born almost white. Their points start to color within a few days and become clearer over the first weeks. The breeder works out the color from the parents’ colors, then records it on the LOOF pedigree. In smokes, the color can be confusing at first and only becomes clear at around 4 to 6 months."
+    ],
+    [
+      "Can a male Birman be tortie?",
+      "Very rarely. The tortie color needs two X chromosomes, which only females have. A tortie male carries a genetic anomaly and is almost always sterile."
+    ],
+    [
+      "Does a Birman’s color change with age?",
+      "Yes. A Birman’s coat darkens over the years, especially in seals, and the points grow more intense. The coolest parts of the body can also darken in winter."
+    ],
+    [
+      "What is a silver or smoke Birman?",
+      "A Birman that carries the dominant silver gene. A silver tabby has stripes on a silver background. A smoke has white at the base of its colored hairs, lots of white hair in the ears and sometimes faint tabby markings on the mask. These colors come from Chinchilla Persians and were then selected over about ten generations."
+    ]
+  ]
+}
