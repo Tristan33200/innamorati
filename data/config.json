@@ -157,5 +157,68 @@
    "81"
   ]
  ],
- "_aide_fratries": "Frères et sœurs connus quand les parents ne sont pas indiqués dans les albums (numéros d'album)."
+ "_aide_fratries": "Frères et sœurs connus quand les parents ne sont pas indiqués dans les albums (numéros d'album).",
+ "parents": {
+  "147": [
+   "Quintessence des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "149": [
+   "Quintessence des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "153": [
+   "Quintessence des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "155": [
+   "Quintessence des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "146": [
+   "Rey des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "154": [
+   "Rey des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "150": [
+   "Crowned Dream Kacey",
+   "Oedipe des Innamorati"
+  ],
+  "196": [
+   "Crowned Dream Kacey",
+   "Bacckara's Bellamy"
+  ],
+  "15": [
+   "Mia Bella des Innamorati",
+   "Jorel du Castel Walou"
+  ],
+  "16": [
+   "Mia Bella des Innamorati",
+   "Jorel du Castel Walou"
+  ],
+  "17": [
+   "Mia Bella des Innamorati",
+   "Jorel du Castel Walou"
+  ],
+  "18": [
+   "Birmiao Anaïs",
+   "Mac Leod Duncan du Castel Walou"
+  ],
+  "20": [
+   "Birmiao Anaïs",
+   "Mac Leod Duncan du Castel Walou"
+  ],
+  "21": [
+   "Birmiao Anaïs",
+   "Mac Leod Duncan du Castel Walou"
+  ],
+  "19": [
+   "Birmiao Anaïs",
+   "Mac Leod Duncan du Castel Walou"
+  ]
+ },
+ "_aide_parents": "Mère et père quand l'album Facebook ne les donne pas sous la forme « mère 💘 père » (numéro d'album → [mère, père])."
 }
