@@ -43,7 +43,7 @@ corps = f"""
   <p class="center" style="margin-top:56px"><a class="btn" href="chatons/">Voir tous les chatons</a> <a class="btn" href="portees/">Toutes nos portées</a></p>
 </div></section>
 <section class="palm"><div class="wrap">
-  <div class="head"><p class="label">Palmarès</p><h2>Dix saisons d'expositions</h2><p>Chaque hiver et chaque printemps, nous présentons nos chats en exposition : Paris, Bordeaux, Biarritz, Nantes, Rome, Milan, Valladolid.</p></div>
+  <div class="head"><p class="label">Palmarès</p><h2>Douze saisons d'expositions</h2><p>Chaque hiver et chaque printemps, nous présentons nos chats en exposition : Paris, Bordeaux, Biarritz, Nantes, Rome, Milan, Valladolid.</p></div>
   <div class="palm-grid">{grand(r, P["nw2019"], "Œdipe des Innamorati, National Winner 2019")}
     <div><ul class="titles-list">
       <li><div><b><a href="{BY['204']['url']}">Œdipe des Innamorati</a></b><span>Mâle seal point · Best of Best à Sartrouville (2019), Pontchâteau (2021) et Pontorson (2022)</span></div><em>SC · NW · JW · DSM · DVM</em></li>

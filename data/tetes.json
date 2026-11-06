@@ -106,5 +106,41 @@
    0.46
   ],
   "fichier": "rc/chocolat-tortie-tabby-point.jpg"
+ },
+ "chocolat tortie point": {
+  "photo": "1136427686538386",
+  "boite": [
+   0.65,
+   0.45,
+   0.4
+  ],
+  "fichier": "rc/chocolat-tortie-point.jpg"
+ },
+ "lilac silver tabby point": {
+  "photo": "1685028005011682",
+  "boite": [
+   0.29,
+   0.39,
+   0.25
+  ],
+  "fichier": "rc/lilac-silver-tabby-point.jpg"
+ },
+ "seal smoke tortie point": {
+  "photo": "1829182588320614",
+  "boite": [
+   0.57,
+   0.45,
+   0.27
+  ],
+  "fichier": "rc/seal-smoke-tortie-point.jpg"
+ },
+ "blue smoke tortie point": {
+  "photo": "1829198188319054",
+  "boite": [
+   0.55,
+   0.47,
+   0.26
+  ],
+  "fichier": "rc/blue-smoke-tortie-point.jpg"
  }
 }

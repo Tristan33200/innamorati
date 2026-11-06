@@ -244,9 +244,15 @@ def slug_robe(t):
     return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
 
 
+CADRAGE = json.load(open(os.path.join(ROOT, "data/cadrages.json"), encoding="utf-8"))  # centre du visage (yeux bleus)
+
+
 def img(r, pid, alt, cls="", grand=False, attrs=""):
+    """Vignette nette : la version 1400 px est proposée aux écrans qui en ont besoin, cadrée sur le visage."""
     src = f"{r}photos/{pid}.jpg" if grand else f"{r}photos/t/{pid}.jpg"
-    return f'<div class="ph {cls}"><img src="{src}" alt="{e(alt)}" loading="lazy" {attrs}></div>'
+    jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 700px) 100vw, 45vw"'
+    pos = f' style="object-position:{CADRAGE[pid][0]}% {CADRAGE[pid][1]}%"' if pid in CADRAGE else ""
+    return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy"{pos} {attrs}></div>'
 
 
 def carte(r, a, extra=""):
@@ -293,7 +299,7 @@ def galerie(r, a):
     for p in a["photos"][debut:]:
         cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
-                    f'<div class="ph"><img src="{r}photos/t/{p["id"]}.jpg" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
+                    f'<div class="ph"><img src="{r}photos/t/{p["id"]}.jpg" srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 30vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
@@ -422,12 +428,46 @@ for a in expos:
     d = datetime.date.fromisoformat(a["nom"][:10])
     s = f"{d.year}–{d.year+1}" if d.month >= 9 else f"{d.year-1}–{d.year}"
     saisons.setdefault(s, []).append(a)
+# Expositions relevées dans les dossiers de l'élevage, y compris celles sans album photo
+def saison_de(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.year}–{d.year+1}" if d.month >= 9 else f"{d.year-1}–{d.year}"
+shows = []
+for x in sorted(json.load(open(os.path.join(ROOT, "data/palmares.json"), encoding="utf-8")), key=lambda x: x["date"]):
+    d = datetime.date.fromisoformat(x["date"])
+    sh = next((s for s in shows if s["lieu"] == x["lieu"] and (d - s["fin"]).days <= 3), None)
+    if not sh:
+        sh = {"lieu": x["lieu"], "debut": d, "fin": d, "chats": OrderedDict()}; shows.append(sh)
+    sh["fin"] = max(sh["fin"], d)
+    sh["chats"].setdefault((x["nom"], x["fb"]), []).append(x["res"])
+dates_albums = [datetime.date.fromisoformat(a["nom"][:10]) for a in expos]
+sans_album = OrderedDict()
+for sh in sorted(shows, key=lambda s: s["debut"], reverse=True):
+    if any(-3 <= (da - sh["debut"]).days <= 4 for da in dates_albums): continue
+    sans_album.setdefault(saison_de(sh["debut"].isoformat()), []).append(sh)
+    saisons.setdefault(saison_de(sh["debut"].isoformat()), [])
+saisons = OrderedDict(sorted(saisons.items(), reverse=True))
+
+
+def ligne_show(sh):
+    j = f'{sh["debut"].day}' + (f'–{sh["fin"].day}' if sh["fin"] != sh["debut"] else "")
+    quand = f'{j} {MOIS[sh["fin"].month - 1]} {sh["fin"].year}'
+    chats_h = "".join(f'<span>{lien_chat(BY[fb]["titre"], "../") if fb in BY else e(nom)} : '
+                      + re.sub(r"\b(BIS|BEST|BOB(?: [0-9]\S*)?)", r"<b>\1</b>", e(" / ".join(dict.fromkeys(r.replace(" + ", " · ") for r in res))))
+                      + '</span>' for (nom, fb), res in sh["chats"].items())
+    return f'<li><time>{quand}</time><div><b class="ex-lieu">{e(sh["lieu"])}</b>{chats_h}</div></li>'
+
+
 blocs = []
 for s, l in saisons.items():
+    autres = sans_album.get(s, [])
+    sans = f'<ul class="ex-sans">{"".join(ligne_show(sh) for sh in autres)}</ul>' if autres else ""
+    n = len(l) + len(autres)
     items = "".join(f'<a class="card" href="../{a["url"]}">{img("../", a["cover"], a["titre"])}<div class="t"><span class="titles">{date_fr(a["nom"][:10])}</span><h3>{e(re.sub(r"^[0-9-]+( à [0-9]+| & [0-9]+)? ", "", a["titre"]))}</h3><span class="robe">{len(a["photos"])} photos</span></div></a>' for a in l)
-    blocs.append(f'<div class="litter"><h2>Saison {s}</h2><span>{len(l)} albums</span></div><div class="grid g3">{items}</div>')
+    grille = f'<div class="grid g3">{items}</div>' if items else ""
+    blocs.append(f'<div class="litter"><h2>Saison {s}</h2><span>{n} exposition{"s" if n > 1 else ""}{f" · {len(l)} en photos" if l and autres else ""}</span></div>{grille}{sans}')
 page("expositions", "Expositions · Chatterie des Innamorati",
-     f'<section><div class="wrap">{tete("Expositions", "Dix saisons d’expositions", "Chaque hiver et chaque printemps, nous présentons nos chats en exposition FIFe et LOOF. Les résultats et les photos de chaque week-end.")}{"".join(blocs)}</div></section>',
+     f'<section><div class="wrap">{tete("Expositions", "Douze saisons d’expositions", "Chaque hiver et chaque printemps, nous présentons nos chats en exposition FIFe et LOOF. Les résultats et les photos de chaque week-end.")}{"".join(blocs)}</div></section>',
      desc="Résultats et photos des expositions félines de la Chatterie des Innamorati.")
 
 # ---------- Couleurs ----------
@@ -495,7 +535,7 @@ for lib, suff, motif in MOTIFS:
             vis = f'<span class="rc-dot" style="background:{pastille(fonce, roux, motif)}" title="{e(robe)}"></span>'
         cellules.append(f'<td>{vis}</td>')
     lignes.append(f'<tr><th scope="row">{lib}</th>{"".join(cellules)}</tr>')
-recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un coup d’œil</h2><span>En photo : nos chats adultes. En pastille : les couleurs que nous n’avons pas encore photographiées à l’âge adulte.</span></div>
+recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un coup d’œil</h2><span>En photo : nos chats, adultes de préférence. En pastille : les couleurs qui ne sont pas encore nées chez nous.</span></div>
 <div class="recap-scroll"><table class="recap-t"><thead><tr><th></th>{"".join(f'<th scope="col">{b}</th>' for b, _, _ in BASES)}</tr></thead><tbody>{"".join(lignes)}</tbody></table></div>
 <div class="recap-regles"><div><b>Ce qui ne change jamais</b><span>Des yeux bleus, toujours. Quatre gants blancs. Un corps clair aux extrémités colorées.</span></div>
 <div><b>Ce qui n’existe pas chez le Birman</b><span>Les yeux verts ou dorés, les robes bicolores ou à masque blanc, les robes unies sans « point ». Un chat ainsi n’est pas un Sacré de Birmanie.</span></div>
