@@ -56,7 +56,7 @@
       es.forEach(function (en) { if (en.isIntersecting) vus.add(en.target); else vus.delete(en.target); });
       onScroll();
     }, { rootMargin: "20% 0px" });
-    $$(".ph:not(.vide)").filter(function (p) { return !p.closest(".film"); }).concat($$(".g-item:not(.f-item)"), $$(".ribbon")).forEach(function (el) { io2.observe(el); });
+    $$(".ph:not(.vide)").filter(function (p) { return !p.closest(".film"); }).concat($$(".ribbon")).forEach(function (el) { io2.observe(el); });
     var hero = document.querySelector(".hero"), heroTxt = hero && hero.querySelector(".wrap"), heroImg = hero && hero.querySelector(".ph img");
     var DERIVE = [0, 240, -110, 320, -60, 180], MOSA = [-9, 6, -10, 8, -5, 9];
 

@@ -435,7 +435,7 @@ def entete_album(r, a, titre, sur, sous):
             f'<div class="wrap"><p class="crumb">{sur}</p><h1>{e(titre)}</h1><p>{sous}</p></div></div>')
 
 
-FILM_MIN = 8  # nombre de photos à partir duquel l'album s'ouvre sur un défilé horizontal
+FILM_MIN = 10**6  # défilé horizontal abandonné (nov. 2026) : galerie en colonnes pour tous les albums
 
 
 def film(r, a, n=10):
@@ -446,13 +446,18 @@ def film(r, a, n=10):
     return f'<div class="film"><div class="film-pin"><div class="film-track">{items}</div></div></div>'
 
 
+def dims(pid):
+    d = taille_jpeg(os.path.join(OUT, "photos", "t", pid + ".jpg"))
+    return f' width="{d[0]}" height="{d[1]}"' if d else ""
+
+
 def galerie(r, a):
     figs = []
     debut = min(10, len(a["photos"])) if len(a["photos"]) >= FILM_MIN else 0
     for p in a["photos"][debut:]:
         cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
-                    f'<div class="ph"><img src="{r}photos/t/{p["id"]}.jpg" srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 30vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
+                    f'<div class="ph"><img src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
