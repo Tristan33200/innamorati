@@ -1,4 +1,13 @@
 # Pages générées depuis les albums. Exécuté par build.py une fois par langue (L = "fr" puis "en").
+# ---------- Portées : regroupement des chatons par parents et par année (sert aussi aux frères et sœurs) ----------
+litters = OrderedDict()
+for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["mere"] and x["fb"] not in S("anciens_males"))], key=lambda x: x["debut"]):
+    if not a["mere"] and a["type"] not in ("grandi", "chaton"): continue
+    an = a["debut"][:4]
+    cle = (cle_nom(a["mere"]), cle_nom(a["pere"]), an) if a["mere"] else ("", "", an)
+    litters.setdefault(cle, []).append(a)
+FRATRIE = {k["fb"]: [x for x in kits if x is not k] for (m, p, an), kits in litters.items() if m for k in kits}
+
 # ---------- Pages chat (une par album) ----------
 for a in chats + [x for x in albums if x["type"] == "portee"]:
     r = "../../"
@@ -6,6 +15,8 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     if a["sexe"] or a["robe"]: faits.append((T("Robe", "Color"), " · ".join(x for x in [a["sexe"], rb(a["robe"])] if x)))
     if a["ne"]: faits.append((T("Naissance", "Born"), date_fr(a["ne"])))
     if a["mere"]: faits.append(("Parents", f'{lien_chat(a["mere"], r)} × {lien_chat(a["pere"], r)}'))
+    if FRATRIE.get(a["fb"]):
+        faits.append((T("Frères et sœurs", "Littermates"), ", ".join(f'<a href="{r}{x["url"]}">{e(x["titre"])}</a>' for x in FRATRIE[a["fb"]])))
     if a["titres"]: faits.append((T("Titres", "Titles"), e(a["titres"])))
     statut = a["note"] or (a["statut"][:1].upper() + a["statut"][1:] if a["statut"] else "")
     if statut: faits.append((T("Statut", "Status"), e(statut)))
@@ -31,12 +42,6 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
                 f'{a["titre"]}, Birman cat from the Chatterie des Innamorati in Bordeaux, France. {rb(a["robe"])}.'.replace(". .", ".")), image=a["cover"])
 
 # ---------- Portées (regroupement des chatons par parents et par année) ----------
-litters = OrderedDict()
-for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["mere"] and x["fb"] not in S("anciens_males"))], key=lambda x: x["debut"]):
-    if not a["mere"] and a["type"] not in ("grandi", "chaton"): continue
-    an = a["debut"][:4]
-    cle = (cle_nom(a["mere"]), cle_nom(a["pere"]), an) if a["mere"] else ("", "", an)
-    litters.setdefault(cle, []).append(a)
 portee_albums = [x for x in albums if x["type"] == "portee"]
 
 

@@ -200,6 +200,7 @@ for a in albums:
     a["note"] = CFG["notes"].get(fb, "")
     a["titres"] = CFG["titres"].get(fb, "")
     a["ne"] = CFG.get("naissances", {}).get(fb, "")
+    if fb in CFG.get("parents", {}): a["mere"], a["pere"] = CFG["parents"][fb]  # parents absents des textes Facebook
     a["url"] = ("expositions/" if a["type"] == "expo" else "chat/") + a["slug"] + "/"
 
 chats = [a for a in albums if a["type"] not in ("masque", "expo", "portee")]
