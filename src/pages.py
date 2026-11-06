@@ -7,6 +7,26 @@ for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["me
     cle = (cle_nom(a["mere"]), cle_nom(a["pere"]), an) if a["mere"] else ("", "", an)
     litters.setdefault(cle, []).append(a)
 FRATRIE = {k["fb"]: [x for x in kits if x is not k] for (m, p, an), kits in litters.items() if m for k in kits}
+ancre_portee = lambda cle: "p-" + slug_robe("-".join(cle))
+court_nom = lambda n: re.sub(r"\s+(des Innamorati|aka)\b.*$", "", n, flags=re.I)
+
+
+def demi_fratrie(a, r):
+    """Autres portées de la même mère et du même père, avec un lien vers chacune sur la page Portées."""
+    if not a["mere"]: return ""
+    m, p = cle_nom(a["mere"]), cle_nom(a["pere"])
+    ici = (m, p, a["debut"][:4])
+    def liste(par_mere):
+        out = []
+        for cle, kits in sorted(litters.items(), key=lambda kv: kv[1][0]["debut"]):
+            if cle == ici or not cle[0] or (cle[0] != m if par_mere else (not p or cle[1] != p)): continue
+            autre = kits[0]["pere"] if par_mere else kits[0]["mere"]
+            out.append(f'<a href="{r}portees/#{ancre_portee(cle)}">{cle[2]}{T(" avec ", " with ")}{e(court_nom(autre))}</a>')
+        return ", ".join(out)
+    lm, lp = liste(True), liste(False)
+    parts = ([T("par sa mère : ", "through the mother: ") + lm] if lm else []) + ([T("par son père : ", "through the father: ") + lp] if lp else [])
+    return "<br>".join(parts)
+
 
 # ---------- Pages chat (une par album) ----------
 for a in chats + [x for x in albums if x["type"] == "portee"]:
@@ -15,13 +35,15 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     if a["sexe"] or a["robe"]: faits.append((T("Robe", "Color"), " · ".join(x for x in [a["sexe"], rb(a["robe"])] if x)))
     if a["ne"]: faits.append((T("Naissance", "Born"), date_fr(a["ne"])))
     if a["mere"]: faits.append(("Parents", f'{lien_chat(a["mere"], r)} × {lien_chat(a["pere"], r)}'))
-    if FRATRIE.get(a["fb"]):
-        faits.append((T("Frères et sœurs", "Littermates"), ", ".join(f'<a href="{r}{x["url"]}">{e(x["titre"])}</a>' for x in FRATRIE[a["fb"]])))
     if a["titres"]: faits.append((T("Titres", "Titles"), e(a["titres"])))
     statut = a["note"] or (a["statut"][:1].upper() + a["statut"][1:] if a["statut"] else "")
     if statut: faits.append((T("Statut", "Status"), e(statut)))
     faits.append(("Album", T(f'{len(a["photos"])} photos, de {date_fr(a["debut"], False)} à {date_fr(a["fin"], False)}',
                              f'{len(a["photos"])} photos, from {date_fr(a["debut"], False)} to {date_fr(a["fin"], False)}')))
+    if FRATRIE.get(a["fb"]):
+        faits.append((T("Frères et sœurs", "Littermates"), ", ".join(f'<a href="{r}{x["url"]}">{e(x["titre"])}</a>' for x in FRATRIE[a["fb"]])))
+    if a["type"] != "portee" and demi_fratrie(a, r):
+        faits.append((T("Demi-frères et sœurs", "Half-siblings"), demi_fratrie(a, r)))
     fhtml = "".join(f'<div><span class="label">{k}</span><span>{v}</span></div>' for k, v in faits)
     rubrique = {"repro": (T("Nos reproductrices", "Our breeding queens"), "nos-chats/"), "retraite": (T("Nos retraités", "Our retired cats"), "nos-chats/"),
                 "ancienne": (T("Nos anciennes reproductrices", "Our former queens"), "nos-chats/"),
@@ -61,7 +83,7 @@ for (mere, pere, an), kits in sorted(litters.items(), key=lambda kv: kv[1][0]["d
     pa = album_portee(k0["mere"], an[:4])
     lien_p = f' · <a href="../{pa["url"]}">{T("album de la portée", "litter album")}</a>' if pa else ""
     cartes = "".join(carte("../", k) for k in kits)
-    litter_html.append(f'<div class="litter"><h2>{titre}</h2><span>{((T("Nés le ", "Born ") + date_fr(k0["ne"])) if k0["ne"] else date_fr(k0["debut"], False).capitalize())} · {len(kits)} {T("chaton", "kitten")}{"s" if len(kits) > 1 else ""}{lien_p}</span></div><div class="grid g4">{cartes}</div>')
+    litter_html.append(f'<div class="litter" id="{ancre_portee((mere, pere, an))}"><h2>{titre}</h2><span>{((T("Nés le ", "Born ") + date_fr(k0["ne"])) if k0["ne"] else date_fr(k0["debut"], False).capitalize())} · {len(kits)} {T("chaton", "kitten")}{"s" if len(kits) > 1 else ""}{lien_p}</span></div><div class="grid g4">{cartes}</div>')
 page("portees", T("Nos portées · Chatterie des Innamorati", "Our Birman litters · Chatterie des Innamorati"),
      f'<section><div class="wrap">{tete(T("Nos portées", "Our litters"), T("Toutes nos portées depuis 2016", "Every litter since 2016"), T("Chaque portée avec ses parents et ses chatons. Touchez un chaton pour ouvrir son album, du premier jour à l’âge adulte.", "Each litter with its parents and kittens. Tap a kitten to open its album, from day one to adulthood."))}{"".join(litter_html)}</div></section>',
      desc=T("Toutes les portées de Sacrés de Birmanie nées à la Chatterie des Innamorati depuis 2016.", "Every Birman litter born at the Chatterie des Innamorati in Bordeaux, France, since 2016, with parents and kitten albums."))
