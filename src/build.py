@@ -12,6 +12,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "docs")
 CAT = json.load(open(os.path.join(ROOT, "data/catalogue.json"), encoding="utf-8"))
 CAT += json.load(open(os.path.join(ROOT, "data/albums_ajoutes.json"), encoding="utf-8"))  # chats sans album Facebook
+_AJ = json.load(open(os.path.join(ROOT, "data/photos_ajoutees.json"), encoding="utf-8"))  # photos envoyées hors Facebook
+for _a in CAT:
+    _a["photos"] = _a["photos"] + _AJ.get(_a["fb"], [])
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
 COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
