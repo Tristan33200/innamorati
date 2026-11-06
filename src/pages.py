@@ -7,6 +7,9 @@ for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["me
     cle = (cle_nom(a["mere"]), cle_nom(a["pere"]), an) if a["mere"] else ("", "", an)
     litters.setdefault(cle, []).append(a)
 FRATRIE = {k["fb"]: [x for x in kits if x is not k] for (m, p, an), kits in litters.items() if m for k in kits}
+for _g in CFG.get("fratries", []):  # fratries connues sans les parents
+    for _f in _g:
+        FRATRIE[_f] = FRATRIE.get(_f, []) + [BY[x] for x in _g if x != _f and BY[x] not in FRATRIE.get(_f, [])]
 ancre_portee = lambda cle: "p-" + slug_robe("-".join(cle))
 court_nom = lambda n: re.sub(r"\s+(des Innamorati|aka)\b.*$", "", n, flags=re.I)
 
