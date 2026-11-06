@@ -78,5 +78,15 @@
     "204": "GIC · NW · JW · DVM",
     "148": "IC",
     "143": "IC"
-  }
+  },
+  "statuts": {
+    "71": "adoptée",
+    "67": "adopté",
+    "69": "adopté",
+    "70": "adoptée",
+    "66": "option de l'élevage",
+    "68": "option de l'élevage",
+    "64": "pré-réservée"
+  },
+  "_aide_statuts": "Statut affiché pour un chaton (remplace celui du nom de l'album Facebook)."
 }

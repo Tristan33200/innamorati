@@ -25,6 +25,27 @@ html.fx .split.in .w > span { translate: 0 0 }
 .ribbon .track span:nth-child(4n+1) { color: transparent; -webkit-text-stroke: 1px var(--ink) }
 .ribbon .track i { font-style: normal; color: var(--sapphire); font-size: .4em; align-self: center }
 
+/* ---------- Albums : ouverture plein écran, défilé horizontal ---------- */
+.album-hero { height: clamp(520px, 88vh, 960px) }
+.album-hero .crumb { color: #fff; opacity: .85; margin-bottom: 18px }
+.album-hero .crumb a { color: inherit }
+.album-hero h1 { font-size: clamp(2.4rem, 7vw, 6.4rem); line-height: 1; max-width: 16ch; margin-inline: auto }
+.album-page { padding-top: 64px }
+.album-page .head { margin-bottom: 40px }
+
+.film { position: relative; margin: 40px 0 64px }
+.film-pin { overflow-x: auto; padding: 0 max(16px, calc((100vw - 1200px) / 2)) }
+.film-track { display: flex; gap: clamp(14px, 2vw, 28px); width: max-content; align-items: center; padding-top: 2em }
+.f-item { position: relative; display: block; flex: none }
+.f-item .ph { height: clamp(300px, 66vh, 740px); aspect-ratio: auto; overflow: hidden }
+.f-item .ph img { height: 100%; width: auto; max-width: none; object-fit: cover }
+.f-item:nth-child(even) .ph { height: clamp(240px, 48vh, 540px) }
+.f-n { position: absolute; left: 0; top: -1.7em; font-family: var(--display); font-style: italic; font-size: 1.1rem; color: var(--muted) }
+html.fx .film-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center }
+html.fx .film-track { will-change: transform }
+html.fx .f-item .ph img { --sc: 1.2 }
+.gallery { margin-block: 64px 150px }
+
 @media (prefers-reduced-motion: reduce) {
   html.fx .rv, html.fx .split .w > span { opacity: 1 !important; translate: none !important; clip-path: none !important }
 }

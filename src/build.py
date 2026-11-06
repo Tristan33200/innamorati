@@ -110,6 +110,7 @@ for a in albums:
     elif n.startswith("Portée"): a["type"] = "portee"
     elif re.match(r"\d{4}-\d{2}-\d{2}", n): a["type"] = "expo"
     else: a["type"] = "grandi"
+    if fb in CFG.get("statuts", {}): a["statut"] = CFG["statuts"][fb]
     a["note"] = CFG["notes"].get(fb, "")
     a["titres"] = CFG["titres"].get(fb, "")
     a["url"] = ("expositions/" if a["type"] == "expo" else "chat/") + a["slug"] + "/"
@@ -232,15 +233,37 @@ def tete(label, titre, texte=""):
     return f'<div class="head"><p class="label">{label}</p><h1>{titre}</h1>{f"<p>{texte}</p>" if texte else ""}</div>'
 
 
+def legende(a, p):
+    leg = clean(p["legende"])
+    if a["titre"].lower()[:12] in leg.lower() or leg == clean(a["description"]): leg = ""
+    return date_fr(p["date"]) + (" · " + leg[:300].replace("\n", " ") if leg else "")
+
+
+def entete_album(r, a, titre, sur, sous):
+    """Grande photo de couverture plein écran, titre par-dessus (parallaxe)."""
+    return (f'<div class="hero album-hero"><div class="ph"><img src="{r}photos/{a["cover"]}.jpg" alt="{e(a["titre"])}"></div>'
+            f'<div class="wrap"><p class="crumb">{sur}</p><h1>{e(titre)}</h1><p>{sous}</p></div></div>')
+
+
+FILM_MIN = 8  # nombre de photos à partir duquel l'album s'ouvre sur un défilé horizontal
+
+
+def film(r, a, n=10):
+    if len(a["photos"]) < FILM_MIN: return ""
+    items = "".join(f'<a class="g-item f-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(legende(a, p))}">'
+                    f'<div class="ph"><img src="{r}photos/{p["id"]}.jpg" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div>'
+                    f'<span class="f-n">{i + 1:02d}</span></a>' for i, p in enumerate(a["photos"][:n]))
+    return f'<div class="film"><div class="film-pin"><div class="film-track">{items}</div></div></div>'
+
+
 def galerie(r, a):
     figs = []
-    for p in a["photos"]:
-        leg = clean(p["legende"])
-        if a["titre"].lower()[:12] in leg.lower() or leg == clean(a["description"]): leg = ""
-        cap = date_fr(p["date"]) + (" · " + leg[:300].replace("\n", " ") if leg else "")
+    debut = min(10, len(a["photos"])) if len(a["photos"]) >= FILM_MIN else 0
+    for p in a["photos"][debut:]:
+        cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
                     f'<div class="ph"><img src="{r}photos/t/{p["id"]}.jpg" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
-    return f'<div class="gallery">{"".join(figs)}</div>'
+    return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
 # ---------- Préparation de docs/ ----------
@@ -267,14 +290,16 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     rubrique = {"repro": ("Nos reproductrices", "nos-chats/"), "retraite": ("Nos retraités", "nos-chats/"), "ancienne": ("Nos anciennes reproductrices", "nos-chats/"),
                 "male": ("Nos anciens reproducteurs", "nos-chats/"), "chaton": ("Nos chatons", "chatons/"), "portee": ("Nos portées", "portees/"),
                 "grandi": ("Ils ont grandi", "ils-ont-grandi/")}[a["type"]]
-    corps = f"""<section class="album-page"><div class="wrap">
-<p class="crumb"><a href="{r}{rubrique[1]}">{rubrique[0]}</a></p>
-<div class="head"><h1>{e(a["titre"])}</h1><div class="facts">{fhtml}</div></div>
-{f'<p class="center" style="margin:-24px 0 56px"><a class="btn" href="{r}contact/?chaton={a["titre"].replace(" ", "+")}#formulaire">Ce chaton m\'intéresse</a></p>' if a["type"] == "chaton" and "réserv" not in (a["statut"] or "") else ""}
+    sous = " · ".join(x for x in [a["sexe"], a["robe"]] if x) or f'{len(a["photos"])} photos'
+    corps = f"""{entete_album(r, a, a["titre"], f'<a href="{r}{rubrique[1]}">{rubrique[0]}</a>', e(sous))}
+<section class="album-page"><div class="wrap">
+<div class="head"><div class="facts">{fhtml}</div></div>
+{f'<p class="center" style="margin:-24px 0 56px"><a class="btn" href="{r}contact/?chaton={a["titre"].replace(" ", "+")}#formulaire">Ce chaton m\'intéresse</a></p>' if a["type"] == "chaton" and "à réserver" in (a["statut"] or "") else ""}
+</div>{film(r, a)}<div class="wrap">
 {galerie(r, a)}
 <p class="prot">Photos réduites et marquées. Elles appartiennent à la Chatterie des Innamorati et ne peuvent pas être reprises dans une annonce.</p>
 </div></section>"""
-    page(a["url"].rstrip("/"), f'{a["titre"]} · Chatterie des Innamorati', corps,
+    page(a["url"].rstrip("/"), f'{a["titre"]} · Chatterie des Innamorati', corps, sombre_entete=True,
          desc=f'{a["titre"]}, Sacré de Birmanie de la Chatterie des Innamorati. {a["robe"]}.', image=a["cover"])
 
 # ---------- Portées (regroupement des chatons par parents et par année) ----------
@@ -313,7 +338,7 @@ dispo = [BY[f] for f in CFG["chatons_disponibles"]]
 groupes = OrderedDict()
 for k in dispo: groupes.setdefault((cle_nom(k["mere"]), cle_nom(k["pere"])), []).append(k)
 blocs = []
-for _, kits in groupes.items():
+for _, kits in sorted(groupes.items(), key=lambda kv: kv[1][0]["debut"], reverse=True):
     m, p = kits[0]["mere"], kits[0]["pere"]
     cartes = "".join(carte("../", k, f'<span class="status{" libre" if "réserver" in k["statut"] else ""}">{e(k["statut"].capitalize())}</span>') for k in kits)
     blocs.append(f'<div class="litter"><h2>{lien_chat(m, "../")} × {lien_chat(p, "../")}</h2><span>Nés en {date_fr(kits[0]["debut"], False)}</span></div><div class="grid g4">{cartes}</div>')
@@ -323,6 +348,7 @@ page("chatons", "Nos chatons · Chatterie des Innamorati",
 
 # ---------- Nos chats ----------
 def bloc(titre, texte, liste):
+    liste = sorted(liste, key=lambda a: a["debut"], reverse=True)  # du plus jeune au plus ancien
     return f'<div class="litter"><h2>{titre}</h2><span>{texte}</span></div><div class="grid g3">{"".join(carte("../", a) for a in liste)}</div>'
 cathy = CFG["males_amie"]
 males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}. Crush Boom Bang a aussi été l’un de nos reproducteurs.</p>'
@@ -350,13 +376,14 @@ expos = sorted([a for a in albums if a["type"] == "expo"], key=lambda a: a["nom"
 for a in expos:
     r = "../../"
     resultats = e(a["description"]).replace("\n", "<br>")
-    corps = f"""<section class="album-page"><div class="wrap">
-<p class="crumb"><a href="{r}expositions/">Expositions</a></p>
-<div class="head"><h1>{e(re.sub(r"^[0-9-]+( à [0-9]+| & [0-9]+)? ", "", a["titre"]))}</h1><p class="label">{date_fr(a["nom"][:10])} · {len(a["photos"])} photos</p></div>
+    lieu = re.sub(r"^[0-9-]+( à [0-9]+| & [0-9]+)? ", "", a["titre"])
+    corps = f"""{entete_album(r, a, lieu, f'<a href="{r}expositions/">Expositions</a>', f'{date_fr(a["nom"][:10])} · {len(a["photos"])} photos')}
+<section class="album-page"><div class="wrap">
 {f'<div class="results">{resultats}</div>' if resultats else ''}
+</div>{film(r, a)}<div class="wrap">
 {galerie(r, a)}
 </div></section>"""
-    page(a["url"].rstrip("/"), f'{a["titre"]} · Expositions', corps, image=a["cover"])
+    page(a["url"].rstrip("/"), f'{a["titre"]} · Expositions', corps, image=a["cover"], sombre_entete=True)
 saisons = OrderedDict()
 for a in expos:
     d = datetime.date.fromisoformat(a["nom"][:10])
@@ -391,9 +418,55 @@ for fam in COULEURS["familles"]:
         cartes.append(f'<div class="card coul" id="{slug_robe(c["robe"])}">{visuel}<div class="t"><h3>{e(c["robe"])}</h3><span class="robe">{e(c["texte"])}</span><span class="ex">{leg}</span></div></div>')
     blocs.append(f'<div class="litter"><h2>{e(fam["nom"])}</h2><span>{e(fam["texte"])}</span></div><div class="grid g4">{"".join(cartes)}</div>')
 comprendre = "".join(f"<div><b>{a}</b><span>{b}</span></div>" for a, b in COULEURS["comprendre"])
+# Tableau récapitulatif des 40 couleurs reconnues : 6 bases x 8 motifs (tortie impossible sur red et cream)
+BASES = [("Seal", "#3b2a22", "#c9733a"), ("Blue", "#6f7b8c", "#e3c39b"), ("Chocolat", "#7a5236", "#d48a4e"),
+         ("Lilac", "#b3a6a8", "#ecd2b4"), ("Red", "#d48a4e", None), ("Cream", "#e8c9a0", None)]
+MOTIFS = [("Point", "point", ""), ("Tabby point", "tabby point", "tabby"), ("Tortie point", "tortie point", "tortie"),
+          ("Tortie tabby point", "tortie tabby point", "tortie tabby"), ("Silver tabby point", "silver tabby point", "silver tabby"),
+          ("Silver tortie tabby point", "silver tortie tabby point", "silver tortie tabby"), ("Smoke point", "smoke point", "smoke"),
+          ("Smoke tortie point", "smoke tortie point", "smoke tortie")]
+ROBES_CHATS = {}
+for _a in sorted(chats, key=lambda x: x["debut"], reverse=True):
+    if _a["robe"]: ROBES_CHATS.setdefault(_a["robe"].lower(), _a)
+ANCRES = {c["robe"].lower(): slug_robe(c["robe"]) for f in COULEURS["familles"] for c in f["couleurs"]}
+
+
+def pastille(fonce, roux, motif):
+    """Petit disque qui évoque la couleur : corps clair, extrémité colorée, rayures, écaille, argent."""
+    couches = []
+    if "tabby" in motif: couches.append(f"repeating-linear-gradient(115deg, {fonce} 0 5px, transparent 5px 10px)")
+    if "tortie" in motif and roux: couches.append(f"conic-gradient(from 30deg, {roux} 0 22%, transparent 22% 48%, {roux} 48% 66%, transparent 66%)")
+    fond = "#e9ecef" if ("silver" in motif or "smoke" in motif) else "#f4ede2"
+    centre = f"radial-gradient(circle at 50% 70%, {fonce} 0 38%, {fond} 39%)"
+    if "smoke" in motif: centre = f"radial-gradient(circle at 50% 70%, #f6f6f6 0 14%, {fonce} 15% 38%, {fond} 39%)"
+    return ", ".join(couches + [centre])
+
+
+lignes = []
+for lib, suff, motif in MOTIFS:
+    cellules = []
+    for base, fonce, roux in BASES:
+        if "tortie" in motif and not roux:
+            cellules.append('<td class="na" title="N’existe pas : le red et le cream sont déjà des couleurs rousses">–</td>')
+            continue
+        robe = f"{base} {suff}"
+        chat = ROBES_CHATS.get(robe.lower())
+        if chat:
+            cible = f'#{ANCRES[robe.lower()]}' if robe.lower() in ANCRES else f'../{chat["url"]}'
+            vis = f'<a class="rc-ph" href="{cible}" title="{e(robe)} : {e(chat["titre"])}"><img src="../photos/t/{chat["cover"]}.jpg" alt="{e(robe)}" loading="lazy"></a>'
+        else:
+            vis = f'<span class="rc-dot" style="background:{pastille(fonce, roux, motif)}" title="{e(robe)}"></span>'
+        cellules.append(f'<td>{vis}</td>')
+    lignes.append(f'<tr><th scope="row">{lib}</th>{"".join(cellules)}</tr>')
+recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un coup d’œil</h2><span>En photo : les couleurs nées chez nous. En pastille : les autres.</span></div>
+<div class="recap-scroll"><table class="recap-t"><thead><tr><th></th>{"".join(f'<th scope="col">{b}</th>' for b, _, _ in BASES)}</tr></thead><tbody>{"".join(lignes)}</tbody></table></div>
+<div class="recap-regles"><div><b>Ce qui ne change jamais</b><span>Des yeux bleus, toujours. Quatre gants blancs. Un corps clair aux extrémités colorées.</span></div>
+<div><b>Ce qui n’existe pas chez le Birman</b><span>Les yeux verts ou dorés, les robes bicolores ou à masque blanc, les robes unies sans « point ». Un chat ainsi n’est pas un Sacré de Birmanie.</span></div>
+<div><b>Le tortie</b><span>Il mêle une couleur et du roux. Il n’existe donc pas en red ni en cream, et concerne presque uniquement les femelles.</span></div></div></div>''')
 faq_html, faq_ld = faq("Les couleurs du Birman en questions", COULEURS["faq"])
 page("couleurs", "Couleurs du Sacré de Birmanie : toutes les robes en photos · des Innamorati",
      f'''<section><div class="wrap">{tete("Les couleurs", "Toutes les couleurs du Sacré de Birmanie", COULEURS["intro"])}
+{recap}
 <div class="std std4">{comprendre}</div>
 <nav class="sommaire" aria-label="Familles de couleurs">{"".join(f'<a href="#{slug_robe(f["nom"])}">{e(f["nom"])}</a>' for f in COULEURS["familles"])}</nav>
 {"".join(b.replace('<div class="litter">', f'<div class="litter" id="{slug_robe(f["nom"])}">', 1) for b, f in zip(blocs, COULEURS["familles"]))}

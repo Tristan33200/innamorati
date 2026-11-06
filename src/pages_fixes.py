@@ -15,7 +15,7 @@ def grand(r, pid, alt, style=""):
 
 # ---------- Accueil ----------
 r = ""
-kits = "".join(carte(r, BY[f], f'<span class="status{" libre" if "réserver" in BY[f]["statut"] else ""}">{e(BY[f]["statut"].capitalize())}</span>') for f in CFG["chatons_disponibles"][:4])
+kits = "".join(carte(r, BY[f], f'<span class="status{" libre" if "réserver" in BY[f]["statut"] else ""}">{e(BY[f]["statut"].capitalize())}</span>') for f in sorted(CFG["chatons_disponibles"], key=lambda f: BY[f]["debut"], reverse=True)[:4])
 corps = f"""
 <div class="hero">
   {grand(r, P["hero"], "Les yeux saphir de Sanae des Innamorati")}
@@ -175,7 +175,7 @@ page("adopter", "Adopter un chaton Sacré de Birmanie à Bordeaux · des Innamor
 
 # ---------- Contact ----------
 r = "../"
-chatons_opts = "".join(f'<option>{e(BY[f]["titre"])}</option>' for f in CFG["chatons_disponibles"] if "réserv" not in (BY[f]["statut"] or ""))
+chatons_opts = "".join(f'<option>{e(BY[f]["titre"])}</option>' for f in CFG["chatons_disponibles"] if "à réserver" in (BY[f]["statut"] or ""))
 corps = f"""<section><div class="wrap contact">
 <div class="text"><p class="label">Contact</p><h1>Parlons de votre futur Birman</h1>
 <p>Magali vous répond personnellement, le soir et le week-end, et Tristan la seconde pour vous répondre aussi en journée.</p>
