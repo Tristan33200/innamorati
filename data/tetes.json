@@ -1,0 +1,110 @@
+{
+ "seal point": {
+  "photo": "1039168646264291",
+  "boite": [
+   0.46,
+   0.4,
+   0.4
+  ],
+  "fichier": "rc/seal-point.jpg"
+ },
+ "seal tabby point": {
+  "photo": "1125078997673255",
+  "boite": [
+   0.48,
+   0.34,
+   0.42
+  ],
+  "fichier": "rc/seal-tabby-point.jpg"
+ },
+ "blue point": {
+  "photo": "1565376321367910",
+  "boite": [
+   0.45,
+   0.38,
+   0.3
+  ],
+  "fichier": "rc/blue-point.jpg"
+ },
+ "chocolat point": {
+  "photo": "968215574417324",
+  "boite": [
+   0.55,
+   0.43,
+   0.58
+  ],
+  "fichier": "rc/chocolat-point.jpg"
+ },
+ "chocolat tabby point": {
+  "photo": "1798426701396203",
+  "boite": [
+   0.53,
+   0.42,
+   0.56
+  ],
+  "fichier": "rc/chocolat-tabby-point.jpg"
+ },
+ "lilac point": {
+  "photo": "1289659732272905",
+  "boite": [
+   0.39,
+   0.32,
+   0.38
+  ],
+  "fichier": "rc/lilac-point.jpg"
+ },
+ "lilac tabby point": {
+  "photo": "1300220180159135",
+  "boite": [
+   0.47,
+   0.26,
+   0.84
+  ],
+  "fichier": "rc/lilac-tabby-point.jpg"
+ },
+ "red tabby point": {
+  "photo": "1292514685320743",
+  "boite": [
+   0.48,
+   0.55,
+   0.36
+  ],
+  "fichier": "rc/red-tabby-point.jpg"
+ },
+ "blue tabby point": {
+  "photo": "1666761747896033",
+  "boite": [
+   0.48,
+   0.27,
+   0.52
+  ],
+  "fichier": "rc/blue-tabby-point.jpg"
+ },
+ "blue silver tabby point": {
+  "photo": "1299244901314388",
+  "boite": [
+   0.48,
+   0.28,
+   0.9
+  ],
+  "fichier": "rc/blue-silver-tabby-point.jpg"
+ },
+ "chocolat silver tabby point": {
+  "photo": "1289050912333787",
+  "boite": [
+   0.45,
+   0.43,
+   0.26
+  ],
+  "fichier": "rc/chocolat-silver-tabby-point.jpg"
+ },
+ "chocolat tortie tabby point": {
+  "photo": "2113596172154861",
+  "boite": [
+   0.5,
+   0.43,
+   0.46
+  ],
+  "fichier": "rc/chocolat-tortie-tabby-point.jpg"
+ }
+}

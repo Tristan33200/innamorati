@@ -11,6 +11,7 @@ from collections import defaultdict, OrderedDict
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "docs")
 CAT = json.load(open(os.path.join(ROOT, "data/catalogue.json"), encoding="utf-8"))
+CAT += json.load(open(os.path.join(ROOT, "data/albums_ajoutes.json"), encoding="utf-8"))  # chats sans album Facebook
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
 COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
@@ -383,7 +384,7 @@ def bloc(titre, texte, liste):
     liste = sorted(liste, key=age, reverse=True)  # du plus jeune au plus ancien
     return f'<div class="litter"><h2>{titre}</h2><span>{texte}</span></div><div class="grid g3">{"".join(carte("../", a) for a in liste)}</div>'
 cathy = CFG["males_amie"]
-males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}. Crush Boom Bang a aussi été l’un de nos reproducteurs.</p>'
+males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}.</p>'
 eros_txt = '<div class="litter"><h2>Eros, notre premier Birman</h2><span>Celui par qui tout a commencé</span></div><p class="note" style="margin-top:0">Eros n’était pas au standard de la race et n’a jamais reproduit. Il a été notre adoré chat de compagnie, et c’est grâce à lui que nous sommes tombés amoureux du Sacré de Birmanie.</p>'
 corps = (f'<section><div class="wrap">{tete("Nos chats", "Ceux qui font la maison", "Nos reproductrices actuelles, nos retraités qui vivent toujours avec nous, et tous ceux qui ont construit l’élevage.")}'
          + bloc("Nos reproductrices", "Elles vivent avec nous et donnent naissance à nos chatons", [BY[f] for f in CFG["reproductrices"]])
@@ -457,6 +458,9 @@ MOTIFS = [("Point", "point", ""), ("Tabby point", "tabby point", "tabby"), ("Tor
           ("Tortie tabby point", "tortie tabby point", "tortie tabby"), ("Silver tabby point", "silver tabby point", "silver tabby"),
           ("Silver tortie tabby point", "silver tortie tabby point", "silver tortie tabby"), ("Smoke point", "smoke point", "smoke"),
           ("Smoke tortie point", "smoke tortie point", "smoke tortie")]
+# Têtes de chats adultes recadrées (data/tetes.json, images dans docs/photos/rc/)
+TETES = json.load(open(os.path.join(ROOT, "data/tetes.json"), encoding="utf-8"))
+PHOTO_CHAT = {p["id"]: a for a in chats for p in a["photos"]}
 ROBES_CHATS = {}
 for _a in sorted(chats, key=lambda x: x["debut"], reverse=True):
     if _a["robe"]: ROBES_CHATS.setdefault(_a["robe"].lower(), _a)
@@ -482,15 +486,16 @@ for lib, suff, motif in MOTIFS:
             cellules.append('<td class="na" title="N’existe pas : le red et le cream sont déjà des couleurs rousses">–</td>')
             continue
         robe = f"{base} {suff}"
-        chat = ROBES_CHATS.get(robe.lower())
+        t = TETES.get(robe.lower())
+        chat = t and PHOTO_CHAT.get(t["photo"])
         if chat:
             cible = f'#{ANCRES[robe.lower()]}' if robe.lower() in ANCRES else f'../{chat["url"]}'
-            vis = f'<a class="rc-ph" href="{cible}" title="{e(robe)} : {e(chat["titre"])}"><img src="../photos/t/{chat["cover"]}.jpg" alt="{e(robe)}" loading="lazy"></a>'
+            vis = f'<a class="rc-ph" href="{cible}" title="{e(robe)} : {e(chat["titre"])}"><img src="../photos/{t["fichier"]}" alt="{e(robe)}" loading="lazy"></a>'
         else:
             vis = f'<span class="rc-dot" style="background:{pastille(fonce, roux, motif)}" title="{e(robe)}"></span>'
         cellules.append(f'<td>{vis}</td>')
     lignes.append(f'<tr><th scope="row">{lib}</th>{"".join(cellules)}</tr>')
-recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un coup d’œil</h2><span>En photo : les couleurs nées chez nous. En pastille : les autres.</span></div>
+recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un coup d’œil</h2><span>En photo : nos chats adultes. En pastille : les couleurs que nous n’avons pas encore photographiées à l’âge adulte.</span></div>
 <div class="recap-scroll"><table class="recap-t"><thead><tr><th></th>{"".join(f'<th scope="col">{b}</th>' for b, _, _ in BASES)}</tr></thead><tbody>{"".join(lignes)}</tbody></table></div>
 <div class="recap-regles"><div><b>Ce qui ne change jamais</b><span>Des yeux bleus, toujours. Quatre gants blancs. Un corps clair aux extrémités colorées.</span></div>
 <div><b>Ce qui n’existe pas chez le Birman</b><span>Les yeux verts ou dorés, les robes bicolores ou à masque blanc, les robes unies sans « point ». Un chat ainsi n’est pas un Sacré de Birmanie.</span></div>
