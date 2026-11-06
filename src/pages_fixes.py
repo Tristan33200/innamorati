@@ -46,11 +46,13 @@ corps = f"""
   <div class="head"><p class="label">Palmarès</p><h2>Dix saisons d'expositions</h2><p>Chaque hiver et chaque printemps, nous présentons nos chats en exposition : Paris, Bordeaux, Biarritz, Nantes, Rome, Milan, Valladolid.</p></div>
   <div class="palm-grid">{grand(r, P["nw2019"], "Œdipe des Innamorati, National Winner 2019")}
     <div><ul class="titles-list">
-      <li><div><b><a href="{BY['204']['url']}">Œdipe des Innamorati</a></b><span>Mâle seal point · Best in Show à Nantes, 2021</span></div><em>GIC · NW · JW · DVM</em></li>
+      <li><div><b><a href="{BY['204']['url']}">Œdipe des Innamorati</a></b><span>Mâle seal point · Best of Best à Sartrouville (2019), Pontchâteau (2021) et Pontorson (2022)</span></div><em>SC · NW · JW · DSM · DVM</em></li>
+      <li><div><b><a href="{BY['2']['url']}">{BY['2']['titre']}</a></b><span>{BY['2']['sexe']} {BY['2']['robe'].lower()}</span></div><em>GIC</em></li>
+      <li><div><b><a href="{BY['98']['url']}">{BY['98']['titre']}</a></b><span>{BY['98']['sexe']} {BY['98']['robe'].lower()} · Best in Show à Paris, 2023</span></div><em>GIP</em></li>
       <li><div><b><a href="{BY['148']['url']}">Simone de Beauvoir des Innamorati</a></b><span>Femelle seal tabby point</span></div><em>IC</em></li>
-      <li><div><b><a href="{BY['143']['url']}">Sanae des Innamorati</a></b><span>Femelle blue point</span></div><em>IC</em></li>
+      <li><div><b><a href="{BY['143']['url']}">Sanae des Innamorati</a></b><span>Femelle blue point</span></div><em>IC · DVM</em></li>
     </ul>
-    <p class="abbr">GIC Grand Champion International · IC Champion International · NW National Winner · JW Junior Winner · DVM Distinguished Variety Merit</p>
+    <p class="abbr">SC Champion Suprême · GIC Grand Champion International · IC Champion International · GIP Grand Premior International (chat stérilisé) · NW National Winner · JW Junior Winner · DSM Distinguished Show Merit · DVM Distinguished Variety Merit</p>
     <p style="margin-top:28px"><a class="btn light" href="expositions/">Toutes nos expositions</a></p></div>
   </div>
 </div></section>

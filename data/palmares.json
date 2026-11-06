@@ -1,0 +1,1787 @@
+[
+ {
+  "date": "2019-09-21",
+  "nom": "Only The Very Best",
+  "fb": "19",
+  "lieu": "Castets",
+  "res": "EXC2 CAC"
+ },
+ {
+  "date": "2019-09-22",
+  "nom": "Only The Very Best",
+  "fb": "19",
+  "lieu": "Castets",
+  "res": "CAC"
+ },
+ {
+  "date": "2017-01-14",
+  "nom": "Anaïs",
+  "fb": "0",
+  "lieu": "Paris",
+  "res": "EXC2"
+ },
+ {
+  "date": "2017-01-15",
+  "nom": "Anaïs",
+  "fb": "0",
+  "lieu": "Paris",
+  "res": "EXC2"
+ },
+ {
+  "date": "2017-01-28",
+  "nom": "Anaïs",
+  "fb": "0",
+  "lieu": "Bordeaux",
+  "res": "EXC1"
+ },
+ {
+  "date": "2017-01-29",
+  "nom": "Anaïs",
+  "fb": "0",
+  "lieu": "Bordeaux",
+  "res": "EXC2"
+ },
+ {
+  "date": "2018-02-03",
+  "nom": "Anaïs",
+  "fb": "0",
+  "lieu": "La Teste de Buch",
+  "res": "EXC 4 CAC"
+ },
+ {
+  "date": "2018-02-04",
+  "nom": "Anaïs",
+  "fb": "0",
+  "lieu": "La Teste de Buch",
+  "res": "CAC"
+ },
+ {
+  "date": "2016-01-23",
+  "nom": "Eros",
+  "fb": "",
+  "lieu": "Bordeaux",
+  "res": "CAP"
+ },
+ {
+  "date": "2016-01-24",
+  "nom": "Eros",
+  "fb": "",
+  "lieu": "Bordeaux",
+  "res": "CAP + NOM"
+ },
+ {
+  "date": "2025-01-18",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "EXC2"
+ },
+ {
+  "date": "2015-01-24",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Bordeaux",
+  "res": "EXC2"
+ },
+ {
+  "date": "2015-01-25",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Bordeaux",
+  "res": "EXC1"
+ },
+ {
+  "date": "2015-11-14",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "La Teste de Buch",
+  "res": "CAC"
+ },
+ {
+  "date": "2015-11-15",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "La Teste de Buch",
+  "res": "CAC"
+ },
+ {
+  "date": "2016-01-16",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Paris",
+  "res": "CAC"
+ },
+ {
+  "date": "2016-01-17",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Paris",
+  "res": "CACIB"
+ },
+ {
+  "date": "2016-01-23",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Bordeaux",
+  "res": "CACIB + BIV"
+ },
+ {
+  "date": "2016-01-24",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Bordeaux",
+  "res": "CACIB + NOM"
+ },
+ {
+  "date": "2016-02-27",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Valladolid",
+  "res": "CACIB"
+ },
+ {
+  "date": "2016-02-28",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Valladolid",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2016-04-02",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Rome",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2017-01-28",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Bordeaux",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2017-01-29",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Bordeaux",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2017-09-09",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Castets",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2017-09-10",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Castets",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2017-11-25",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2017-11-26",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2018-01-13",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2018-01-14",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "EXC1 + BIV"
+ },
+ {
+  "date": "2018-02-03",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "La Teste de Buch",
+  "res": "EXC1 + NOM BIS"
+ },
+ {
+  "date": "2018-02-04",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "La Teste de Buch",
+  "res": "EXC1 + NOM BIS"
+ },
+ {
+  "date": "2018-09-08",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Castets",
+  "res": "CAC + NOM + BIV + BIS"
+ },
+ {
+  "date": "2018-09-09",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Castets",
+  "res": "CAC + BIV"
+ },
+ {
+  "date": "2018-10-20",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Marsac",
+  "res": "CAC + NOM"
+ },
+ {
+  "date": "2018-10-21",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Marsac",
+  "res": "CACIB"
+ },
+ {
+  "date": "2018-11-24",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Biarritz",
+  "res": "EXC2 nonCACIB"
+ },
+ {
+  "date": "2019-04-20",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Blaye",
+  "res": "CACIB + BIV + NOM"
+ },
+ {
+  "date": "2019-04-21",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Blaye",
+  "res": "CACIB + BIV"
+ },
+ {
+  "date": "2021-10-09",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Braud et Saint Louis",
+  "res": "CACIB + NOM + BIS"
+ },
+ {
+  "date": "2021-10-10",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2021-11-27",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Pontchâteau",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2021-11-28",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Pontchâteau",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2022-02-19",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Pontorson",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2022-02-20",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Pontorson",
+  "res": "CAGCIB + NOM"
+ },
+ {
+  "date": "2022-03-11",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "CAGCIB + BIV + NOM"
+ },
+ {
+  "date": "2022-03-12",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2022-03-13",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-01",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-02",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Paris",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-22",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Lanton",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-23",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Lanton",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-11-26",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Pontchâteau",
+  "res": "CACS + BIV"
+ },
+ {
+  "date": "2022-11-27",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Pontchâteau",
+  "res": "CACS"
+ },
+ {
+  "date": "2023-01-28",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Le Taillan Médoc",
+  "res": "CACS"
+ },
+ {
+  "date": "2023-01-29",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Le Taillan Médoc",
+  "res": "CACS + NOM"
+ },
+ {
+  "date": "2024-01-20",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CACS + BIV"
+ },
+ {
+  "date": "2024-01-21",
+  "nom": "Kacey",
+  "fb": "2",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CACS"
+ },
+ {
+  "date": "2018-01-13",
+  "nom": "Lizz",
+  "fb": "73",
+  "lieu": "Paris",
+  "res": "EXC1 + NOM BIS"
+ },
+ {
+  "date": "2018-01-14",
+  "nom": "Lizz",
+  "fb": "73",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2018-02-03",
+  "nom": "Lizz",
+  "fb": "73",
+  "lieu": "La Teste de Buch",
+  "res": "EXC1 + NOM BIS + BIS"
+ },
+ {
+  "date": "2018-02-04",
+  "nom": "Lizz",
+  "fb": "73",
+  "lieu": "La Teste de Buch",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-11-23",
+  "nom": "Lizz",
+  "fb": "73",
+  "lieu": "Biarritz",
+  "res": "EXC1 CAC"
+ },
+ {
+  "date": "2019-11-24",
+  "nom": "Lizz",
+  "fb": "73",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2016-09-03",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "Castets",
+  "res": "EXC1"
+ },
+ {
+  "date": "2016-09-04",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "Castets",
+  "res": "EXC1"
+ },
+ {
+  "date": "2016-12-03",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "Biarritz",
+  "res": "EXC1 + BIV"
+ },
+ {
+  "date": "2016-12-04",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "Biarritz",
+  "res": "EXC1 + NOM"
+ },
+ {
+  "date": "2017-01-28",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "Bordeaux",
+  "res": "CAC"
+ },
+ {
+  "date": "2017-01-29",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "Bordeaux",
+  "res": "CAC EXC2"
+ },
+ {
+  "date": "2018-02-03",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "La Teste de Buch",
+  "res": "CAC"
+ },
+ {
+  "date": "2018-02-04",
+  "nom": "Malicia",
+  "fb": "4",
+  "lieu": "La Teste de Buch",
+  "res": "CAC"
+ },
+ {
+  "date": "2016-12-03",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Biarritz",
+  "res": "EXC1 + BIV"
+ },
+ {
+  "date": "2016-12-04",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2017-01-14",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2017-01-15",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2017-09-09",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Castets",
+  "res": "CAC"
+ },
+ {
+  "date": "2017-09-10",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Castets",
+  "res": "CAC"
+ },
+ {
+  "date": "2017-11-25",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Biarritz",
+  "res": "CAC"
+ },
+ {
+  "date": "2017-11-26",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Biarritz",
+  "res": "CACIB"
+ },
+ {
+  "date": "2017-12-17",
+  "nom": "Mia Bella",
+  "fb": "8",
+  "lieu": "Le Barp",
+  "res": "CACIB"
+ },
+ {
+  "date": "2017-11-25",
+  "nom": "Naïade",
+  "fb": "10",
+  "lieu": "Biarritz",
+  "res": "EXC2"
+ },
+ {
+  "date": "2017-11-26",
+  "nom": "Naïade",
+  "fb": "10",
+  "lieu": "Biarritz",
+  "res": "EXC2"
+ },
+ {
+  "date": "2017-12-17",
+  "nom": "Naïade",
+  "fb": "10",
+  "lieu": "Le Barp",
+  "res": "EXC1"
+ },
+ {
+  "date": "2015-12-13",
+  "nom": "Jazzy",
+  "fb": "1",
+  "lieu": "Le Barp",
+  "res": "CAC + BIV + NOM BIS"
+ },
+ {
+  "date": "2018-09-15",
+  "nom": "Oasis",
+  "fb": "78",
+  "lieu": "Paray le Monial",
+  "res": "EXC1"
+ },
+ {
+  "date": "2018-09-16",
+  "nom": "Oasis",
+  "fb": "78",
+  "lieu": "Paray le Monial",
+  "res": "EXC2"
+ },
+ {
+  "date": "2018-10-06",
+  "nom": "Oasis",
+  "fb": "78",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2018-10-07",
+  "nom": "Oasis",
+  "fb": "78",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-02-02",
+  "nom": "Oasis",
+  "fb": "78",
+  "lieu": "Bordeaux",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-02-03",
+  "nom": "Oasis",
+  "fb": "78",
+  "lieu": "Bordeaux",
+  "res": "EXC1 + NOM"
+ },
+ {
+  "date": "2019-01-12",
+  "nom": "Odysée",
+  "fb": "80",
+  "lieu": "Paris",
+  "res": "CAC"
+ },
+ {
+  "date": "2019-01-13",
+  "nom": "Odysée",
+  "fb": "80",
+  "lieu": "Paris",
+  "res": "CAC"
+ },
+ {
+  "date": "2019-02-02",
+  "nom": "Odysée",
+  "fb": "80",
+  "lieu": "Bordeaux",
+  "res": "CAC"
+ },
+ {
+  "date": "2019-02-03",
+  "nom": "Odysée",
+  "fb": "80",
+  "lieu": "Bordeaux",
+  "res": "CAC EXC2"
+ },
+ {
+  "date": "2019-03-02",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Milan",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-03-03",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Milan",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-04-20",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Blaye",
+  "res": "EXC1 + BIV + NOM + BIS"
+ },
+ {
+  "date": "2019-04-21",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Blaye",
+  "res": "EXC1 + BIV + NOM + BIS"
+ },
+ {
+  "date": "2019-04-27",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Saint Quentin",
+  "res": "EXC1 + NOM + BIS"
+ },
+ {
+  "date": "2019-04-28",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Saint Quentin",
+  "res": "EXC1 + NOM + BIS"
+ },
+ {
+  "date": "2019-05-04",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Annecy-Sevrier",
+  "res": "EXC1 + NOM + BIS"
+ },
+ {
+  "date": "2019-05-05",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Annecy-Sevrier",
+  "res": "EXC1 + NOM + BIV + BIS"
+ },
+ {
+  "date": "2019-09-14",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Sartrouville",
+  "res": "CAC + BIV + NOM + BIS + BOB 3ème"
+ },
+ {
+  "date": "2019-09-15",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Sartrouville",
+  "res": "CAC + BIV + NOM + BIS + BOB 1er"
+ },
+ {
+  "date": "2019-09-21",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Castets",
+  "res": "CAC + NOM"
+ },
+ {
+  "date": "2019-09-22",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Castets",
+  "res": "CAC + BIV + NOM + BIS + BOB 3ème"
+ },
+ {
+  "date": "2019-10-05",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris",
+  "res": "CACIB + NOM + BIS + BOB 2ème"
+ },
+ {
+  "date": "2019-10-06",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris",
+  "res": "CACIB + BIV + NOM + BIS + BOB 2ème"
+ },
+ {
+  "date": "2019-10-19",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Marsac",
+  "res": "CACIB + NOM + BIS"
+ },
+ {
+  "date": "2019-10-20",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Marsac",
+  "res": "CACIB + BIV + NOM + BIS"
+ },
+ {
+  "date": "2019-11-16",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Rome",
+  "res": "CACIB"
+ },
+ {
+  "date": "2019-11-17",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Rome",
+  "res": "CAGCIB + BIV"
+ },
+ {
+  "date": "2019-11-23",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Biarritz",
+  "res": "CAGCIB + BIV + NOM"
+ },
+ {
+  "date": "2019-11-24",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Biarritz",
+  "res": "CAGCIB + BIV + NOM"
+ },
+ {
+  "date": "2020-01-18",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Léognan",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2020-01-19",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Léognan",
+  "res": "EXC2"
+ },
+ {
+  "date": "2020-01-25",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2020-01-26",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris",
+  "res": "EXC2"
+ },
+ {
+  "date": "2021-10-09",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAGCIB + BIV"
+ },
+ {
+  "date": "2021-10-10",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAGCIB + BIV"
+ },
+ {
+  "date": "2021-11-27",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Pontchâteau",
+  "res": "CACS + BIV + NOM + BIS + BOB 1er"
+ },
+ {
+  "date": "2021-11-28",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Pontchâteau",
+  "res": "CACS + BIV + NOM + BIS"
+ },
+ {
+  "date": "2022-02-19",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Pontorson",
+  "res": "CACS + BIV + NOM + BIS + BOB 1er"
+ },
+ {
+  "date": "2022-02-20",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Pontorson",
+  "res": "CACS + BIV + NOM + BIS + BOB 2ème"
+ },
+ {
+  "date": "2022-09-17",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Tilh",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-09-18",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Tilh",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-01",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-02",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-22",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Lanton",
+  "res": "CACS"
+ },
+ {
+  "date": "2022-10-23",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Lanton",
+  "res": "CACS + BIV + NOM"
+ },
+ {
+  "date": "2024-03-08",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris Versailles",
+  "res": "PH + BIV + NOM"
+ },
+ {
+  "date": "2024-03-09",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris Versailles",
+  "res": "PH + BIV + NOM"
+ },
+ {
+  "date": "2024-03-10",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Paris Versailles",
+  "res": "PH + NOM"
+ },
+ {
+  "date": "2025-01-18",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAP + NOM + BIS"
+ },
+ {
+  "date": "2025-01-19",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAP + NOM + BIS"
+ },
+ {
+  "date": "2026-04-12",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "Mediterranean Winner Show Bordeaux",
+  "res": "CAP + NOM"
+ },
+ {
+  "date": "2018-10-20",
+  "nom": "Only The Very Best",
+  "fb": "19",
+  "lieu": "Marsac",
+  "res": "EXC2"
+ },
+ {
+  "date": "2018-10-21",
+  "nom": "Only The Very Best",
+  "fb": "19",
+  "lieu": "Marsac",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-01-12",
+  "nom": "Only The Very Best",
+  "fb": "19",
+  "lieu": "Paris",
+  "res": "EXC2"
+ },
+ {
+  "date": "2019-01-13",
+  "nom": "Only The Very Best",
+  "fb": "19",
+  "lieu": "Paris",
+  "res": "EXC1 + NOM"
+ },
+ {
+  "date": "2018-09-08",
+  "nom": "Optimus Prime",
+  "fb": "85",
+  "lieu": "Castets",
+  "res": "EXC1 + NOM"
+ },
+ {
+  "date": "2018-09-09",
+  "nom": "Optimus Prime",
+  "fb": "85",
+  "lieu": "Castets",
+  "res": "EXC1 + NOM + BIS"
+ },
+ {
+  "date": "2018-11-24",
+  "nom": "Optimus Prime",
+  "fb": "85",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2018-11-25",
+  "nom": "Optimus Prime",
+  "fb": "85",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-01-12",
+  "nom": "Optimus Prime",
+  "fb": "85",
+  "lieu": "Paris",
+  "res": "CAP + NOM"
+ },
+ {
+  "date": "2019-01-13",
+  "nom": "Optimus Prime",
+  "fb": "85",
+  "lieu": "Paris",
+  "res": "CAP"
+ },
+ {
+  "date": "2019-02-02",
+  "nom": "Osez Josepine",
+  "fb": "20",
+  "lieu": "Bordeaux",
+  "res": "EXC2"
+ },
+ {
+  "date": "2019-02-03",
+  "nom": "Osez Josepine",
+  "fb": "20",
+  "lieu": "Bordeaux",
+  "res": "EXC2"
+ },
+ {
+  "date": "2019-09-21",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Castets",
+  "res": "EXC2"
+ },
+ {
+  "date": "2019-09-22",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Castets",
+  "res": "EXC1 + BIV"
+ },
+ {
+  "date": "2019-10-05",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris",
+  "res": "EXC3"
+ },
+ {
+  "date": "2019-10-06",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-10-19",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Marsac",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-10-20",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Marsac",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-11-23",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Biarritz",
+  "res": "EXC1 + NOM"
+ },
+ {
+  "date": "2019-11-24",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Biarritz",
+  "res": "EXC1"
+ },
+ {
+  "date": "2023-09-30",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris",
+  "res": "CAP + NOM + BIS"
+ },
+ {
+  "date": "2023-10-01",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris",
+  "res": "CAP + NOM + BIS + BEST"
+ },
+ {
+  "date": "2023-10-07",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Vaux sur Mer",
+  "res": "CAP + NOM + BIS"
+ },
+ {
+  "date": "2023-10-08",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Vaux sur Mer",
+  "res": "CAPIB + NOM"
+ },
+ {
+  "date": "2023-10-28",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Strasbourg",
+  "res": "CAPIB + NOM"
+ },
+ {
+  "date": "2023-11-18",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Saint James",
+  "res": "CAPIB"
+ },
+ {
+  "date": "2023-11-19",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Saint James",
+  "res": "CAPIB + NOM"
+ },
+ {
+  "date": "2024-01-20",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-01-21",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-03-08",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris Versailles",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-03-09",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris Versailles",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-03-10",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Paris Versailles",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-05-04",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Ancenis Saint Géréon",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-05-05",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Ancenis Saint Géréon",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-05-11",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Surgères",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2024-05-12",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Surgères",
+  "res": "CAGPIB + NOM + BIS"
+ },
+ {
+  "date": "2026-04-12",
+  "nom": "Poker Face",
+  "fb": "98",
+  "lieu": "Mediterranean Winner Show Bordeaux",
+  "res": "CAGPIB + BIV + NOM"
+ },
+ {
+  "date": "2021-10-24",
+  "nom": "Oedipe",
+  "fb": "204",
+  "lieu": "St Seurin sur l'Isle",
+  "res": "CAC + prix spécial"
+ },
+ {
+  "date": "2019-09-21",
+  "nom": "Quinten",
+  "fb": "74",
+  "lieu": "Castets",
+  "res": "EXC1"
+ },
+ {
+  "date": "2019-09-22",
+  "nom": "Quinten",
+  "fb": "74",
+  "lieu": "Castets",
+  "res": "EXC1"
+ },
+ {
+  "date": "2020-01-18",
+  "nom": "Quintessence",
+  "fb": "123",
+  "lieu": "Léognan",
+  "res": "EXC2"
+ },
+ {
+  "date": "2020-01-19",
+  "nom": "Quintessence",
+  "fb": "123",
+  "lieu": "Léognan",
+  "res": "EXC1 + BIV"
+ },
+ {
+  "date": "2020-01-25",
+  "nom": "Quintessence",
+  "fb": "123",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2020-01-26",
+  "nom": "Quintessence",
+  "fb": "123",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2021-10-24",
+  "nom": "Quintessence",
+  "fb": "123",
+  "lieu": "St Seurin sur l'Isle",
+  "res": "CAC"
+ },
+ {
+  "date": "2022-05-21",
+  "nom": "Rey",
+  "fb": "130",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAC + NOM"
+ },
+ {
+  "date": "2022-05-22",
+  "nom": "Rey",
+  "fb": "130",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAC + NOM"
+ },
+ {
+  "date": "2022-11-26",
+  "nom": "Rey",
+  "fb": "130",
+  "lieu": "Pontchâteau",
+  "res": "CAC"
+ },
+ {
+  "date": "2021-10-09",
+  "nom": "Rush Boom Bang",
+  "fb": "139",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAC + BIV"
+ },
+ {
+  "date": "2021-10-10",
+  "nom": "Rush Boom Bang",
+  "fb": "139",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAC"
+ },
+ {
+  "date": "2022-05-21",
+  "nom": "Salazar Serpentard",
+  "fb": "142",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAP + NOM + BIS + BEST"
+ },
+ {
+  "date": "2022-05-22",
+  "nom": "Salazar Serpentard",
+  "fb": "142",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAP + NOM + BIS + BEST"
+ },
+ {
+  "date": "2022-10-22",
+  "nom": "Salazar Serpentard",
+  "fb": "142",
+  "lieu": "Lanton",
+  "res": "CAPIB + NOM + BIS"
+ },
+ {
+  "date": "2022-10-29",
+  "nom": "Salazar Serpentard",
+  "fb": "142",
+  "lieu": "Mondiale Belgique",
+  "res": "CAPIB + BIV + NOM"
+ },
+ {
+  "date": "2023-01-28",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Le Taillan Médoc",
+  "res": "CACIB + BIV"
+ },
+ {
+  "date": "2023-01-29",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Le Taillan Médoc",
+  "res": "CACIB"
+ },
+ {
+  "date": "2023-11-18",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Saint James",
+  "res": "CACIB"
+ },
+ {
+  "date": "2023-11-19",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Saint James",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2024-01-20",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2024-01-21",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2025-01-18",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAGCIB + BIV"
+ },
+ {
+  "date": "2026-04-12",
+  "nom": "Sanae",
+  "fb": "143",
+  "lieu": "Mediterranean Winner Show Bordeaux",
+  "res": "CAGCIB + BIV"
+ },
+ {
+  "date": "2021-10-02",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Paris",
+  "res": "EXC1 BIV"
+ },
+ {
+  "date": "2021-10-03",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Paris",
+  "res": "EXC2"
+ },
+ {
+  "date": "2021-10-09",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Braud et Saint Louis",
+  "res": "EXC1"
+ },
+ {
+  "date": "2021-10-10",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Braud et Saint Louis",
+  "res": "EXC1 + BIV"
+ },
+ {
+  "date": "2021-10-24",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "St Seurin sur l'Isle",
+  "res": "EXC1"
+ },
+ {
+  "date": "2021-11-27",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Pontchâteau",
+  "res": "EXC1 + BIV + NOM"
+ },
+ {
+  "date": "2021-11-28",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Pontchâteau",
+  "res": "EXC1 + BIV + NOM"
+ },
+ {
+  "date": "2022-02-19",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Pontorson",
+  "res": "EXC1 + BIV + NOM + BIS"
+ },
+ {
+  "date": "2022-02-20",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Pontorson",
+  "res": "EXC1 + BIV + NOM"
+ },
+ {
+  "date": "2022-03-11",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Paris",
+  "res": "CAC + NOM"
+ },
+ {
+  "date": "2022-03-12",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Paris",
+  "res": "CAC"
+ },
+ {
+  "date": "2022-03-13",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Paris",
+  "res": "CAC + BIV + NOM"
+ },
+ {
+  "date": "2022-05-21",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Braud et Saint Louis",
+  "res": "CACIB"
+ },
+ {
+  "date": "2022-05-22",
+  "nom": "Sanaé",
+  "fb": "143",
+  "lieu": "Braud et Saint Louis",
+  "res": "CACIB"
+ },
+ {
+  "date": "2021-10-02",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2021-10-03",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2021-10-09",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Braud et Saint Louis",
+  "res": "EXC2"
+ },
+ {
+  "date": "2021-10-10",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Braud et Saint Louis",
+  "res": "EXC2"
+ },
+ {
+  "date": "2021-10-24",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "St Seurin sur l'Isle",
+  "res": "EXC1 + NOM"
+ },
+ {
+  "date": "2021-11-27",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Pontchâteau",
+  "res": "EXC1"
+ },
+ {
+  "date": "2021-11-28",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Pontchâteau",
+  "res": "EXC1"
+ },
+ {
+  "date": "2022-02-19",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Pontorson",
+  "res": "EXC1"
+ },
+ {
+  "date": "2022-02-20",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Pontorson",
+  "res": "EXC1"
+ },
+ {
+  "date": "2022-05-21",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAC + NOM"
+ },
+ {
+  "date": "2022-05-22",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Braud et Saint Louis",
+  "res": "CAC"
+ },
+ {
+  "date": "2022-10-22",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Lanton",
+  "res": "CAC"
+ },
+ {
+  "date": "2022-10-23",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Lanton",
+  "res": "CACIB"
+ },
+ {
+  "date": "2022-11-26",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Pontchâteau",
+  "res": "CACIB"
+ },
+ {
+  "date": "2022-11-27",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Pontchâteau",
+  "res": "CACIB + NOM"
+ },
+ {
+  "date": "2023-09-30",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Paris",
+  "res": "CACIB"
+ },
+ {
+  "date": "2023-10-01",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Paris",
+  "res": "CACIB"
+ },
+ {
+  "date": "2023-10-07",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Vaux sur Mer",
+  "res": "CAGCIB + NOM"
+ },
+ {
+  "date": "2023-10-08",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Vaux sur Mer",
+  "res": "CAGCIB + NOM"
+ },
+ {
+  "date": "2023-10-28",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Strasbourg",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2023-11-18",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Saint James",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2023-11-19",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Saint James",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2025-01-18",
+  "nom": "Simone de Beauvoir",
+  "fb": "148",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CAGCIB"
+ },
+ {
+  "date": "2022-09-17",
+  "nom": "Tatooine",
+  "fb": "162",
+  "lieu": "Tilh",
+  "res": "EXC1 + BIV + NOM + BIS"
+ },
+ {
+  "date": "2022-09-18",
+  "nom": "Tatooine",
+  "fb": "162",
+  "lieu": "Tilh",
+  "res": "EXC1"
+ },
+ {
+  "date": "2022-10-01",
+  "nom": "Tatooine",
+  "fb": "162",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2022-10-02",
+  "nom": "Tatooine",
+  "fb": "162",
+  "lieu": "Paris",
+  "res": "EXC1"
+ },
+ {
+  "date": "2022-10-22",
+  "nom": "Tatooine",
+  "fb": "162",
+  "lieu": "Lanton",
+  "res": "EXC3"
+ },
+ {
+  "date": "2022-10-29",
+  "nom": "Tatooine",
+  "fb": "162",
+  "lieu": "Mondiale Belgique",
+  "res": "EXC1"
+ },
+ {
+  "date": "2023-11-18",
+  "nom": "Uguette",
+  "fb": "185",
+  "lieu": "Saint James",
+  "res": "EXC2"
+ },
+ {
+  "date": "2023-11-19",
+  "nom": "Uguette",
+  "fb": "185",
+  "lieu": "Saint James",
+  "res": "EXC2"
+ },
+ {
+  "date": "2024-01-20",
+  "nom": "Uguette",
+  "fb": "185",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CACC"
+ },
+ {
+  "date": "2024-01-21",
+  "nom": "Uguette",
+  "fb": "185",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "EXC2 CACC"
+ },
+ {
+  "date": "2024-01-20",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CACC + NOM + BIS"
+ },
+ {
+  "date": "2024-01-21",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Le Taillan Bordeaux",
+  "res": "CACC + NOM"
+ },
+ {
+  "date": "2024-03-08",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Paris Versailles",
+  "res": "CACC + NOM"
+ },
+ {
+  "date": "2024-03-09",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Paris Versailles",
+  "res": "CACC + NOM"
+ },
+ {
+  "date": "2024-03-10",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Paris Versailles",
+  "res": "CACC + NOM"
+ },
+ {
+  "date": "2024-05-04",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Ancenis Saint Géréon",
+  "res": "CACJ"
+ },
+ {
+  "date": "2024-05-05",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Ancenis Saint Géréon",
+  "res": "CACJ + NOM"
+ },
+ {
+  "date": "2024-05-11",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Surgères",
+  "res": "CACJ + NOM"
+ },
+ {
+  "date": "2024-05-12",
+  "nom": "Un Chouïa Craquante",
+  "fb": "189",
+  "lieu": "Surgères",
+  "res": "CACJ"
+ }
+]

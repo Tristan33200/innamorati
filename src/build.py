@@ -113,9 +113,39 @@ for a in albums:
     if fb in CFG.get("statuts", {}): a["statut"] = CFG["statuts"][fb]
     a["note"] = CFG["notes"].get(fb, "")
     a["titres"] = CFG["titres"].get(fb, "")
+    a["ne"] = CFG.get("naissances", {}).get(fb, "")
     a["url"] = ("expositions/" if a["type"] == "expo" else "chat/") + a["slug"] + "/"
 
 chats = [a for a in albums if a["type"] not in ("masque", "expo", "portee")]
+age = lambda a: a["ne"] or a["debut"]
+
+# Palmarès : résultats d'expositions relevés dans les dossiers de l'élevage
+PALM = {}
+for _r in json.load(open(os.path.join(ROOT, "data/palmares.json"), encoding="utf-8")):
+    if _r["fb"]: PALM.setdefault(_r["fb"], []).append(_r)
+MOIS_C = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
+
+
+def palmares(fb):
+    lst = sorted(PALM.get(fb, []), key=lambda x: x["date"], reverse=True)
+    if not lst: return ""
+    wk = {(x["lieu"], x["date"][:7]) for x in lst}
+    nbis = sum(1 for x in lst if "BIS" in x["res"] or "BEST" in x["res"])
+    nbob = sum(1 for x in lst if "BOB" in x["res"])
+    resume = f'{len(wk)} exposition{"s" if len(wk) > 1 else ""} · {len(lst)} jugement{"s" if len(lst) > 1 else ""}'
+    if nbis: resume += f' · {nbis} Best in Show'
+    if nbob: resume += f' · {nbob} Best of Best'
+    ans = OrderedDict()
+    for x in lst: ans.setdefault(x["date"][:4], []).append(x)
+    def res(t):
+        t = e(t).replace(" + ", " · ")
+        return re.sub(r"\b(BIS|BEST(?: x?\d)?|BOB(?: [0-9]\S*)?)", r"<b>\1</b>", t)
+    blocs = "".join(f'<div class="pl-an"><h3>{an}</h3><ul>' + "".join(
+        f'<li><time datetime="{x["date"]}">{int(x["date"][8:])} {MOIS_C[int(x["date"][5:7]) - 1]}</time><span>{e(x["lieu"])}</span><em>{res(x["res"])}</em></li>' for x in l)
+        + '</ul></div>' for an, l in ans.items())
+    return (f'<div class="pl"><div class="litter"><h2>Palmarès</h2><span>{resume}</span></div><div class="pl-ans">{blocs}</div>'
+            '<p class="abbr pl-abbr">EXC Excellent (classement) · CAC, CACIB, CAGCIB, CACS certificats de champion, champion international, grand champion international et suprême · CAP, CAPIB, CAGPIB, CAPS équivalents pour les chats stérilisés · '
+            'BIV meilleur de la variété · NOM nommé pour le Best in Show · BIS Best in Show · BOB Best of Best, le meilleur de toute l’exposition</p></div>')
 NOMS = {}
 for a in chats:
     NOMS[a["titre"].lower()] = a
@@ -281,6 +311,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     r = "../../"
     faits = []
     if a["sexe"] or a["robe"]: faits.append(("Robe", " · ".join(x for x in [a["sexe"], a["robe"]] if x)))
+    if a["ne"]: faits.append(("Naissance", date_fr(a["ne"])))
     if a["mere"]: faits.append(("Parents", f'{lien_chat(a["mere"], r)} × {lien_chat(a["pere"], r)}'))
     if a["titres"]: faits.append(("Titres", e(a["titres"])))
     statut = a["note"] or (a["statut"][:1].upper() + a["statut"][1:] if a["statut"] else "")
@@ -297,6 +328,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
 {f'<p class="center" style="margin:-24px 0 56px"><a class="btn" href="{r}contact/?chaton={a["titre"].replace(" ", "+")}#formulaire">Ce chaton m\'intéresse</a></p>' if a["type"] == "chaton" and "à réserver" in (a["statut"] or "") else ""}
 </div>{film(r, a)}<div class="wrap">
 {galerie(r, a)}
+{palmares(a["fb"])}
 <p class="prot">Photos réduites et marquées. Elles appartiennent à la Chatterie des Innamorati et ne peuvent pas être reprises dans une annonce.</p>
 </div></section>"""
     page(a["url"].rstrip("/"), f'{a["titre"]} · Chatterie des Innamorati', corps, sombre_entete=True,
@@ -328,7 +360,7 @@ for (mere, pere, an), kits in sorted(litters.items(), key=lambda kv: kv[1][0]["d
     pa = album_portee(k0["mere"], an[:4])
     lien = f' · <a href="../{pa["url"]}">album de la portée</a>' if pa else ""
     cartes = "".join(carte("../", k) for k in kits)
-    litter_html.append(f'<div class="litter"><h2>{titre}</h2><span>{date_fr(k0["debut"], False).capitalize()} · {len(kits)} chaton{"s" if len(kits) > 1 else ""}{lien}</span></div><div class="grid g4">{cartes}</div>')
+    litter_html.append(f'<div class="litter"><h2>{titre}</h2><span>{(("Nés le " + date_fr(k0["ne"])) if k0["ne"] else date_fr(k0["debut"], False).capitalize())} · {len(kits)} chaton{"s" if len(kits) > 1 else ""}{lien}</span></div><div class="grid g4">{cartes}</div>')
 page("portees", "Nos portées · Chatterie des Innamorati",
      f'<section><div class="wrap">{tete("Nos portées", "Toutes nos portées depuis 2016", "Chaque portée avec ses parents et ses chatons. Touchez un chaton pour ouvrir son album, du premier jour à l’âge adulte.")}{"".join(litter_html)}</div></section>',
      desc="Toutes les portées de Sacrés de Birmanie nées à la Chatterie des Innamorati depuis 2016.")
@@ -338,17 +370,17 @@ dispo = [BY[f] for f in CFG["chatons_disponibles"]]
 groupes = OrderedDict()
 for k in dispo: groupes.setdefault((cle_nom(k["mere"]), cle_nom(k["pere"])), []).append(k)
 blocs = []
-for _, kits in sorted(groupes.items(), key=lambda kv: kv[1][0]["debut"], reverse=True):
+for _, kits in sorted(groupes.items(), key=lambda kv: age(kv[1][0]), reverse=True):
     m, p = kits[0]["mere"], kits[0]["pere"]
     cartes = "".join(carte("../", k, f'<span class="status{" libre" if "réserver" in k["statut"] else ""}">{e(k["statut"].capitalize())}</span>') for k in kits)
-    blocs.append(f'<div class="litter"><h2>{lien_chat(m, "../")} × {lien_chat(p, "../")}</h2><span>Nés en {date_fr(kits[0]["debut"], False)}</span></div><div class="grid g4">{cartes}</div>')
+    blocs.append(f'<div class="litter"><h2>{lien_chat(m, "../")} × {lien_chat(p, "../")}</h2><span>{("Nés le " + date_fr(kits[0]["ne"])) if kits[0]["ne"] else "Nés en " + date_fr(kits[0]["debut"], False)}</span></div><div class="grid g4">{cartes}</div>')
 page("chatons", "Nos chatons · Chatterie des Innamorati",
      f'<section><div class="wrap">{tete("Nos chatons", "Les chatons de 2026", "Chaque chaton a son album, mis à jour chaque semaine jusqu’à son départ, puis enrichi par les photos de sa famille. Pour réserver, écrivez-nous.")}{"".join(blocs)}<p class="center" style="margin-top:64px"><a class="btn" href="../adopter/">Adopter un chaton</a></p></div></section>',
      desc="Chatons Sacrés de Birmanie disponibles à la Chatterie des Innamorati, Bordeaux.")
 
 # ---------- Nos chats ----------
 def bloc(titre, texte, liste):
-    liste = sorted(liste, key=lambda a: a["debut"], reverse=True)  # du plus jeune au plus ancien
+    liste = sorted(liste, key=age, reverse=True)  # du plus jeune au plus ancien
     return f'<div class="litter"><h2>{titre}</h2><span>{texte}</span></div><div class="grid g3">{"".join(carte("../", a) for a in liste)}</div>'
 cathy = CFG["males_amie"]
 males_txt = f'<p class="note">Nos chatons ont aussi pour pères les mâles de notre amie {e(cathy["nom"])} : {", ".join(lien_chat(c, "../") for c in cathy["chats"])}. Crush Boom Bang a aussi été l’un de nos reproducteurs.</p>'

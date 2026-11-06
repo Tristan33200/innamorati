@@ -273,3 +273,14 @@ footer .fine a { color: #d8d2c7 }
 .recap-regles b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.3rem; margin-bottom: 4px }
 .recap-regles span { font-size: .9rem; color: var(--muted) }
 @media (max-width: 900px) { .recap-regles { grid-template-columns: 1fr } }
+
+/* ---------- Palmarès d'un chat ---------- */
+.pl { margin: 24px 0 96px }
+.pl-ans { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px 48px }
+.pl-an h3 { font-family: var(--display); font-weight: 400; font-size: 1.6rem; margin: 18px 0 6px; color: var(--sapphire) }
+.pl-an ul { list-style: none; margin: 0; padding: 0 }
+.pl-an li { display: grid; grid-template-columns: 62px 1fr; gap: 0 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem }
+.pl-an time { color: var(--muted); font-size: .8rem; padding-top: 2px; grid-row: span 2 }
+.pl-an em { font-style: normal; color: var(--muted); font-size: .82rem; letter-spacing: .02em }
+.pl-an em b { color: var(--sapphire); font-weight: 600 }
+.pl-abbr { margin-top: 32px; font-size: .8rem; color: var(--muted); max-width: 80ch }
