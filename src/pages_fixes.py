@@ -91,7 +91,7 @@ faq_html, faq_ld = faq(T("Adopter un Sacré de Birmanie à Bordeaux", "Adopting 
     ("How much does a Birman kitten cost?", "Our kittens are €1,800. The price includes the LOOF pedigree, microchip, vaccinations, deworming, veterinary certificate and spaying or neutering."),
     ("At what age do the kittens leave?", "Our kittens join their families between 15 weeks and 4½ months of age. They leave already spayed or neutered, well socialized and used to family life."),
     ("Are your kittens pedigree cats?", "Yes. All our kittens are registered with the LOOF, the official French pedigree registry, under the cattery name « des Innamorati ». In France, only a LOOF-registered cat may be sold as a Birman."),
-    ("Can families from outside France adopt?", 'Meeting is part of adopting: we get to know every family and welcome them at home in Bordeaux before a kitten leaves. <a href="contact/">Write to us</a> to talk about your plans.'),
+    ("Can families from outside France adopt?", 'Yes, but we never ship kittens. Every family comes to collect their kitten in person in Bordeaux, after getting to know us. Families have traveled from all over France and from abroad, some from as far as the Sultanate of Oman. <a href="contact/">Write to us</a> to talk about your plans.'),
     ("How can I avoid fake listings?", 'Our photos are sometimes stolen for fake kitten ads. Always check the breeder’s SIRET business number and that the kitten appears on the breeder’s own website. Our <a href="adopter/#verifier">Check an ad</a> section explains how.'),
 ]))
 corps += faq_html
@@ -334,7 +334,7 @@ if L == "fr":
 
 Informations clés :
 - Race : Sacré de Birmanie (Birman), uniquement, chats inscrits au LOOF.
-- Lieu : Bordeaux (Gironde, Nouvelle-Aquitaine, France). Pas de vente à distance sans rencontre.
+- Lieu : Bordeaux (Gironde, Nouvelle-Aquitaine, France). Aucun envoi de chaton : les adoptants viennent le chercher à Bordeaux, y compris depuis l'étranger.
 - Prix d'un chaton de compagnie : 1 800 €, stérilisé, pucé, vacciné, avec pedigree LOOF.
 - Départ des chatons : entre 15 semaines minimum et 4 mois et demi, tous stérilisés.
 - Réservation : liste de pré-réservation, contact par le formulaire du site.
@@ -356,7 +356,7 @@ else:
     open(os.path.join(OUT, "llms.txt"), "a", encoding="utf-8").write(f"""
 ## English summary
 
-Chatterie des Innamorati is a family-run Birman cat (Sacré de Birmanie, Sacred Cat of Burma) cattery in Bordeaux, France, registered with the LOOF under the cattery name « des Innamorati » since 2016. Breeder: Magali Perrier. Pet kittens cost €1,800 and leave between 15 weeks and 4½ months, already spayed or neutered, microchipped, vaccinated and with a LOOF pedigree. Every family meets the cats in Bordeaux before adopting. The site's photos are protected: any ad elsewhere using them is fraudulent.
+Chatterie des Innamorati is a family-run Birman cat (Sacré de Birmanie, Sacred Cat of Burma) cattery in Bordeaux, France, registered with the LOOF under the cattery name « des Innamorati » since 2016. Breeder: Magali Perrier. Pet kittens cost €1,800 and leave between 15 weeks and 4½ months, already spayed or neutered, microchipped, vaccinated and with a LOOF pedigree. Kittens are never shipped: every family collects their kitten in person in Bordeaux, including families from abroad. The site's photos are protected: any ad elsewhere using them is fraudulent.
 
 - [Home]({SITE}en/): the cattery in Bordeaux, France
 - [The Birman cat]({SITE}en/birman-cat/): history, legend, standard, personality, care, Birman vs Ragdoll and Siamese
