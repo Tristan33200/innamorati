@@ -168,16 +168,41 @@ NAV_G = [("chatons/", "Chatons"), ("nos-chats/", "Nos chats"), ("portees/", "Por
 NAV_D = [("expositions/", "Expositions"), ("le-birman/", "Le Birman"), ("couleurs/", "Couleurs"), ("adopter/", "Adopter")]
 
 
-def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None, prio=None):
+def taille_jpeg(chemin):
+    """Largeur et hauteur d'un JPEG, sans bibliothèque externe."""
+    try:
+        with open(chemin, "rb") as f:
+            f.read(2)
+            while True:
+                m = f.read(2)
+                if len(m) < 2 or m[0] != 0xFF: return None
+                n = int.from_bytes(f.read(2), "big")
+                if 0xC0 <= m[1] <= 0xCF and m[1] not in (0xC4, 0xC8, 0xCC):
+                    f.read(1); h = int.from_bytes(f.read(2), "big"); w = int.from_bytes(f.read(2), "big")
+                    return w, h
+                f.seek(n - 2, 1)
+    except OSError:
+        return None
+
+
+def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None, prio=None, og_type="website", image_alt="", indexer=True):
     profondeur = len([x for x in chemin.split("/") if x])
     r = "../" * profondeur
     url = SITE + (chemin.strip("/") + "/" if chemin else "")
     desc = desc or "Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux."
-    PLAN.append((url, prio if prio is not None else (0.5 if profondeur > 1 else 0.7)))
+    if indexer: PLAN.append((url, prio if prio is not None else (0.5 if profondeur > 1 else 0.7)))
     blocs_ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>\n' for x in (ld or []))
     nav = lambda items: "".join(f'<a href="{r}{u}">{t}</a>' for u, t in items)
     entete = "top over" if sombre_entete else "top"
-    meta_img = f'<meta property="og:image" content="{SITE}photos/{image}.jpg">' if image else ""
+    meta_img = ""
+    image = image or "2084329241748221"  # par défaut : le regard saphir de l'accueil
+    if image:
+        dim = taille_jpeg(os.path.join(OUT, "photos", image + ".jpg"))
+        alt = e(image_alt or titre)
+        meta_img = (f'<meta property="og:image" content="{SITE}photos/{image}.jpg"><meta property="og:image:type" content="image/jpeg">'
+                    + (f'<meta property="og:image:width" content="{dim[0]}"><meta property="og:image:height" content="{dim[1]}">' if dim else "")
+                    + f'<meta property="og:image:alt" content="{alt}"><meta name="twitter:image" content="{SITE}photos/{image}.jpg"><meta name="twitter:image:alt" content="{alt}">\n')
+    robots = "index, follow, max-image-preview:large, max-snippet:-1" if indexer else "noindex, follow"
     doc = f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -185,16 +210,18 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(titre)}</title>
 <meta name="description" content="{e(desc)}">
+<meta name="robots" content="{robots}">
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Chatterie des Innamorati">
+<meta name="author" content="Chatterie des Innamorati"><meta name="theme-color" content="#161514">
+<meta property="og:type" content="{og_type}"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Chatterie des Innamorati">
 <meta property="og:title" content="{e(titre)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
-{meta_img}<meta name="twitter:card" content="summary_large_image">
+{meta_img}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(titre)}"><meta name="twitter:description" content="{e(desc)}">
 {blocs_ld}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="{r}assets/style.css">
 <link rel="stylesheet" href="{r}assets/motion.css">
-<link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="{r}assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
 </head>
 <body>
 <header class="{entete}"><div class="wrap">
@@ -541,15 +568,21 @@ recap = (f'''<div class="recap"><div class="litter"><h2>Les 40 couleurs en un co
 <div><b>Ce qui n’existe pas chez le Birman</b><span>Les yeux verts ou dorés, les robes bicolores ou à masque blanc, les robes unies sans « point ». Un chat ainsi n’est pas un Sacré de Birmanie.</span></div>
 <div><b>Le tortie</b><span>Il mêle une couleur et du roux. Il n’existe donc pas en red ni en cream, et concerne presque uniquement les femelles.</span></div></div></div>''')
 faq_html, faq_ld = faq("Les couleurs du Birman en questions", COULEURS["faq"])
-page("couleurs", "Couleurs du Sacré de Birmanie : toutes les robes en photos · des Innamorati",
+page("couleurs", "Couleurs du Sacré de Birmanie : les 40 robes en photos · des Innamorati",
      f'''<section><div class="wrap">{tete("Les couleurs", "Toutes les couleurs du Sacré de Birmanie", COULEURS["intro"])}
 {recap}
 <div class="std std4">{comprendre}</div>
 <nav class="sommaire" aria-label="Familles de couleurs">{"".join(f'<a href="#{slug_robe(f["nom"])}">{e(f["nom"])}</a>' for f in COULEURS["familles"])}</nav>
 {"".join(b.replace('<div class="litter">', f'<div class="litter" id="{slug_robe(f["nom"])}">', 1) for b, f in zip(blocs, COULEURS["familles"]))}
 <p class="note">{COULEURS["note"]}</p></div></section>{faq_html}''',
-     desc=f"Les couleurs du Sacré de Birmanie en photos (40 reconnues) : seal, blue, chocolat, lilac, red, cream point, tabby, tortie, silver et smoke. Génétique et reconnaissance de la couleur d'un chaton.",
-     ld=[faq_ld, ariane(("Accueil", ""), ("Couleurs", "couleurs/"))], prio=0.9)
+     desc="Les 40 couleurs du Sacré de Birmanie en photos : seal, blue, chocolat, lilac, red et cream, point, tabby, tortie, silver et smoke. Reconnaître la couleur d'un chaton.",
+     image="partage-couleurs", image_alt="Les couleurs du Sacré de Birmanie : têtes de Birmans seal, blue, chocolat, lilac, red, tabby, tortie et silver", og_type="article",
+     ld=[{"@context": "https://schema.org", "@type": "Article", "headline": "Toutes les couleurs du Sacré de Birmanie", "inLanguage": "fr",
+          "description": "Les 40 couleurs reconnues du Sacré de Birmanie, en photos de chats de la Chatterie des Innamorati.",
+          "image": [SITE + "photos/partage-couleurs.jpg"] + [SITE + "photos/" + t["fichier"] for t in TETES.values()],
+          "author": {"@type": "Person", "name": "Magali Perrier"}, "publisher": {"@id": SITE + "#elevage"},
+          "mainEntityOfPage": SITE + "couleurs/", "about": {"@type": "Thing", "name": "Sacré de Birmanie", "sameAs": "https://fr.wikipedia.org/wiki/Sacr%C3%A9_de_Birmanie"}},
+         faq_ld, ariane(("Accueil", ""), ("Couleurs", "couleurs/"))], prio=0.9)
 
 json.dump({"albums": len(albums), "chats": len(chats), "grandis": len(grandis), "portees": len(litters), "expos": len(expos)},
           open(os.path.join(ROOT, "data/stats.json"), "w"))

@@ -27,7 +27,7 @@ corps = f"""
     <h2>Des Birmans de champions, élevés en famille à Bordeaux</h2>
     <div class="rule"></div>
     <p>La Chatterie des Innamorati est un élevage familial de Sacrés de Birmanie installé à Bordeaux, en Gironde, et déclaré au LOOF sous l'affixe « des Innamorati ». Chez nous, les chats ne vivent pas en chatterie. Ils partagent la maison, les canapés et les jeux de nos enfants. Les chatons naissent et grandissent au milieu de la vie de famille, ce qui en fait des compagnons confiants et doux.</p>
-    <p>Depuis 2016, {st["grandis"]} chatons des Innamorati ont rejoint leur famille, et nos chats ont été titrés de Paris à Milan.</p>
+    <p>Depuis 2016, {st["grandis"]} chatons des Innamorati ont rejoint leur famille, et nos chats ont été titrés de Paris à Milan. Nos chatons Sacré de Birmanie partent stérilisés, entre 15 semaines et 4 mois et demi, vers Bordeaux, la Gironde et toute la Nouvelle-Aquitaine.</p>
   </div>
   <div class="doors">
     <a class="door" href="chatons/">{grand(r, P["bianca"], "Bianca des Innamorati")}<h3>Nos chatons</h3><span class="label">Portées 2026</span></a>
@@ -83,7 +83,8 @@ faq_html, faq_ld = faq("Adopter un Sacré de Birmanie à Bordeaux", [
 corps += faq_html
 page("", "Sacré de Birmanie à Bordeaux · Chatterie des Innamorati, éleveur LOOF", corps, sombre_entete=True, image=P["hero"], prio=1.0,
      desc="Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux (Gironde) depuis 2016. Chatons LOOF stérilisés, parents champions, portées et expositions.",
-     ld=[{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": SITE + "#elevage", "name": "Chatterie des Innamorati",
+     ld=[{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": SITE + "#elevage", "name": "Chatterie des Innamorati", "logo": SITE + "assets/favicon-192.png", "knowsAbout": ["Sacré de Birmanie", "Birman", "élevage félin LOOF"],
+          "geo": {"@type": "GeoCoordinates", "latitude": 44.84, "longitude": -0.58}, "foundingDate": "2016",
           "alternateName": "des Innamorati", "description": "Élevage familial de Sacrés de Birmanie (chats Birman) inscrit au LOOF.",
           "url": SITE, "image": SITE + "photos/" + P["hero"] + ".jpg", "priceRange": "1800 €", "founder": "Magali Perrier",
           "address": {"@type": "PostalAddress", "addressLocality": "Bordeaux", "addressRegion": "Gironde", "addressCountry": "FR"},
@@ -116,7 +117,14 @@ SECTIONS = [
   'Méfiez-vous des prix trop bas et des vendeurs qui refusent une visite : de nombreuses fausses annonces utilisent des photos volées, y compris les nôtres. Nos conseils sont sur la page <a href="../adopter/#verifier">Vérifier une annonce</a>.']),
 ]
 sommaire = "".join(f'<a href="#{i}">{t}</a>' for i, t, _ in SECTIONS)
-articles = "".join(f'<section class="art" id="{i}"><h2>{t}</h2>' + "".join(f"<p>{x}</p>" for x in ps) + "</section>" for i, t, ps in SECTIONS)
+ILLUS = {"physique": ("1125078997673255", "Crowned Dream Kacey, Sacré de Birmanie seal tabby point adulte : corps massif, collerette et yeux bleus"),
+         "caractere": (P["enfant"], "Un Sacré de Birmanie dans les bras d'un enfant : un chat doux et très attaché à sa famille"),
+         "differences": ("crush-boom-bang-1", "Les quatre gants blancs du Sacré de Birmanie : Crush Boom Bang, seal tabby point")}
+def illus(i):
+    if i not in ILLUS: return ""
+    pid, alt = ILLUS[i]
+    return f'<figure class="art-fig"><div class="ph"><img src="{r}photos/{pid}.jpg" alt="{e(alt)}" loading="lazy"></div><figcaption>{e(alt)}</figcaption></figure>'
+articles = "".join(f'<section class="art" id="{i}"><h2>{t}</h2>' + "".join(f"<p>{x}</p>" for x in ps) + illus(i) + "</section>" for i, t, ps in SECTIONS)
 faq_html, faq_ld = faq("Le Sacré de Birmanie en questions", [
     ("Quelle est la différence entre Sacré de Birmanie et Birman ?", "Aucune : c'est la même race. Sacré de Birmanie est son nom français, Birman son nom international. On dit aussi simplement « Birman » en France."),
     ("D'où vient le Sacré de Birmanie ?", "Malgré son nom et sa légende birmane, c'est une race française. Les premiers Birmans sont présentés à Paris dans les années 1920, et tous les Birmans actuels descendent d'Orloff et Xéna de Kaaba, le seul couple qui restait après la Seconde Guerre mondiale."),
@@ -144,11 +152,13 @@ corps = f"""<section><div class="wrap">
 <div class="articles">{articles}</div>
 <p class="note">Sources : <a href="https://www.fff-asso.fr/race/sacre-de-birmanie/" rel="noopener" target="_blank">Fédération Féline Française</a> et <a href="https://cfsbi.fr/portfolio-item/d-une-legende-a-la-realite/" rel="noopener" target="_blank">Club Français du Sacré de Birmanie (CFSBI)</a>.</p>
 </div></section>{faq_html}"""
-page("le-birman", "Sacré de Birmanie : histoire, caractère, standard et entretien du Birman", corps, image=P["oedipe9"], prio=0.9,
+page("le-birman", "Sacré de Birmanie : histoire, caractère, standard et entretien du Birman", corps, image=P["oedipe9"], prio=0.9, og_type="article",
+     image_alt="Œdipe des Innamorati, Sacré de Birmanie seal point aux yeux saphir",
      desc="Tout savoir sur le Sacré de Birmanie (Birman) : légende de Lao-Tsun, histoire de la race, standard, gants blancs, caractère, entretien, santé et différences avec le Ragdoll.",
      ld=[{"@context": "https://schema.org", "@type": "Article", "headline": "Le Sacré de Birmanie, le chat aux gants blancs",
           "image": SITE + "photos/" + P["oedipe9"] + ".jpg", "inLanguage": "fr", "author": {"@type": "Person", "name": "Magali Perrier"},
-          "publisher": {"@id": SITE + "#elevage"}, "mainEntityOfPage": SITE + "le-birman/"},
+          "publisher": {"@id": SITE + "#elevage"}, "mainEntityOfPage": SITE + "le-birman/",
+          "about": {"@type": "Thing", "name": "Sacré de Birmanie", "alternateName": "Birman", "sameAs": "https://fr.wikipedia.org/wiki/Sacr%C3%A9_de_Birmanie"}},
          ariane(("Accueil", ""), ("Le Sacré de Birmanie", "le-birman/")), faq_ld])
 
 # ---------- Adopter ----------
@@ -217,7 +227,7 @@ page("contact", "Contact · Chatterie des Innamorati, Sacrés de Birmanie à Bor
 
 corps = f"""<section><div class="wrap narrow center">{tete("Message envoyé", "Merci, votre message est bien parti", "Magali vous répond personnellement le soir et le week-end, et Tristan en journée. Pensez à vérifier vos courriers indésirables.")}
 <p><a class="btn" href="../../chatons/">Voir nos chatons</a> <a class="btn" href="../../">Retour à l'accueil</a></p></div></section>"""
-page("contact/merci", "Message envoyé · Chatterie des Innamorati", corps, prio=0.1)
+page("contact/merci", "Message envoyé · Chatterie des Innamorati", corps, indexer=False)
 
 # ---------- Mentions légales ----------
 corps = f"""<section><div class="wrap narrow">{tete("Mentions légales", "Mentions légales")}
@@ -228,3 +238,28 @@ corps = f"""<section><div class="wrap narrow">{tete("Mentions légales", "Mentio
 <p><b>Données personnelles</b><br>Ce site ne dépose aucun cookie de suivi. Les messages envoyés par le formulaire de contact transitent par le service FormSubmit jusqu'à notre boîte e-mail. Ils servent uniquement à vous répondre et ne sont jamais transmis à des tiers.</p>
 </div></div></section>"""
 page("mentions-legales", "Mentions légales · Chatterie des Innamorati", corps)
+
+# ---------- llms.txt : résumé du site pour les assistants IA ----------
+open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(f"""# Chatterie des Innamorati
+
+> Élevage familial de Sacrés de Birmanie (chats Birman) à Bordeaux, en Gironde, déclaré au LOOF sous l'affixe « des Innamorati » depuis 2016. Éleveuse : Magali Perrier (SIRET {SIRET}). Les chats vivent en famille, à la maison.
+
+Informations clés :
+- Race : Sacré de Birmanie (Birman), uniquement, chats inscrits au LOOF.
+- Lieu : Bordeaux (Gironde, Nouvelle-Aquitaine, France). Pas de vente à distance sans rencontre.
+- Prix d'un chaton de compagnie : 1 800 €, stérilisé, pucé, vacciné, avec pedigree LOOF.
+- Départ des chatons : entre 15 semaines minimum et 4 mois et demi, tous stérilisés.
+- Réservation : liste de pré-réservation, contact par le formulaire du site.
+- Reproducteurs titrés en expositions FIFe et LOOF (Œdipe des Innamorati : SC, National Winner, Junior Winner, DSM, DVM).
+- Les photos du site sont protégées : toute annonce qui les reprend ailleurs est frauduleuse.
+
+## Pages principales
+- [Accueil]({SITE}): présentation de l'élevage à Bordeaux
+- [Le Sacré de Birmanie]({SITE}le-birman/): histoire, légende, standard, caractère, entretien, différences avec le Ragdoll et le Siamois
+- [Couleurs du Sacré de Birmanie]({SITE}couleurs/): les 40 couleurs reconnues, en photos
+- [Nos chatons]({SITE}chatons/): chatons disponibles et réservés
+- [Adopter]({SITE}adopter/): prix, conditions, déroulement, vérifier une annonce
+- [Nos chats]({SITE}nos-chats/): reproducteurs et retraités, avec dates de naissance, titres et palmarès
+- [Expositions]({SITE}expositions/): résultats depuis 2014
+- [Contact]({SITE}contact/): formulaire
+""")
