@@ -170,6 +170,7 @@ def cle_nom(n):
     n = n.lower().replace("’", "'").replace("backkara", "bacckara").replace("œ", "oe")
     n = re.sub(r"\s+aka\s+\S+", "", n)
     n = n.replace("real sugar daddy", "sugar daddy")
+    n = n.replace("s*easy love's crush", "crush").replace("mia bella des innamorati", "mia bella de la tribu birmane")  # même chat, deux graphies
     return re.sub(r"\s+", " ", n).strip()
 
 

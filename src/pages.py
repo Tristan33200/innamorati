@@ -3,6 +3,7 @@
 litters = OrderedDict()
 for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["mere"] and x["fb"] not in S("anciens_males"))], key=lambda x: x["debut"]):
     if not a["mere"] and a["type"] not in ("grandi", "chaton"): continue
+    if a["type"] not in ("grandi", "chaton") and not re.search(r"Innamorati|Tribu Birmane", a["titre"]): continue  # né ailleurs : sa portée n'est pas une portée de l'élevage
     an = a["debut"][:4]
     cle = (cle_nom(a["mere"]), cle_nom(a["pere"]), an) if a["mere"] else ("", "", an)
     litters.setdefault(cle, []).append(a)

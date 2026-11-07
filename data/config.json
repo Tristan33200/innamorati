@@ -153,7 +153,18 @@
   "117": "2026-04-16",
   "5": "2016-07-29",
   "6": "2016-07-29",
-  "7": "2016-07-29"
+  "7": "2016-07-29",
+  "9": "2017-05-31",
+  "11": "2017-05-31",
+  "12": "2017-05-31",
+  "14": "2017-05-31",
+  "3": "2018-10-07",
+  "79": "2018-10-07",
+  "81": "2018-10-07",
+  "84": "2018-10-07",
+  "65": "2019-04-08",
+  "75": "2019-04-08",
+  "92": "2019-04-08"
  },
  "_aide_naissances": "Dates de naissance relevées sur les pedigrees (AAAA-MM-JJ).",
  "fratries": [
@@ -245,6 +256,154 @@
   "8": [
    "Blue Treasure's Jazzy",
    "Jorel du Castel Walou"
+  ],
+  "0": [
+   "Birmiao Viky-Love",
+   "Kintamani Daiquiri"
+  ],
+  "1": [
+   "Feeling Divine Julisa's",
+   "Balthazar de la Grande Bastet"
+  ],
+  "2": [
+   "Stoneridge Kiss Me Kate",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "4": [
+   "Javotte des Bulgarians",
+   "Jorel du Castel Walou"
+  ],
+  "10": [
+   "Monoï du Bossuet Perrières",
+   "Perla Nera Eldorado"
+  ],
+  "72": [
+   "Zamantha",
+   "Hip Hop de Pat and Co"
+  ],
+  "73": [
+   "Leah da MaKaJa",
+   "Crowned Dream Ice"
+  ],
+  "74": [
+   "Leah da MaKaJa",
+   "Crowned Dream Ice"
+  ],
+  "78": [
+   "Joyau du Grand Baronnet",
+   "Lovin'You Lovin'Me de Burnside les Etards"
+  ],
+  "80": [
+   "Jinger Plume Saphir du Castel Walou",
+   "Viggo van de Simona's"
+  ],
+  "82": [
+   "Nouméa du Bossuet Perrières",
+   "Atbluesight's Klimt"
+  ],
+  "86": [
+   "Only You des Monts de Bohème",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "130": [
+   "Crowned Dream Lizz",
+   "Oasis du Grand Baronnet"
+  ],
+  "139": [
+   "Juste une Illusion du Relais Napoléon",
+   "Jygolo de la Saminière"
+  ],
+  "140": [
+   "S*Eikefjord's Little Bit of Sunshine",
+   "(N)Lykkeweiler's Eikefjord Special Edition"
+  ],
+  "145": [
+   "Rey des Innamorati",
+   "Rush Boom Bang du Relais Napoléon"
+  ],
+  "crush": [
+   "S*Xenti's Maxxed-Out!",
+   "S*Eikefjord's Pop Corn"
+  ],
+  "jorel": [
+   "Hortense du Relais Napoléon",
+   "Fragonard du Castel Walou"
+  ],
+  "13": [
+   "Malicia du Castel Walou",
+   "Jacaranda Maître Mão"
+  ],
+  "9": [
+   "Malicia du Castel Walou",
+   "Jacaranda Maître Mão"
+  ],
+  "11": [
+   "Malicia du Castel Walou",
+   "Jacaranda Maître Mão"
+  ],
+  "12": [
+   "Malicia du Castel Walou",
+   "Jacaranda Maître Mão"
+  ],
+  "14": [
+   "Malicia du Castel Walou",
+   "Jacaranda Maître Mão"
+  ],
+  "93": [
+   "Crowned Dream Kacey",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "97": [
+   "Crowned Dream Kacey",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "121": [
+   "Crowned Dream Kacey",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "98": [
+   "Norma Jean des Innamorati",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "65": [
+   "Norma Jean des Innamorati",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "75": [
+   "Norma Jean des Innamorati",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "92": [
+   "Norma Jean des Innamorati",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "122": [
+   "Odyssée du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "123": [
+   "Odyssée du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "204": [
+   "Malicia du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "3": [
+   "Malicia du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "79": [
+   "Malicia du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "81": [
+   "Malicia du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
+  ],
+  "84": [
+   "Malicia du Castel Walou",
+   "S*Easy Love's Crush Boom Bang"
   ]
  },
  "_aide_parents": "Mère et père quand l'album Facebook ne les donne pas sous la forme « mère 💘 père » (numéro d'album → [mère, père])."
