@@ -16,6 +16,29 @@ ancre_portee = lambda cle: "p-" + slug_robe("-".join(cle))
 court_nom = lambda n: re.sub(r"\s+(des Innamorati|aka)\b.*$", "", n, flags=re.I)
 
 
+def temoignage(r, a):
+    """Formulaire pour la famille adoptive : quelques mots sur le chat et sur l'élevage, publiés avec son accord."""
+    n = e(court_nom(a["titre"]))
+    return f'''<section class="temoin"><div class="temoin-t"><p class="label">{T("Vous êtes sa famille ?", "Are you their family?")}</p>
+<h2>{T(f"Racontez-nous {n}", f"Tell us about {n}")}</h2>
+<p>{T(f"Son caractère, ses petites manies, ce que vous aimez chez {n}, et quelques mots sur votre expérience avec notre élevage : nous les ajouterons à cette page, avec votre prénom seulement.", f"Their personality, little habits, what you love about {n}, and a few words about your experience with our cattery: we will add them to this page, with your first name only.")}</p>
+<p>{T("Pour les photos, envoyez-nous vos plus belles par e-mail ou par l’application Messages de l’iPhone : WhatsApp les compresse et elles perdent en qualité.", "For photos, please send your best ones by e-mail or iMessage: WhatsApp compresses them and they lose quality.")}</p></div>
+<form class="form" action="https://formsubmit.co/{EMAIL}" method="POST">
+<input type="hidden" name="_subject" value="Témoignage pour {e(a["titre"])}">
+<input type="hidden" name="_next" value="{lien("contact/merci/")}">
+<input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="Chat" value="{e(a["titre"])}">{T("", '<input type="hidden" name="Langue" value="Anglais">')}
+<input type="text" name="_honey" class="pot" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="f2"><label>{T("Votre prénom", "Your first name")}<input name="Prénom affiché" required autocomplete="given-name"></label>
+<label>E-mail<input type="email" name="email" required autocomplete="email"></label></div>
+<label>{T(f"Le caractère de {n}", f"{n}’s personality")}<textarea name="Caractère du chat" rows="5" required></textarea></label>
+<label><span>{T("Votre avis sur notre élevage", "Your thoughts on our cattery")} <small>· {T("facultatif", "optional")}</small></span><textarea name="Avis sur l’élevage" rows="4"></textarea></label>
+<label class="ok"><input type="checkbox" name="Accord de publication" value="oui" required> <span>{T("J’accepte que ces mots soient publiés sur cette page avec mon prénom.", "I agree that these words may be published on this page with my first name.")}</span></label>
+<button class="btn" type="submit">{T("Envoyer", "Send")}</button>
+<p class="fine-form">{T("Votre e-mail sert uniquement à vous répondre et n’est jamais publié.", "Your e-mail is only used to reply to you and is never published.")}</p>
+</form></section>'''
+
+
 def demi_fratrie(a, r):
     """Autres portées de la même mère et du même père, avec un lien vers chacune sur la page Portées."""
     if not a["mere"]: return ""
@@ -62,6 +85,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
 </div>{film(r, a)}<div class="wrap">
 {galerie(r, a)}
 {palmares(a["fb"])}
+{temoignage(r, a) if a["type"] == "grandi" else ""}
 <p class="prot">{T("Photos réduites et marquées. Elles appartiennent à la Chatterie des Innamorati et ne peuvent pas être reprises dans une annonce.", "Photos are downsized and watermarked. They belong to the Chatterie des Innamorati and may not be used in any listing.")}</p>
 </div></section>"""
     page(a["url"].rstrip("/"), f'{a["titre"]} · Chatterie des Innamorati', corps, sombre_entete=True,

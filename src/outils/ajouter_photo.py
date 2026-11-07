@@ -11,7 +11,7 @@ pid = f"ajout-{fb}-{len(liste) + 1}"
 im = ImageOps.exif_transpose(Image.open(src)).convert("RGB"); im.thumbnail((1400, 1400))
 ov = Image.new("RGBA", im.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
 font = ImageFont.truetype("/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf", 26)
-t = "© des Innamorati · desinnamorati.fr"
+t = "© Tristan Perrier · desinnamorati.fr"
 d.text(((im.width - d.textlength(t, font=font)) / 2, im.height - 96), t, font=font, fill=(255, 255, 255, 140))
 im = Image.alpha_composite(im.convert("RGBA"), ov).convert("RGB")
 im.save(os.path.join(ROOT, "docs/photos", pid + ".jpg"), quality=80, optimize=True, progressive=True)
