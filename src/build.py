@@ -295,6 +295,9 @@ def taille_jpeg(chemin):
         return None
 
 
+POLICES = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+
+
 def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None, prio=None, og_type="website", image_alt="", indexer=True):
     profondeur = len([x for x in chemin.split("/") if x])
     r = "../" * profondeur
@@ -338,9 +341,8 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 {meta_img}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(titre)}"><meta name="twitter:description" content="{e(desc)}">
 {blocs_ld}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
+<link rel="preload" as="style" href="{POLICES}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="{POLICES}"></noscript>
 <link rel="stylesheet" href="{r}assets/style.css">
-<link rel="stylesheet" href="{r}assets/motion.css">
 <link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="{r}assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
 </head>
 <body>
@@ -431,7 +433,7 @@ def legende(a, p):
 
 def entete_album(r, a, titre, sur, sous):
     """Grande photo de couverture plein écran, titre par-dessus (parallaxe)."""
-    return (f'<div class="hero album-hero"><div class="ph"><img src="{r}photos/{a["cover"]}.jpg" alt="{e(a["titre"])}"></div>'
+    return (f'<div class="hero album-hero"><div class="ph"><img src="{r}photos/{a["cover"]}.jpg" srcset="{r}photos/t/{a["cover"]}.jpg 520w, {r}photos/{a["cover"]}.jpg 1400w" sizes="100vw" alt="{e(a["titre"])}" fetchpriority="high" decoding="async"></div>'
             f'<div class="wrap"><p class="crumb">{sur}</p><h1>{e(titre)}</h1><p>{sous}</p></div></div>')
 
 
@@ -468,7 +470,10 @@ if os.path.isdir(OUT):
         p = os.path.join(OUT, x)
         shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
 os.makedirs(OUT, exist_ok=True)
-shutil.copytree(os.path.join(ROOT, "src/assets"), os.path.join(OUT, "assets"))
+shutil.copytree(os.path.join(ROOT, "src/assets"), os.path.join(OUT, "assets"), ignore=shutil.ignore_patterns("motion.css"))
+# Une seule feuille de style (une requête de moins avant l'affichage)
+with open(os.path.join(OUT, "assets/style.css"), "a", encoding="utf-8") as _f:
+    _f.write("\n" + open(os.path.join(ROOT, "src/assets/motion.css"), encoding="utf-8").read())
 open(os.path.join(OUT, ".nojekyll"), "w").close()
 
 # ---------- Pages, en français puis en anglais ----------

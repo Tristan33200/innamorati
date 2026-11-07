@@ -8,9 +8,14 @@ P = {  # photos choisies (numéros de l'export Facebook)
 st = json.load(open(os.path.join(ROOT, "data/stats.json")))
 
 
-def grand(r, pid, alt, style=""):
+def grand(r, pid, alt, style="", prio=False, sizes="(max-width: 700px) 100vw, 50vw"):
+    """Grande photo : version 520 px pour les petits écrans, chargement différé sauf pour la photo du haut de page."""
     st = ' style="' + style + '"' if style else ""
-    return f'<div class="ph"><img src="{r}photos/{pid}.jpg" alt="{e(alt)}"{st}></div>'
+    jeu = f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="{sizes}"' if os.path.exists(os.path.join(OUT, "photos", "t", pid + ".jpg")) else ""
+    if jeu and os.path.exists(os.path.join(OUT, "photos", "m", pid + ".jpg")):  # version 900 px (photo d'accueil)
+        jeu = jeu.replace(" 1400w", f" 1400w, {r}photos/m/{pid}.jpg 900w")
+    charge = ' fetchpriority="high"' if prio else ' loading="lazy"'
+    return f'<div class="ph"><img src="{r}photos/{pid}.jpg"{jeu} alt="{e(alt)}"{st}{charge} decoding="async"></div>'
 
 
 # ---------- Accueil ----------
@@ -19,7 +24,7 @@ kits = "".join(carte(r, BY[f], f'<span class="status{" libre" if "réserver" in 
 ch = lambda fb: f'{BY[fb]["sexe"]} {rb(BY[fb]["robe"]).lower()}'
 corps = f"""
 <div class="hero">
-  {grand(r, P["hero"], T("Les yeux saphir de Sanae des Innamorati", "The sapphire eyes of Sanae des Innamorati"))}
+  {grand(r, P["hero"], T("Les yeux saphir de Sanae des Innamorati", "The sapphire eyes of Sanae des Innamorati"), prio=True, sizes="100vw")}
   <div class="wrap"><p class="big">{T("Le regard saphir", "The sapphire gaze")}</p><h1 class="kicker">{T("Élevage de Sacrés de Birmanie à Bordeaux", "Birman cat breeder in Bordeaux, France")}</h1><a class="btn light" href="chatons/">{T("Nos chatons", "Our kittens")}</a></div>
 </div>
 <section class="center"><div class="wrap">
@@ -38,7 +43,7 @@ corps = f"""
     <a class="door" href="couleurs/">{grand(r, P["regard"], T("Birman aux yeux bleus", "Blue-eyed Birman cat"))}<h3>{T("Les couleurs", "Colors")}</h3><span class="label">{T("Toutes les robes du Birman", "Every Birman coat color")}</span></a>
   </div>
 </div></section>
-<div class="band">{grand(r, P["oedipe"], T("Œdipe des Innamorati et ses trophées", "Œdipe des Innamorati and his trophies"))}
+<div class="band">{grand(r, P["oedipe"], T("Œdipe des Innamorati et ses trophées", "Œdipe des Innamorati and his trophies"), sizes="100vw")}
   <blockquote><p>{T("« Ici, rien ne passe avant le bonheur de nos chats. »", "“Here, nothing comes before the happiness of our cats.”")}</p><cite>Magali &amp; Tristan</cite></blockquote></div>
 <section><div class="wrap">
   <div class="head"><p class="label">{T("Nos chatons", "Our kittens")}</p><h2>{T("Les portées de 2026", "The 2026 litters")}</h2><p>{T("Chaque chaton a son album, enrichi au fil de sa vie par nos photos puis par celles de ses adoptants.", "Every kitten has its own album, filled over the years with our photos and then with those of its new family.")}</p></div>
@@ -180,7 +185,7 @@ faq_html, faq_ld = faq(T("Le Sacré de Birmanie en questions", "The Birman cat: 
 ]))
 corps = f"""<section><div class="wrap">
 {tete(T("Le Sacré de Birmanie", "The Birman cat"), T("Le Sacré de Birmanie, le chat aux gants blancs", "The Birman, the cat with white gloves"), T("Histoire, légende, standard, caractère et entretien : tout savoir sur le Birman, par une famille d'éleveurs qui vit avec lui depuis 2016.", "History, legend, breed standard, personality and care: all about the Birman, also known as the Sacred Cat of Burma, from a breeding family who has lived with Birmans since 2016."))}
-<div class="birman-grid">{grand(r, P["oedipe9"], T("Œdipe des Innamorati, Sacré de Birmanie seal point aux yeux saphir", "Œdipe des Innamorati, seal point Birman with sapphire eyes"))}
+<div class="birman-grid">{grand(r, P["oedipe9"], T("Œdipe des Innamorati, Sacré de Birmanie seal point aux yeux saphir", "Œdipe des Innamorati, seal point Birman with sapphire eyes"), prio=True)}
 <div class="text">
 {T('''<p class="label">La légende</p>
 <h2 class="h-art">Le temple de Lao-Tsun</h2>
