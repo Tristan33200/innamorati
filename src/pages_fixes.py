@@ -8,7 +8,7 @@ P = {  # photos choisies (numéros de l'export Facebook)
 st = json.load(open(os.path.join(ROOT, "data/stats.json")))
 
 
-def grand(r, pid, alt, style="", prio=False, sizes="(max-width: 700px) 100vw, 50vw"):
+def grand(r, pid, alt, style="", prio=False, sizes="(max-width: 700px) 300px, 50vw"):
     """Grande photo : version 520 px pour les petits écrans, chargement différé sauf pour la photo du haut de page."""
     st = ' style="' + style + '"' if style else ""
     jeu = f' srcset="{jeu_photo(r, pid)}" sizes="{sizes}"' if os.path.exists(os.path.join(OUT, "photos", "t", pid + ".jpg")) else ""
@@ -44,7 +44,7 @@ corps = f"""
     <a class="door" href="couleurs/">{grand(r, P["regard"], T("Birman aux yeux bleus", "Blue-eyed Birman cat"))}<h3>{T("Les couleurs", "Colors")}</h3><span class="label">{T("Toutes les robes du Birman", "Every Birman coat color")}</span></a>
   </div>
 </div></section>
-<div class="band">{grand(r, P["oedipe"], T("Œdipe des Innamorati et ses trophées", "Œdipe des Innamorati and his trophies"), sizes="100vw")}
+<div class="band">{grand(r, P["oedipe"], T("Œdipe des Innamorati et ses trophées", "Œdipe des Innamorati and his trophies"), sizes="(max-width: 700px) 300px, 100vw")}
   <blockquote><p>{T("« Ici, rien ne passe avant le bonheur de nos chats. »", "“Here, nothing comes before the happiness of our cats.”")}</p><cite>Magali &amp; Tristan</cite></blockquote></div>
 <section><div class="wrap">
   <div class="head"><p class="label">{T("Nos chatons", "Our kittens")}</p><h2>{T("Les portées de 2026", "The 2026 litters")}</h2><p>{T("Chaque chaton a son album, enrichi au fil de sa vie par nos photos puis par celles de ses adoptants.", "Every kitten has its own album, filled over the years with our photos and then with those of its new family.")}</p></div>

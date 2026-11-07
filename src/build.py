@@ -405,7 +405,7 @@ CADRAGE = json.load(open(os.path.join(ROOT, "data/cadrages.json"), encoding="utf
 def img(r, pid, alt, cls="", grand=False, attrs=""):
     """Vignette nette : la version 1400 px est proposée aux écrans qui en ont besoin, cadrée sur le visage."""
     src = f"{r}photos/{pid}.jpg" if grand else f"{r}photos/t/{pid}.jpg"
-    jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 760px) 50vw, (max-width: 1000px) 33vw, 25vw"'
+    jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 760px) 170px, (max-width: 1000px) 33vw, 25vw"'
     pos = f' style="object-position:{CADRAGE[pid][0]}% {CADRAGE[pid][1]}%"' if pid in CADRAGE else ""
     return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy" decoding="async"{pos} {attrs}></div>'
 
@@ -489,7 +489,7 @@ def galerie(r, a):
     for p in a["photos"][debut:]:
         cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
-                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy" decoding="async"></div></a>')
+                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 170px, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy" decoding="async"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
