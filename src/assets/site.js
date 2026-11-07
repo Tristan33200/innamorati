@@ -63,6 +63,7 @@
     }, { rootMargin: "20% 0px" });
     $$(".ph:not(.vide)").filter(function (p) { return !p.closest(".film"); }).concat($$(".ribbon")).forEach(function (el) { io2.observe(el); });
     var hero = document.querySelector(".hero"), heroTxt = hero && hero.querySelector(".wrap"), heroImg = hero && hero.querySelector(".ph img");
+    var heroCss = window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()");
     var DERIVE = [0, 240, -110, 320, -60, 180], MOSA = [-9, 6, -10, 8, -5, 9];
 
     // Défilé horizontal : la page descend, les photos glissent de droite à gauche
@@ -111,7 +112,7 @@
           if (img) ecr.push([img, "--py", (p * (el.parentNode.classList.contains("band") ? -16 : -7)).toFixed(2) + "%"]);
         }
       });
-      if (hero && y < vh * 1.2) {
+      if (hero && !heroCss && y < vh * 1.2) {
         ecr.push([heroImg, "--py", (y * 0.38).toFixed(1) + "px"]);
         ecr.push([heroTxt, "transform", "translate3d(0," + (y * -0.22).toFixed(1) + "px,0)"]);
         ecr.push([heroTxt, "opacity", Math.max(0, 1 - y / (vh * 0.65)).toFixed(3)]);

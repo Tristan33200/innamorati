@@ -50,3 +50,11 @@ html.fx .f-item .ph img { --sc: 1.2 }
 @media (prefers-reduced-motion: reduce) {
   html.fx .rv, html.fx .split .w > span { opacity: 1 !important; translate: none !important; clip-path: none !important }
 }
+
+/* Photo du haut : parallaxe calculée par le navigateur lui-même (fluide sur iPhone, sans à-coups) */
+@supports (animation-timeline: scroll()) {
+  html.fx .hero > .ph img { animation: hero-photo linear both; animation-timeline: scroll(root); animation-range: 0 100vh }
+  html.fx .hero .wrap { animation: hero-texte linear both; animation-timeline: scroll(root); animation-range: 0 100vh }
+  @keyframes hero-photo { from { translate: 0 0 } to { translate: 0 38vh } }
+  @keyframes hero-texte { from { transform: translate3d(0, 0, 0); opacity: 1 } 65% { opacity: 0 } to { transform: translate3d(0, -22vh, 0); opacity: 0 } }
+}
