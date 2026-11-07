@@ -426,7 +426,13 @@ def cadre(pid, a=0.8):
 def img(r, pid, alt, cls="", grand=False, attrs=""):
     """Vignette nette : la version 1400 px est proposée aux écrans qui en ont besoin, cadrée sur le visage."""
     src = f"{r}photos/{pid}.jpg" if grand else f"{r}photos/t/{pid}.jpg"
-    jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 760px) 170px, (max-width: 1000px) 33vw, 25vw"'
+    if grand: jeu = ""
+    else:  # recadrée en 4/5 puis zoomée : l'image affichée est plus large que la carte, d'où un facteur k
+        if pid not in _DIM:
+            try: _DIM[pid] = Image.open(os.path.join(OUT, "photos/t", pid + ".jpg")).size
+            except Exception: _DIM[pid] = (3, 2)
+        k = max(1, _DIM[pid][0] / _DIM[pid][1] / 0.8) * 1.16
+        jeu = f' srcset="{jeu_photo(r, pid)}" sizes="(max-width: 760px) {min(300, round(170 * k))}px, (max-width: 1000px) {round(33 * k)}vw, {round(30 * k)}vw"'
     pos = f' style="object-position:{cadre(pid)}"' if pid in CADRAGE else ""
     return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy" decoding="async"{pos} {attrs}></div>'
 
