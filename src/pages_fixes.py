@@ -13,7 +13,7 @@ def grand(r, pid, alt, style="", prio=False, sizes="(max-width: 700px) 100vw, 50
     st = ' style="' + style + '"' if style else ""
     jeu = f' srcset="{jeu_photo(r, pid)}" sizes="{sizes}"' if os.path.exists(os.path.join(OUT, "photos", "t", pid + ".jpg")) else ""
     if prio:
-        return f'<div class="ph"><img src="{r}photos/{pid}.jpg"{jeu} alt="{e(alt)}"{st} fetchpriority="high" decoding="async"></div>'
+        return f'<div class="ph"{apercu(pid)}><img src="{r}photos/{pid}.jpg"{jeu} alt="{e(alt)}"{st} fetchpriority="high"></div>'
     # Photos plus bas dans la page : chargées seulement après la photo du haut (site.js), copie sans script pour les moteurs
     return (f'<div class="ph"><img data-src="{r}photos/{pid}.jpg"{jeu.replace(" srcset=", " data-srcset=")} alt="{e(alt)}"{st} loading="lazy" decoding="async">'
             f'<noscript><img src="{r}photos/{pid}.jpg" alt="{e(alt)}"{st}></noscript></div>')

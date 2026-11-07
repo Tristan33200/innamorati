@@ -448,9 +448,22 @@ def jeu_photo(r, pid):
     return f"{r}photos/t/{pid}.jpg 520w{moyen}, {r}photos/{pid}.jpg 1400w"
 
 
+def apercu(pid):
+    """Aperçu flou minuscule (environ 1 Ko) affiché instantanément sous la grande photo du haut, le temps qu'elle arrive."""
+    try:
+        import base64, io
+        from PIL import Image, ImageFilter
+        im = Image.open(os.path.join(OUT, "photos", "t", pid + ".jpg")).convert("RGB")
+        im = im.resize((24, max(1, round(im.height * 24 / im.width))), Image.LANCZOS).filter(ImageFilter.GaussianBlur(1))
+        b = io.BytesIO(); im.save(b, "JPEG", quality=45)
+        return ' style="background:#2b2724 url(data:image/jpeg;base64,' + base64.b64encode(b.getvalue()).decode() + ') center/cover"'
+    except Exception:
+        return ' style="background:#2b2724"'
+
+
 def entete_album(r, a, titre, sur, sous):
     """Grande photo de couverture plein écran, titre par-dessus (parallaxe)."""
-    return (f'<div class="hero album-hero"><div class="ph"><img src="{r}photos/{a["cover"]}.jpg" srcset="{jeu_photo(r, a["cover"])}" sizes="100vw" alt="{e(a["titre"])}" fetchpriority="high" decoding="async"></div>'
+    return (f'<div class="hero album-hero"><div class="ph"{apercu(a["cover"])}><img src="{r}photos/{a["cover"]}.jpg" srcset="{jeu_photo(r, a["cover"])}" sizes="100vw" alt="{e(a["titre"])}" fetchpriority="high"></div>'
             f'<div class="wrap"><p class="crumb">{sur}</p><h1>{e(titre)}</h1><p>{sous}</p></div></div>')
 
 
