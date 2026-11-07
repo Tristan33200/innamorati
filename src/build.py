@@ -13,9 +13,11 @@ OUT = os.path.join(ROOT, "docs")
 CAT = json.load(open(os.path.join(ROOT, "data/catalogue.json"), encoding="utf-8"))
 CAT += json.load(open(os.path.join(ROOT, "data/albums_ajoutes.json"), encoding="utf-8"))  # chats sans album Facebook
 _AJ = json.load(open(os.path.join(ROOT, "data/photos_ajoutees.json"), encoding="utf-8"))  # photos envoyées hors Facebook
-for _a in CAT:
-    _a["photos"] = _a["photos"] + _AJ.get(_a["fb"], [])
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
+_RETIREES = set(CFG.get("photos_retirees", []))  # photos à ne pas publier (radios, etc.)
+for _a in CAT:
+    _a["photos"] = [p for p in _a["photos"] + _AJ.get(_a["fb"], []) if p["id"] not in _RETIREES]
+    if _a["cover"] in _RETIREES and _a["photos"]: _a["cover"] = _a["photos"][0]["id"]
 COULEURS_FR = COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
 COULEURS_EN = json.load(open(os.path.join(ROOT, "data/couleurs_en.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
@@ -131,7 +133,8 @@ def nom_affiche(nom):
 
 def statut_fb(nom):
     m = re.findall(r"\(([^)]*)\)", nom)
-    return m[-1].strip() if m else ""
+    st = m[-1].strip() if m else ""
+    return re.sub(r"(?i)^reste à la mais$", lambda x: x.group(0) + "on", st)  # nom d'album Facebook tronqué
 
 
 ROBES = [  # motif dans la description -> nom affiché

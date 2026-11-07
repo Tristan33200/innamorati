@@ -113,8 +113,6 @@
         }
       });
       if (hero && !heroCss && y < vh * 1.2) {
-        ecr.push([heroImg, "--py", (y * 0.38).toFixed(1) + "px"]);
-        ecr.push([heroTxt, "transform", "translate3d(0," + (y * -0.22).toFixed(1) + "px,0)"]);
         ecr.push([heroTxt, "opacity", Math.max(0, 1 - y / (vh * 0.65)).toFixed(3)]);
       }
       ecr.forEach(function (o) {

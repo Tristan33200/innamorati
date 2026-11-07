@@ -385,3 +385,10 @@ html.fx .f-item .ph img { --sc: 1.2 }
   @keyframes hero-photo { from { translate: 0 0 } to { translate: 0 38vh } }
   @keyframes hero-texte { from { transform: translate3d(0, 0, 0); opacity: 1 } 65% { opacity: 0 } to { transform: translate3d(0, -22vh, 0); opacity: 0 } }
 }
+
+/* Navigateurs sans cette fonction (Safari sur Mac selon la version, Firefox) : la photo reste fixe
+   et la page glisse par-dessus. Aucun calcul pendant le défilement, donc aucune saccade. */
+@supports not (animation-timeline: scroll()) {
+  html.fx .hero > .ph { clip-path: inset(0) }
+  html.fx .hero > .ph img { position: fixed; inset: 0 auto auto 0; width: 100%; height: 100vh; min-height: 560px; translate: none; will-change: auto }
+}
