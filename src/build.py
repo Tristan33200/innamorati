@@ -411,11 +411,23 @@ def slug_robe(t):
 CADRAGE = json.load(open(os.path.join(ROOT, "data/cadrages.json"), encoding="utf-8"))  # centre du visage (yeux bleus)
 
 
+from PIL import Image
+_DIM = {}
+def cadre(pid, a=0.8):
+    """Position de l'image pour que la tête (centre mémorisé en %) tombe au milieu d'un cadre de rapport a (4/5 pour les cartes)."""
+    if pid not in _DIM:
+        try: _DIM[pid] = Image.open(os.path.join(OUT, "photos/t", pid + ".jpg")).size
+        except Exception: _DIM[pid] = (3, 2)
+    w, h = _DIM[pid]; fx, fy = CADRAGE[pid][0] / 100, CADRAGE[pid][1] / 100; ratio = w / h
+    p = lambda f, v: round(min(1, max(0, (f - v / 2) / (1 - v))) * 100) if v < 1 else 50
+    return f"{p(fx, a / ratio)}% {p(fy, ratio / a)}%" if ratio > a else f"50% {p(fy, ratio / a)}%"
+
+
 def img(r, pid, alt, cls="", grand=False, attrs=""):
     """Vignette nette : la version 1400 px est proposée aux écrans qui en ont besoin, cadrée sur le visage."""
     src = f"{r}photos/{pid}.jpg" if grand else f"{r}photos/t/{pid}.jpg"
     jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 760px) 170px, (max-width: 1000px) 33vw, 25vw"'
-    pos = f' style="object-position:{CADRAGE[pid][0]}% {CADRAGE[pid][1]}%"' if pid in CADRAGE else ""
+    pos = f' style="object-position:{cadre(pid)}"' if pid in CADRAGE else ""
     return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy" decoding="async"{pos} {attrs}></div>'
 
 
