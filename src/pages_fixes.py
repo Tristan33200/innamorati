@@ -111,7 +111,7 @@ page("", T("Sacré de Birmanie à Bordeaux · Chatterie des Innamorati, éleveur
           "url": lien(""), "image": SITE + "photos/" + P["hero"] + ".jpg", "priceRange": "1800 €", "founder": "Magali Perrier",
           "address": {"@type": "PostalAddress", "addressLocality": "Bordeaux", "addressRegion": "Gironde", "addressCountry": "FR"},
           "areaServed": ["Bordeaux", "Gironde", "Nouvelle-Aquitaine", "France"],
-          "email": EMAIL, "sameAs": ["https://www.facebook.com/desinnamorati"], "identifier": "SIRET " + SIRET},
+          "email": EMAIL, "sameAs": ["https://www.facebook.com/desinnamorati", "https://www.instagram.com/innamoraticats/"], "identifier": "SIRET " + SIRET},
          {"@context": "https://schema.org", "@type": "WebSite", "name": "Chatterie des Innamorati", "url": lien(""), "inLanguage": L},
          faq_ld])
 
@@ -278,7 +278,7 @@ corps = f"""<section><div class="wrap contact">
 <p>{T("Magali vous répond personnellement, le soir et le week-end, et Tristan la seconde pour vous répondre aussi en journée.", "Magali answers personally in the evenings and at weekends, and Tristan helps her reply during the day. We are happy to write in English.")}</p>
 <p>Chatterie des Innamorati<br>Bordeaux, Gironde{T("", ", France")}</p>
 <p>E-mail{T(" : ", ": ")}<a class="mel" href="#" data-u="innamoraticats" data-d="tristanperrier.fr">innamoraticats [at] tristanperrier.fr</a><br>
-Facebook{T(" : ", ": ")}<a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger{T(" : ", ": ")}<a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a></p>
+Facebook{T(" : ", ": ")}<a href="https://www.facebook.com/desinnamorati" target="_blank" rel="noopener">facebook.com/desinnamorati</a><br>Messenger{T(" : ", ": ")}<a href="https://m.me/desinnamorati" target="_blank" rel="noopener">m.me/desinnamorati</a><br>Instagram{T(" : ", ": ")}<a href="https://www.instagram.com/innamoraticats/" target="_blank" rel="noopener">@innamoraticats</a></p>
 </div>
 <form class="form" id="formulaire" action="https://formsubmit.co/{EMAIL}" method="POST">
 <p class="label">{T("Nous écrire", "Write to us")}</p>
