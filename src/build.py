@@ -404,7 +404,7 @@ CADRAGE = json.load(open(os.path.join(ROOT, "data/cadrages.json"), encoding="utf
 def img(r, pid, alt, cls="", grand=False, attrs=""):
     """Vignette nette : la version 1400 px est proposée aux écrans qui en ont besoin, cadrée sur le visage."""
     src = f"{r}photos/{pid}.jpg" if grand else f"{r}photos/t/{pid}.jpg"
-    jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 700px) 100vw, 45vw"'
+    jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 760px) 50vw, (max-width: 1000px) 33vw, 25vw"'
     pos = f' style="object-position:{CADRAGE[pid][0]}% {CADRAGE[pid][1]}%"' if pid in CADRAGE else ""
     return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy"{pos} {attrs}></div>'
 
