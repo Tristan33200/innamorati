@@ -148,13 +148,22 @@
   "64": "2026-09-19",
   "66": "2026-09-19",
   "68": "2026-09-19",
-  "117": "2026-04-16"
+  "117": "2026-04-16",
+  "5": "2016-07-29",
+  "6": "2016-07-29",
+  "7": "2016-07-29"
  },
  "_aide_naissances": "Dates de naissance relevées sur les pedigrees (AAAA-MM-JJ).",
  "fratries": [
   [
    "3",
    "81"
+  ],
+  [
+   "5",
+   "6",
+   "7",
+   "8"
   ]
  ],
  "_aide_fratries": "Frères et sœurs connus quand les parents ne sont pas indiqués dans les albums (numéros d'album).",
