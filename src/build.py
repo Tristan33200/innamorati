@@ -353,7 +353,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 {blocs_ld}
 {precharge}<noscript><link rel="stylesheet" href="{r}assets/fonts.css"></noscript>
 <link rel="stylesheet" href="{r}assets/style.css?v={VER_CSS}">
-<link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="{r}assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
+<link rel="icon" href="{r}assets/favicon-32.png?v=2" type="image/png" sizes="32x32"><link rel="icon" href="{r}assets/favicon-192.png?v=2" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png?v=2">
 </head>
 <body>
 <header class="{entete}"><div class="wrap">
@@ -525,6 +525,7 @@ shutil.copytree(os.path.join(ROOT, "src/assets"), os.path.join(OUT, "assets"), i
 with open(os.path.join(OUT, "assets/style.css"), "a", encoding="utf-8") as _f:
     _f.write("\n" + open(os.path.join(ROOT, "src/assets/motion.css"), encoding="utf-8").read())
 open(os.path.join(OUT, ".nojekyll"), "w").close()
+shutil.copy(os.path.join(ROOT, "src/assets/favicon.ico"), os.path.join(OUT, "favicon.ico"))  # demandé par certains navigateurs à la racine
 
 # ---------- Pages, en français puis en anglais ----------
 for L in ("fr", "en"):
