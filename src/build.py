@@ -87,7 +87,7 @@ STATUTS_EN = {"adopté": "adopted", "adoptée": "adopted", "reste à la maison":
 NOTES_EN = {"Retraitée en famille": "Retired to a loving family", "Retraitée, stérilisée, vit à la maison": "Retired, spayed, lives with us",
             "Retraité, stérilisé, vit à la maison": "Retired, neutered, lives with us",
             "Retraitée, stérilisée, rejoint bientôt sa famille adoptive": "Retired, spayed, soon joining her adoptive family",
-            "Retraité, stérilisé, placé en famille. Décédé le 11 décembre 2018": "Retired, neutered, rehomed with a loving family. Passed away on December 11, 2018"}
+            "Mâle d’une autre chatterie, père de nos chatons. Stérilisé puis placé en famille. Décédé le 11 décembre 2018": "A stud from another cattery who sired some of our kittens. Neutered, then rehomed with a loving family. Passed away on December 11, 2018"}
 
 
 def titre_en(t):
@@ -200,6 +200,7 @@ for a in albums:
     elif fb in S("retraites_maison"): a["type"] = "retraite"
     elif fb in S("anciennes_reproductrices"): a["type"] = "ancienne"
     elif fb in S("anciens_males"): a["type"] = "male"
+    elif fb in S("males_exterieurs"): a["type"] = "exterieur"
     elif fb in S("chatons_disponibles"): a["type"] = "chaton"
     elif n.startswith("Portée"): a["type"] = "portee"
     elif re.match(r"\d{4}-\d{2}-\d{2}", n): a["type"] = "expo"

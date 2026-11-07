@@ -1,7 +1,7 @@
 # Pages générées depuis les albums. Exécuté par build.py une fois par langue (L = "fr" puis "en").
 # ---------- Portées : regroupement des chatons par parents et par année (sert aussi aux frères et sœurs) ----------
 litters = OrderedDict()
-for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["mere"] and x["fb"] not in S("anciens_males"))], key=lambda x: x["debut"]):
+for a in sorted([x for x in chats if x["type"] in ("grandi", "chaton") or (x["mere"] and x["fb"] not in S("anciens_males") | S("males_exterieurs"))], key=lambda x: x["debut"]):
     if not a["mere"] and a["type"] not in ("grandi", "chaton"): continue
     if a["type"] not in ("grandi", "chaton") and not re.search(r"Innamorati|Tribu Birmane", a["titre"]): continue  # né ailleurs : sa portée n'est pas une portée de l'élevage
     an = a["debut"][:4]
@@ -75,7 +75,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     fhtml = "".join(f'<div><span class="label">{k}</span><span>{v}</span></div>' for k, v in faits)
     rubrique = {"repro": (T("Nos reproductrices", "Our breeding queens"), "nos-chats/"), "retraite": (T("Nos retraités", "Our retired cats"), "nos-chats/"),
                 "ancienne": (T("Nos anciennes reproductrices", "Our former queens"), "nos-chats/"),
-                "male": (T("Nos anciens reproducteurs", "Our former studs"), "nos-chats/"), "chaton": (T("Nos chatons", "Our kittens"), "chatons/"),
+                "male": (T("Nos anciens reproducteurs", "Our former studs"), "nos-chats/"), "exterieur": (T("Pères venus d’ailleurs", "Visiting studs"), "nos-chats/"), "chaton": (T("Nos chatons", "Our kittens"), "chatons/"),
                 "portee": (T("Nos portées", "Our litters"), "portees/"), "grandi": (T("Ils ont grandi", "All grown up"), "ils-ont-grandi/")}[a["type"]]
     sous = " · ".join(x for x in [a["sexe"], rb(a["robe"])] if x) or f'{len(a["photos"])} photos'
     corps = f"""{entete_album(r, a, a["titre"], f'<a href="{r}{rubrique[1]}">{rubrique[0]}</a>', e(sous))}
@@ -144,6 +144,7 @@ corps = (f'<section><div class="wrap">{tete(T("Nos chats", "Our cats"), T("Ceux 
          + bloc(T("Nos retraités", "Our retired cats"), T("Stérilisés, ils profitent de la maison", "Neutered and spayed, they enjoy family life"), [BY[f] for f in CFG["retraites_maison"]])
          + bloc(T("Nos anciennes reproductrices", "Our former queens"), T("Retraitées dans des familles aimantes", "Retired to loving families"), [BY[f] for f in CFG["anciennes_reproductrices"]])
          + bloc(T("Nos anciens reproducteurs", "Our former studs"), T("Les mâles qui ont vécu chez nous", "The males who lived with us"), [BY[f] for f in CFG["anciens_males"]])
+         + bloc(T("Pères venus d’ailleurs", "Visiting studs"), T("Ils n’ont pas vécu chez nous mais sont les pères de nos chatons", "They did not live with us but sired some of our kittens"), [BY[f] for f in CFG["males_exterieurs"]])
          + males_txt + eros_txt + "</div></section>")
 page("nos-chats", T("Nos chats · Chatterie des Innamorati", "Our Birman cats · Chatterie des Innamorati"), corps,
      desc=T("Les reproducteurs et retraités de la Chatterie des Innamorati.", "The breeding cats and retired cats of the Chatterie des Innamorati, Birman cattery in Bordeaux, France: titles, show results and pedigrees."))

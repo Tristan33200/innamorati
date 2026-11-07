@@ -33,8 +33,7 @@
   "140",
   "72",
   "93",
-  "crush",
-  "jorel"
+  "crush"
  ],
  "males_amie": {
   "nom": "Cathy Viltange",
@@ -72,7 +71,7 @@
   "19": "Retraitée en famille",
   "86": "Retraitée en famille",
   "156": "Retraitée en famille",
-  "jorel": "Retraité, stérilisé, placé en famille. Décédé le 11 décembre 2018"
+  "jorel": "Mâle d’une autre chatterie, père de nos chatons. Stérilisé puis placé en famille. Décédé le 11 décembre 2018"
  },
  "titres": {
   "204": "SC · NW · JW · DSM · DVM",
@@ -409,5 +408,8 @@
  "_aide_parents": "Mère et père quand l'album Facebook ne les donne pas sous la forme « mère 💘 père » (numéro d'album → [mère, père]).",
  "photos_retirees": [
   "1491494772089399"
+ ],
+ "males_exterieurs": [
+  "jorel"
  ]
 }
