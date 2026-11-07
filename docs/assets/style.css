@@ -321,9 +321,10 @@ header .lang:hover { opacity: 1; text-decoration: underline; text-underline-offs
 .temoin { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; margin: 96px 0 40px; padding-top: 72px; border-top: 1px solid var(--line) }
 .temoin h2 { font-size: clamp(2rem, 4vw, 3.2rem); margin: 10px 0 22px }
 .temoin p { color: var(--muted) }
+.temoin p + p { margin-top: 14px }
 .form label.ok { display: flex; gap: 12px; align-items: flex-start; text-transform: none; letter-spacing: .01em; font-size: .92rem; color: var(--ink) }
 .form label.ok input { width: auto; margin-top: 4px; accent-color: var(--sapphire) }
-@media (max-width: 860px) { .temoin { grid-template-columns: 1fr; gap: 32px; margin-top: 64px; padding-top: 48px } .form .f2 { grid-template-columns: 1fr } }
+@media (max-width: 860px) { .temoin { grid-template-columns: 1fr; gap: 44px; margin-top: 64px; padding-top: 48px } .form .f2 { grid-template-columns: 1fr } }
 
 /* ---------- Mouvement : parallaxe et apparitions ---------- */
 .ph img { translate: 0 var(--py, 0); scale: var(--sc, 1); transition: scale 1.4s cubic-bezier(.16,1,.3,1); transform: none !important }

@@ -13,6 +13,9 @@ OUT = os.path.join(ROOT, "docs")
 CAT = json.load(open(os.path.join(ROOT, "data/catalogue.json"), encoding="utf-8"))
 CAT += json.load(open(os.path.join(ROOT, "data/albums_ajoutes.json"), encoding="utf-8"))  # chats sans album Facebook
 _AJ = json.load(open(os.path.join(ROOT, "data/photos_ajoutees.json"), encoding="utf-8"))  # photos envoyées hors Facebook
+import hashlib
+_v = lambda *fs: hashlib.md5(b"".join(open(os.path.join(ROOT, "src/assets", f), "rb").read() for f in fs)).hexdigest()[:8]
+VER_CSS, VER_JS = _v("style.css", "motion.css"), _v("site.js")  # le navigateur recharge le style dès qu'il change
 CFG = json.load(open(os.path.join(ROOT, "data/config.json"), encoding="utf-8"))
 _RETIREES = set(CFG.get("photos_retirees", []))  # photos à ne pas publier (radios, etc.)
 for _a in CAT:
@@ -348,7 +351,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 {meta_img}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(titre)}"><meta name="twitter:description" content="{e(desc)}">
 {blocs_ld}
 {precharge}<noscript><link rel="stylesheet" href="{r}assets/fonts.css"></noscript>
-<link rel="stylesheet" href="{r}assets/style.css">
+<link rel="stylesheet" href="{r}assets/style.css?v={VER_CSS}">
 <link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="{r}assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
 </head>
 <body>
@@ -375,7 +378,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
   <figure><div class="lb-img"><img alt=""></div><figcaption></figcaption></figure>
   <button type="button" class="lb-n" aria-label="{T("Photo suivante", "Next photo")}">›</button>
 </div>
-<script src="{r}assets/site.js"></script>
+<script src="{r}assets/site.js?v={VER_JS}"></script>
 </body>
 </html>"""
     if L == "en":
