@@ -1,10 +1,14 @@
+/* Polices de secours aux mêmes proportions : la mise en page ne bouge pas quand les vraies polices arrivent */
+@font-face { font-family: "Cormorant repli"; font-style: normal; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Times"), local("Liberation Serif"), local("LiberationSerif"); size-adjust: 95.7%; ascent-override: 96.5%; descent-override: 30%; line-gap-override: 0% }
+@font-face { font-family: "Cormorant repli"; font-style: italic; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Times-Italic"), local("Liberation Serif Italic"), local("LiberationSerif-Italic"); size-adjust: 86.6%; ascent-override: 106.6%; descent-override: 33.1%; line-gap-override: 0% }
+@font-face { font-family: "Jost repli"; src: local("Arial"), local("ArialMT"), local("Helvetica"), local("Liberation Sans"), local("LiberationSans"); size-adjust: 92.4%; ascent-override: 115.8%; descent-override: 40.6%; line-gap-override: 0% }
 /* Chatterie des Innamorati : la photo d'abord, beaucoup de blanc, une seule voix typographique. */
 [hidden] { display: none !important }
 :root {
   --paper: #fbfaf7; --paper-2: #f3f0ea; --ink: #23211e; --muted: #857e74; --soft: #4a463f;
   --line: #e4ded4; --sapphire: #3c5b8f; --night: #161514;
-  --display: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
-  --sans: "Jost", "Futura", "Avenir Next", "Helvetica Neue", sans-serif;
+  --display: "Cormorant Garamond", "Cormorant repli", "Cormorant", Garamond, "Times New Roman", serif;
+  --sans: "Jost", "Jost repli", "Futura", "Avenir Next", "Helvetica Neue", sans-serif;
   color-scheme: light;
 }
 * { box-sizing: border-box }

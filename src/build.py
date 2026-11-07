@@ -476,7 +476,7 @@ def galerie(r, a):
     for p in a["photos"][debut:]:
         cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
-                    f'<div class="ph"><img src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
+                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
