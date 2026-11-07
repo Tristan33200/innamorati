@@ -62,5 +62,37 @@
    "date": "2026-11-06",
    "legende": "Olympe, tout en gants blancs"
   }
+ ],
+ "jorel": [
+  {
+   "id": "ajout-jorel-1",
+   "src": "",
+   "date": "2016-04-10",
+   "legende": "Sieste au soleil"
+  },
+  {
+   "id": "ajout-jorel-2",
+   "src": "",
+   "date": "2018-08-10",
+   "legende": "À l'affût dans les graviers"
+  },
+  {
+   "id": "ajout-jorel-3",
+   "src": "",
+   "date": "2018-09-02",
+   "legende": "Dans les bras de notre fille"
+  },
+  {
+   "id": "ajout-jorel-4",
+   "src": "",
+   "date": "2018-09-02",
+   "legende": "Dans les bras de notre fille"
+  },
+  {
+   "id": "ajout-jorel-5",
+   "src": "",
+   "date": "2017-04-16",
+   "legende": "Gros câlin sur le carrelage"
+  }
  ]
 }

@@ -10,6 +10,7 @@ FRATRIE = {k["fb"]: [x for x in kits if x is not k] for (m, p, an), kits in litt
 for _g in CFG.get("fratries", []):  # fratries connues sans les parents
     for _f in _g:
         FRATRIE[_f] = FRATRIE.get(_f, []) + [BY[x] for x in _g if x != _f and BY[x] not in FRATRIE.get(_f, [])]
+de_mois = lambda d: ("d’" if d[:1].lower() in "aeiouéè" else "de ") + d
 ancre_portee = lambda cle: "p-" + slug_robe("-".join(cle))
 court_nom = lambda n: re.sub(r"\s+(des Innamorati|aka)\b.*$", "", n, flags=re.I)
 
@@ -41,7 +42,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
     if a["titres"]: faits.append((T("Titres", "Titles"), e(a["titres"])))
     statut = a["note"] or (a["statut"][:1].upper() + a["statut"][1:] if a["statut"] else "")
     if statut: faits.append((T("Statut", "Status"), e(statut)))
-    faits.append(("Album", T(f'{len(a["photos"])} photos, de {date_fr(a["debut"], False)} à {date_fr(a["fin"], False)}',
+    faits.append(("Album", T(f'{len(a["photos"])} photos, {de_mois(date_fr(a["debut"], False))} à {date_fr(a["fin"], False)}',
                              f'{len(a["photos"])} photos, from {date_fr(a["debut"], False)} to {date_fr(a["fin"], False)}')))
     if FRATRIE.get(a["fb"]):
         faits.append((T("Frères et sœurs", "Littermates"), ", ".join(f'<a href="{r}{x["url"]}">{e(x["titre"])}</a>' for x in FRATRIE[a["fb"]])))
