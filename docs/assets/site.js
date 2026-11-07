@@ -53,7 +53,12 @@
     // Parallaxe : seulement les éléments visibles
     var vus = new Set();
     var io2 = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting) vus.add(en.target); else vus.delete(en.target); });
+      es.forEach(function (en) {
+        if (en.isIntersecting) vus.add(en.target); else vus.delete(en.target);
+        // Calque graphique seulement pour les photos à l'écran : défilement fluide sans surcharger la mémoire du téléphone
+        var im = en.target.querySelector && en.target.querySelector("img");
+        if (im) im.style.willChange = en.isIntersecting ? "translate" : "";
+      });
       onScroll();
     }, { rootMargin: "20% 0px" });
     $$(".ph:not(.vide)").filter(function (p) { return !p.closest(".film"); }).concat($$(".ribbon")).forEach(function (el) { io2.observe(el); });
@@ -85,32 +90,34 @@
           im.style.translate = (((r.left + r.width / 2 - vw / 2) / vw) * -9).toFixed(2) + "% 0";
         });
       });
-      if (hero && y < vh * 1.2) {
-        heroImg.style.setProperty("--py", (y * 0.38).toFixed(1) + "px");
-        heroTxt.style.transform = "translate3d(0," + (y * -0.22).toFixed(1) + "px,0)";
-        heroTxt.style.opacity = Math.max(0, 1 - y / (vh * 0.65)).toFixed(3);
-      }
-      var rects = new Map();
+      // 1) Lectures (positions) d'abord, 2) écritures ensuite : aucun recalcul de mise en page forcé pendant le défilement
+      var ecr = [], rects = new Map();
       vus.forEach(function (el) {
         var r = el.getBoundingClientRect();
         var p = (r.top + r.height / 2 - vh / 2) / vh; // négatif en haut de l'écran, positif en bas
         if (el.classList.contains("ribbon")) {
-          el.firstElementChild.style.transform = "translate3d(" + (p * 28 - 22).toFixed(2) + "%,0,0)";
+          ecr.push([el.firstElementChild, "transform", "translate3d(" + (p * 28 - 22).toFixed(2) + "%,0,0)"]);
         } else if (el.classList.contains("g-item")) {
-          // Colonnes qui glissent d'un bloc, chacune à sa vitesse (avancement de toute la galerie)
           var g = el.parentNode, gr = rects.get(g);
           if (!gr) { gr = g.getBoundingClientRect(); rects.set(g, gr); }
           var k = Math.min(1, Math.max(0, (vh - gr.top) / (vh + gr.height)));
-          var col = Math.round(el.offsetLeft / (el.offsetWidth + 12));
-          el.style.translate = "0 " + ((0.5 - k) * DERIVE[col % 6]).toFixed(1) + "px";
+          var col = el._col; if (col === undefined) col = el._col = Math.round(el.offsetLeft / (el.offsetWidth + 12));
+          ecr.push([el, "translate", "0 " + ((0.5 - k) * DERIVE[col % 6]).toFixed(1) + "px"]);
         } else if (el.parentNode.classList.contains("mosaic")) {
-          // Chaque photo glisse dans son cadre, à sa propre vitesse (sans chevauchement)
           var i = Array.prototype.indexOf.call(el.parentNode.children, el);
-          var m = el.querySelector("img"); if (m) m.style.setProperty("--py", (p * MOSA[i % 6]).toFixed(2) + "%");
+          var m = el.querySelector("img"); if (m) ecr.push([m, "--py", (p * MOSA[i % 6]).toFixed(2) + "%"]);
         } else if (!el.parentNode.classList.contains("hero")) {
           var img = el.querySelector("img");
-          if (img) img.style.setProperty("--py", (p * (el.parentNode.classList.contains("band") ? -16 : -7)).toFixed(2) + "%");
+          if (img) ecr.push([img, "--py", (p * (el.parentNode.classList.contains("band") ? -16 : -7)).toFixed(2) + "%"]);
         }
+      });
+      if (hero && y < vh * 1.2) {
+        ecr.push([heroImg, "--py", (y * 0.38).toFixed(1) + "px"]);
+        ecr.push([heroTxt, "transform", "translate3d(0," + (y * -0.22).toFixed(1) + "px,0)"]);
+        ecr.push([heroTxt, "opacity", Math.max(0, 1 - y / (vh * 0.65)).toFixed(3)]);
+      }
+      ecr.forEach(function (o) {
+        if (o[1].charAt(0) === "-") o[0].style.setProperty(o[1], o[2]); else o[0].style[o[1]] = o[2];
       });
     }
     function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }

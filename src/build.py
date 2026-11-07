@@ -407,7 +407,7 @@ def img(r, pid, alt, cls="", grand=False, attrs=""):
     src = f"{r}photos/{pid}.jpg" if grand else f"{r}photos/t/{pid}.jpg"
     jeu = "" if grand else f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="(max-width: 760px) 50vw, (max-width: 1000px) 33vw, 25vw"'
     pos = f' style="object-position:{CADRAGE[pid][0]}% {CADRAGE[pid][1]}%"' if pid in CADRAGE else ""
-    return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy"{pos} {attrs}></div>'
+    return f'<div class="ph {cls}"><img src="{src}"{jeu} alt="{e(alt)}" loading="lazy" decoding="async"{pos} {attrs}></div>'
 
 
 def carte(r, a, extra=""):
@@ -473,7 +473,7 @@ FILM_MIN = 10**6  # défilé horizontal abandonné (nov. 2026) : galerie en colo
 def film(r, a, n=10):
     if len(a["photos"]) < FILM_MIN: return ""
     items = "".join(f'<a class="g-item f-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(legende(a, p))}">'
-                    f'<div class="ph"><img src="{r}photos/{p["id"]}.jpg" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div>'
+                    f'<div class="ph"><img src="{r}photos/{p["id"]}.jpg" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy" decoding="async"></div>'
                     f'<span class="f-n">{i + 1:02d}</span></a>' for i, p in enumerate(a["photos"][:n]))
     return f'<div class="film"><div class="film-pin"><div class="film-track">{items}</div></div></div>'
 
@@ -489,7 +489,7 @@ def galerie(r, a):
     for p in a["photos"][debut:]:
         cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
-                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy"></div></a>')
+                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 50vw, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy" decoding="async"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
