@@ -342,8 +342,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 <meta property="og:title" content="{e(titre)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
 {meta_img}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(titre)}"><meta name="twitter:description" content="{e(desc)}">
 {blocs_ld}
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-{precharge}<link rel="preload" as="style" href="{POLICES}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="{POLICES}"></noscript>
+{precharge}<noscript><link rel="stylesheet" href="{r}assets/fonts.css"></noscript>
 <link rel="stylesheet" href="{r}assets/style.css">
 <link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="{r}assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
 </head>
@@ -433,9 +432,25 @@ def legende(a, p):
     return date_fr(p["date"]) + (" · " + leg[:300].replace("\n", " ") if leg else "")
 
 
+def jeu_photo(r, pid):
+    """srcset 520 / 900 / 1400 px ; la version 900 px (téléphones) est créée au besoin à partir de la photo filigranée."""
+    m = os.path.join(OUT, "photos", "m", pid + ".jpg")
+    if not os.path.exists(m):
+        try:
+            from PIL import Image
+            im = Image.open(os.path.join(OUT, "photos", pid + ".jpg"))
+            if im.width > 1000:
+                os.makedirs(os.path.dirname(m), exist_ok=True)
+                im.convert("RGB").resize((900, round(im.height * 900 / im.width)), Image.LANCZOS).save(m, quality=78, optimize=True, progressive=True)
+        except Exception:
+            pass
+    moyen = f", {r}photos/m/{pid}.jpg 900w" if os.path.exists(m) else ""
+    return f"{r}photos/t/{pid}.jpg 520w{moyen}, {r}photos/{pid}.jpg 1400w"
+
+
 def entete_album(r, a, titre, sur, sous):
     """Grande photo de couverture plein écran, titre par-dessus (parallaxe)."""
-    return (f'<div class="hero album-hero"><div class="ph"><img src="{r}photos/{a["cover"]}.jpg" srcset="{r}photos/t/{a["cover"]}.jpg 520w, {r}photos/{a["cover"]}.jpg 1400w" sizes="100vw" alt="{e(a["titre"])}" fetchpriority="high" decoding="async"></div>'
+    return (f'<div class="hero album-hero"><div class="ph"><img src="{r}photos/{a["cover"]}.jpg" srcset="{jeu_photo(r, a["cover"])}" sizes="100vw" alt="{e(a["titre"])}" fetchpriority="high" decoding="async"></div>'
             f'<div class="wrap"><p class="crumb">{sur}</p><h1>{e(titre)}</h1><p>{sous}</p></div></div>')
 
 

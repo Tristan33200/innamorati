@@ -143,3 +143,19 @@
   lb.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); x0 = null; });
 })();
+
+// Vitesse : polices chargées juste après le premier affichage, photos du bas de page après la photo du haut
+(function () {
+  var moi = document.currentScript && document.currentScript.src;
+  requestAnimationFrame(function () { setTimeout(function () {
+    if (!moi) return;
+    var l = document.createElement("link"); l.rel = "stylesheet"; l.href = moi.replace(/site\.js.*$/, "fonts.css"); document.head.appendChild(l);
+  }, 0); });
+  function photos() {
+    Array.prototype.forEach.call(document.querySelectorAll("img[data-src]"), function (i) {
+      if (i.dataset.srcset) i.srcset = i.dataset.srcset;
+      i.src = i.dataset.src; i.removeAttribute("data-src");
+    });
+  }
+  if (document.readyState === "complete") photos(); else window.addEventListener("load", function () { setTimeout(photos, 0); });
+})();

@@ -11,11 +11,12 @@ st = json.load(open(os.path.join(ROOT, "data/stats.json")))
 def grand(r, pid, alt, style="", prio=False, sizes="(max-width: 700px) 100vw, 50vw"):
     """Grande photo : version 520 px pour les petits écrans, chargement différé sauf pour la photo du haut de page."""
     st = ' style="' + style + '"' if style else ""
-    jeu = f' srcset="{r}photos/t/{pid}.jpg 520w, {r}photos/{pid}.jpg 1400w" sizes="{sizes}"' if os.path.exists(os.path.join(OUT, "photos", "t", pid + ".jpg")) else ""
-    if jeu and os.path.exists(os.path.join(OUT, "photos", "m", pid + ".jpg")):  # version 900 px (photo d'accueil)
-        jeu = jeu.replace(" 1400w", f" 1400w, {r}photos/m/{pid}.jpg 900w")
-    charge = ' fetchpriority="high"' if prio else ' loading="lazy"'
-    return f'<div class="ph"><img src="{r}photos/{pid}.jpg"{jeu} alt="{e(alt)}"{st}{charge} decoding="async"></div>'
+    jeu = f' srcset="{jeu_photo(r, pid)}" sizes="{sizes}"' if os.path.exists(os.path.join(OUT, "photos", "t", pid + ".jpg")) else ""
+    if prio:
+        return f'<div class="ph"><img src="{r}photos/{pid}.jpg"{jeu} alt="{e(alt)}"{st} fetchpriority="high" decoding="async"></div>'
+    # Photos plus bas dans la page : chargées seulement après la photo du haut (site.js), copie sans script pour les moteurs
+    return (f'<div class="ph"><img data-src="{r}photos/{pid}.jpg"{jeu.replace(" srcset=", " data-srcset=")} alt="{e(alt)}"{st} loading="lazy" decoding="async">'
+            f'<noscript><img src="{r}photos/{pid}.jpg" alt="{e(alt)}"{st}></noscript></div>')
 
 
 # ---------- Accueil ----------
