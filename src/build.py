@@ -303,6 +303,8 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
     r = "../" * profondeur
     url_fr = SITE + (chemin.strip("/") + "/" if chemin else "")
     url_en = SITE + chemin_en(chemin)
+    _m = re.search(r'<img src="([^"]+)"(?: srcset="([^"]+)" sizes="([^"]+)")?[^>]*fetchpriority="high"', corps)
+    precharge = (f'<link rel="preload" as="image" href="{_m.group(1)}"' + (f' imagesrcset="{_m.group(2)}" imagesizes="{_m.group(3)}"' if _m.group(2) else "") + ' fetchpriority="high">\n') if _m else ""
     url = url_en if L == "en" else url_fr
     desc = desc or T("Chatterie des Innamorati, élevage familial de Sacrés de Birmanie à Bordeaux.", "Chatterie des Innamorati, a family-run Birman cat cattery in Bordeaux, France.")
     if indexer: PLAN.append((url, prio if prio is not None else (0.5 if profondeur > 1 else 0.7), url_fr, url_en))
@@ -341,7 +343,7 @@ def page(chemin, titre, corps, desc="", sombre_entete=False, image=None, ld=None
 {meta_img}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(titre)}"><meta name="twitter:description" content="{e(desc)}">
 {blocs_ld}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="{POLICES}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="{POLICES}"></noscript>
+{precharge}<link rel="preload" as="style" href="{POLICES}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="{POLICES}"></noscript>
 <link rel="stylesheet" href="{r}assets/style.css">
 <link rel="icon" href="{r}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="{r}assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
 </head>
