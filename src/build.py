@@ -87,7 +87,7 @@ STATUTS_EN = {"adopté": "adopted", "adoptée": "adopted", "reste à la maison":
 NOTES_EN = {"Retraitée en famille": "Retired to a loving family", "Retraitée, stérilisée, vit à la maison": "Retired, spayed, lives with us",
             "Retraité, stérilisé, vit à la maison": "Retired, neutered, lives with us",
             "Retraitée, stérilisée, rejoint bientôt sa famille adoptive": "Retired, spayed, soon joining her adoptive family",
-            "Mâle d’une autre chatterie, père de nos chatons. Stérilisé puis placé en famille. Décédé le 11 décembre 2018": "A stud from another cattery who sired some of our kittens. Neutered, then rehomed with a loving family. Passed away on December 11, 2018"}
+            "Décédé le 11 décembre 2018": "Passed away on December 11, 2018"}
 
 
 def titre_en(t):
@@ -425,7 +425,6 @@ def carte(r, a, extra=""):
     lignes.append(f'<h3>{e(a["titre"])}</h3>')
     infos = " · ".join(x for x in [a["sexe"], rb(a["robe"]).lower() if a["robe"] else ""] if x)
     if infos: lignes.append(f'<span class="robe">{e(infos[0].upper() + infos[1:])}</span>')
-    if a["note"]: lignes.append(f'<span class="robe">{e(a["note"])}</span>')
     lignes.append(extra)
     return f'<a class="card" href="{r}{a["url"]}">{img(r, a["cover"], a["titre"])}<div class="t">{"".join(lignes)}</div></a>'
 
