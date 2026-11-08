@@ -16,6 +16,18 @@ ancre_portee = lambda cle: "p-" + slug_robe("-".join(cle))
 court_nom = lambda n: re.sub(r"\s+(des Innamorati|aka)\b.*$", "", n, flags=re.I)
 
 
+TEMOINS = json.load(open(os.path.join(ROOT, "data/temoignages.json"), encoding="utf-8"))
+
+
+def mots_famille(a):
+    """Les mots de la famille adoptive, publiés avec son accord (prénom seulement)."""
+    l = TEMOINS.get(a["fb"], [])
+    if not l: return ""
+    n = e(court_nom(a["titre"]))
+    blocs = "".join(f'''<figure class="mot"><blockquote><p>{e(t["caractere"])}</p>{f'<p class="avis"><span class="label">{T("Sur notre élevage", "About our cattery")}</span>{e(t["avis"])}</p>' if t.get("avis") else ""}</blockquote><figcaption>{e(t["prenom"])}{T(", sa famille", ", their family")}</figcaption></figure>''' for t in l)
+    return f'<section class="mots"><p class="label">{T("Le mot de sa famille", "In their family’s words (in French)")}</p><h2>{T(f"{n}, raconté{"e" if a["sexe"] == "Femelle" else ""} par les siens", f"{n}, as told by their family")}</h2>{blocs}</section>'
+
+
 def temoignage(r, a):
     """Formulaire pour la famille adoptive : quelques mots sur le chat et sur l'élevage, publiés avec son accord."""
     n = e(court_nom(a["titre"]))
@@ -85,7 +97,7 @@ for a in chats + [x for x in albums if x["type"] == "portee"]:
 </div>{film(r, a)}<div class="wrap">
 {galerie(r, a)}
 {palmares(a["fb"])}
-{temoignage(r, a) if a["type"] == "grandi" else ""}
+{mots_famille(a)}{temoignage(r, a) if a["type"] == "grandi" else ""}
 <p class="prot">{T("Photos réduites et marquées. Elles appartiennent à la Chatterie des Innamorati et ne peuvent pas être reprises dans une annonce.", "Photos are downsized and watermarked. They belong to the Chatterie des Innamorati and may not be used in any listing.")}</p>
 </div></section>"""
     page(a["url"].rstrip("/"), f'{a["titre"]} · Chatterie des Innamorati', corps, sombre_entete=True,
