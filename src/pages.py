@@ -24,7 +24,7 @@ def mots_famille(a):
     l = TEMOINS.get(a["fb"], [])
     if not l: return ""
     n = e(court_nom(a["titre"]))
-    blocs = "".join(f'''<figure class="mot"><blockquote><p>{e(t["caractere"])}</p>{f'<p class="avis"><span class="label">{T("Sur notre élevage", "About our cattery")}</span>{e(t["avis"])}</p>' if t.get("avis") else ""}</blockquote><figcaption>{e(t["prenom"])}{T(", sa famille", ", their family")}</figcaption></figure>''' for t in l)
+    blocs = "".join(f'''<figure class="mot"><blockquote><p>{e(t["caractere"]).replace(chr(10), "<br>")}</p>{f'<p class="avis"><span class="label">{T("Sur notre élevage", "About our cattery")}</span>{e(t["avis"]).replace(chr(10), "<br>")}</p>' if t.get("avis") else ""}</blockquote><figcaption>{e(t["prenom"])}{T(", sa famille", ", their family")}</figcaption></figure>''' for t in l)
     return f'<section class="mots"><p class="label">{T("Le mot de sa famille", "In their family’s words (in French)")}</p><h2>{T(f"{n}, raconté{"e" if a["sexe"] == "Femelle" else ""} par les siens", f"{n}, as told by their family")}</h2>{blocs}</section>'
 
 
