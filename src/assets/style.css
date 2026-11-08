@@ -328,3 +328,6 @@ header .lang:hover { opacity: 1; text-decoration: underline; text-underline-offs
 footer .social { display: flex; gap: 22px; justify-content: center }
 footer .social a { color: #d8d2c7; display: inline-flex; padding: 6px; transition: color .3s }
 footer .social a:hover { color: #fff }
+.form .manque { border-color: #b4543c !important }
+.form label:has(.manque) { color: #b4543c }
+.form .btn[disabled] { opacity: .6; cursor: progress }

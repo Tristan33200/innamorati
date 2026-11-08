@@ -165,3 +165,22 @@
   }
   if (document.readyState === "complete") photos(); else window.addEventListener("load", function () { setTimeout(photos, 0); });
 })();
+
+// Formulaires : un champ manquant est montré clairement, et le bouton indique que l'envoi est en cours
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll("form.form"), function (f) {
+    var vu = false;
+    f.addEventListener("invalid", function (e) {
+      var c = e.target; c.classList.add("manque");
+      if (!vu) { vu = true; c.scrollIntoView({ block: "center", behavior: "smooth" }); setTimeout(function () { c.focus({ preventScroll: true }); vu = false; }, 400); }
+    }, true);
+    f.addEventListener("input", function (e) { if (e.target.checkValidity && e.target.checkValidity()) e.target.classList.remove("manque"); });
+    f.addEventListener("submit", function () {
+      var b = f.querySelector("button[type=submit]");
+      if (b) { b.disabled = true; b.textContent = document.documentElement.lang === "en" ? "Sending…" : "Envoi en cours…"; }
+    });
+  });
+  window.addEventListener("pageshow", function () {  // retour arrière : bouton réactivé
+    Array.prototype.forEach.call(document.querySelectorAll("form.form button[disabled]"), function (b) { b.disabled = false; b.textContent = document.documentElement.lang === "en" ? "Send" : "Envoyer"; });
+  });
+})();
