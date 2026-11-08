@@ -407,6 +407,22 @@
    "legende": "Pearl dans son panier",
    "approx": true,
    "adoptant": true
+  },
+  {
+   "id": "ajout-91-13",
+   "src": "",
+   "date": "2020-10-15",
+   "legende": "Pearl et Lucie",
+   "approx": true,
+   "adoptant": true
+  },
+  {
+   "id": "ajout-91-14",
+   "src": "",
+   "date": "2025-12-20",
+   "legende": "Noël avec Lucie",
+   "approx": true,
+   "adoptant": true
   }
  ]
 }
