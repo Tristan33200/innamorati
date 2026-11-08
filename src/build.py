@@ -453,6 +453,7 @@ def tete(label, titre, texte=""):
 
 
 def legende(a, p):
+    if p.get("approx"): return "" if L == "en" else clean(p["legende"])  # date estimée : on ne l'affiche pas
     if L == "en": return date_fr(p["date"])  # légendes Facebook en français : seule la date en anglais
     leg = clean(p["legende"])
     if a["titre"].lower()[:12] in leg.lower() or leg == clean(a["description"]): leg = ""
@@ -500,7 +501,7 @@ FILM_MIN = 10**6  # défilé horizontal abandonné (nov. 2026) : galerie en colo
 def film(r, a, n=10):
     if len(a["photos"]) < FILM_MIN: return ""
     items = "".join(f'<a class="g-item f-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(legende(a, p))}">'
-                    f'<div class="ph"><img src="{r}photos/{p["id"]}.jpg" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy" decoding="async"></div>'
+                    f'<div class="ph"><img src="{r}photos/{p["id"]}.jpg" alt="{e(a["titre"])}{"" if p.get("approx") else ", " + date_fr(p["date"])}" loading="lazy" decoding="async"></div>'
                     f'<span class="f-n">{i + 1:02d}</span></a>' for i, p in enumerate(a["photos"][:n]))
     return f'<div class="film"><div class="film-pin"><div class="film-track">{items}</div></div></div>'
 
@@ -516,7 +517,7 @@ def galerie(r, a):
     for p in a["photos"][debut:]:
         cap = legende(a, p)
         figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
-                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 170px, 33vw" alt="{e(a["titre"])}, {date_fr(p["date"])}" loading="lazy" decoding="async"></div></a>')
+                    f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 170px, 33vw" alt="{e(a["titre"])}{"" if p.get("approx") else ", " + date_fr(p["date"])}" loading="lazy" decoding="async"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 
 
