@@ -294,7 +294,7 @@ Facebook{T(" : ", ": ")}<a href="https://www.facebook.com/desinnamorati" target=
 <label>{T("Ville", "City and country")}<input name="Ville" required autocomplete="address-level2"></label></div>
 <label>{T("Votre projet", "Your plans")}<select name="Projet" required>
 <option value="">{T("Choisir", "Choose")}</option>{"".join(f"<option>{x}</option>" for x in projets)}</select></label>
-<label><span>{T("Chaton qui vous intéresse", "Kitten you are interested in")} <small>· {T("facultatif", "optional")}</small></span><select name="Chaton" id="f-chaton"><option value="">{T("Aucun en particulier", "None in particular")}</option>{chatons_opts}</select></label>
+{f'<label><span>{T("Chaton qui vous intéresse", "Kitten you are interested in")} <small>· {T("facultatif", "optional")}</small></span><select name="Chaton" id="f-chaton"><option value="">{T("Aucun en particulier", "None in particular")}</option>{chatons_opts}</select></label>' if chatons_opts else ""}
 <label>{T("Votre message", "Your message")}<textarea name="Message" rows="6" required placeholder="{T("Votre foyer, vos autres animaux, vos questions…", "Your home, your other pets, your questions…")}"></textarea></label>
 <button class="btn" type="submit">{T("Envoyer", "Send")}</button>
 <p class="fine-form">{T("Vos coordonnées servent uniquement à vous répondre.", "Your details are only used to reply to you.")}</p>
