@@ -24,7 +24,7 @@ for _a in CAT:
 COULEURS_FR = COULEURS = json.load(open(os.path.join(ROOT, "data/couleurs.json"), encoding="utf-8"))
 COULEURS_EN = json.load(open(os.path.join(ROOT, "data/couleurs_en.json"), encoding="utf-8"))
 SIRET = "829 118 769 00019"
-EMAIL = "innamoraticats@tristanperrier.fr"
+EMAIL = "innamoraticats@icloud.com"
 # Adresse publique du site : le domaine du fichier CNAME s'il existe, sinon GitHub Pages
 _cname = os.path.join(ROOT, "docs", "CNAME")
 SITE = ("https://" + open(_cname).read().strip() + "/") if os.path.exists(_cname) else "https://tristan33200.github.io/innamorati/"
