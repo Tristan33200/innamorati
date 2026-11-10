@@ -79,7 +79,7 @@ def rb(robe):
     return re.sub(r"\b([Cc])hocolat\b", r"\1hocolate", robe) if L == "en" else robe
 
 
-STATUTS_EN = {"adopté": "adopted", "adoptée": "adopted", "reste à la maison": "stays with us", "reste à la mais": "stays with us",
+STATUTS_EN = {"décédé": "passed away", "décédée": "passed away", "adopté": "adopted", "adoptée": "adopted", "reste à la maison": "stays with us", "reste à la mais": "stays with us",
               "réservé": "reserved", "réservée": "reserved", "option de l'élevage": "breeder's option", "option": "breeder's option",
               "adoptée retraitée": "retired and adopted", "retraitée à 2 ans et 3 mois": "retired at 2 years and 3 months",
               "pré-réservée": "pre-reserved", "pré-réservé": "pre-reserved", "à adopter": "available", "à réserver": "available",
