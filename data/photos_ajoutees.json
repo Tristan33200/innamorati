@@ -450,5 +450,39 @@
    "approx": true,
    "adoptant": true
   }
+ ],
+ "198": [
+  {
+   "id": "ajout-198-1",
+   "src": "",
+   "date": "2025-03-15",
+   "legende": "Versace, regard bleu",
+   "approx": true,
+   "adoptant": true
+  },
+  {
+   "id": "ajout-198-2",
+   "src": "",
+   "date": "2026-05-15",
+   "legende": "Portrait de Versace",
+   "approx": true,
+   "adoptant": true
+  },
+  {
+   "id": "ajout-198-3",
+   "src": "",
+   "date": "2026-05-16",
+   "legende": "Versace dans son panier",
+   "approx": true,
+   "adoptant": true
+  },
+  {
+   "id": "ajout-198-4",
+   "src": "",
+   "date": "2026-05-17",
+   "legende": "Versace, tout en douceur",
+   "approx": true,
+   "adoptant": true
+  }
  ]
 }
