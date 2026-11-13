@@ -168,7 +168,7 @@ def parents_de(desc):
             g = re.split(r"\)\s+|\s{2,}", g)[-1]
             d = re.split(r"\s{2,}|\s+(?=(Mâle|Male|Femelle)\b)", d)[0]
             nettoie = lambda x: re.sub(r"^(IC|GIC|SC|CH|NW)\s*-\s*", "", x).strip()
-            return nettoie(g), nettoie(d)
+            return nettoie(g), nettoie(d).replace("Peppone Di Brescello", "Peppone di Brescello")
     return "", ""
 
 
