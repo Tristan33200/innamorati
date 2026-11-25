@@ -516,7 +516,9 @@ def galerie(r, a):
     debut = min(10, len(a["photos"])) if len(a["photos"]) >= FILM_MIN else 0
     for p in a["photos"][debut:]:
         cap = legende(a, p)
-        figs.append(f'<a class="g-item" href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
+        d = taille_jpeg(os.path.join(OUT, "photos", "t", p["id"] + ".jpg"))
+        ratio = f' style="--r:{d[0] / d[1]:.3f}"' if d else ""
+        figs.append(f'<a class="g-item"{ratio} href="{r}photos/{p["id"]}.jpg" data-cap="{e(cap)}">'
                     f'<div class="ph"><img data-src="{r}photos/t/{p["id"]}.jpg"{dims(p["id"])} data-srcset="{r}photos/t/{p["id"]}.jpg 520w, {r}photos/{p["id"]}.jpg 1400w" sizes="(max-width: 700px) 170px, 33vw" alt="{e(a["titre"])}{"" if p.get("approx") else ", " + date_fr(p["date"])}" loading="lazy" decoding="async"></div></a>')
     return f'<div class="gallery">{"".join(figs)}</div>' if figs else ""
 

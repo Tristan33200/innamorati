@@ -310,12 +310,13 @@ header .lang:hover { opacity: 1; text-decoration: underline; text-underline-offs
 .menu .lang-m { opacity: .7 }
 @media (max-width: 1080px) { header .lang { display: none } }
 
-/* Galerie d'album : colonnes, photos entières (sans recadrage), apparition douce */
-.gallery { display: block; columns: 3 280px; column-gap: 18px }
-.g-item { break-inside: avoid; margin-bottom: 18px }
+/* Galerie d'album : rangées justifiées dans l'ordre chronologique (lecture ligne par ligne), photos entières */
+.gallery { display: flex; flex-wrap: wrap; gap: 18px }
+.gallery::after { content: ""; flex-grow: 10000 }
+.g-item { flex: var(--r, 1.333) 1 calc(var(--r, 1.333) * 250px); min-width: 0 }
 .g-item .ph { aspect-ratio: auto }
-.gallery .ph img { height: auto; object-fit: initial }
-@media (max-width: 700px) { .gallery { columns: 2; column-gap: 10px } .g-item { margin-bottom: 10px } }
+.gallery .ph img { width: 100%; height: auto; object-fit: initial }
+@media (max-width: 700px) { .gallery { gap: 10px } .g-item { flex-basis: calc(var(--r, 1.333) * 130px) } }
 
 /* Témoignage de la famille adoptive (fiches « Ils ont grandi ») */
 .temoin { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; margin: 96px 0 40px; padding-top: 72px; border-top: 1px solid var(--line) }
